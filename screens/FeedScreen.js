@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View } from 'react-native';
 
-export default class FeedScreen extends React.Component {
+export default class FeedScreen extends Component {
   static navigationOptions = {
     title: 'Feed',
   };

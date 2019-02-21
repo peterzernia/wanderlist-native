@@ -1,7 +1,7 @@
-import React from 'react';
-import {View, Image, Dimensions, StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { View, Image, Dimensions, StyleSheet } from 'react-native';
 
-export default class HomeScreen extends React.Component {
+export default class HomeScreen extends Component {
   static navigationOptions = {
     header: null,
   };
