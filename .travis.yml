@@ -1,13 +1,10 @@
-
-matrix:
-  include:
-    - language: node_js
-      node_js:
-        - "11.7.0"
-      install:
-        - npm install
-      cache:
-        directories:
-        - node_modules
-      script:
-        - npm test
+language: node_js
+node_js:
+  - "11.7.0"
+install:
+  - npm install
+cache:
+  directories:
+  - node_modules
+script:
+  - npm test
