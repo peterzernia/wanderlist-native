@@ -14,12 +14,13 @@ export default class LoginForm extends Component {
     return (
       <View>
         <TextInput 
-          placeholder="username"
+          placeholder="Username"
           value={this.state.username}
           onChangeText={(text) => this.setState({username: text})}
         />
         <TextInput 
-          placeholder="password"
+          placeholder="Password"
+          secureTextEntry={true}
           value={this.state.password}
           onChangeText={(text) => this.setState({password: text})}
         />

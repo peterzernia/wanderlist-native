@@ -1,6 +1,6 @@
 import {  combineReducers } from 'redux'
-import boiler from './boiler'
+import auth from './auth'
 
-const reducer = combineReducers({boiler})
+const reducer = combineReducers({auth})
 
 export default reducer

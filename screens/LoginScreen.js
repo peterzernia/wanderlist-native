@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import LoginForm from '../components/LoginForm';
+import { View, AsyncStorage } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default class LoginScreen extends Component {
+import LoginForm from '../components/LoginForm';
+import { authLogin } from '../actions/authActions';
+
+export class LoginScreen extends Component {
   static navigationOptions = {
     title: 'Login',
   };
 
-  handlePress(username, password){
-    console.log(username, password);
+  handlePress = async(username, password) => {
+    await this.props.authLogin(username, password);
+    const token = await AsyncStorage.getItem('token');
+    if (token) {
+      this.props.navigation.navigate('Main')
+    }
   }
 
   render() {
@@ -20,3 +29,19 @@ export default class LoginScreen extends Component {
   }
 }
 
+const mapState = state => {
+  return {
+  }
+}
+
+const mapDispatch = dispatch => {
+  return bindActionCreators({
+    authLogin,
+  }, dispatch)
+}
+
+export default connect(mapState, mapDispatch)(LoginScreen);
+
+LoginScreen.propTypes = {
+  authLogin: PropTypes.func.isRequired,
+};
