@@ -16,13 +16,13 @@ export default class LoginForm extends Component {
         <TextInput 
           placeholder="Username"
           value={this.state.username}
-          onChangeText={(text) => this.setState({username: text})}
+          onChangeText={(value) => this.setState({username: value})}
         />
         <TextInput 
           placeholder="Password"
           secureTextEntry={true}
           value={this.state.password}
-          onChangeText={(text) => this.setState({password: text})}
+          onChangeText={(value) => this.setState({password: value})}
         />
         <Button 
           title="Login" 

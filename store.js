@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware } from 'redux';
-import { createLogger } from 'redux-logger';
+import { logger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import reducer from './reducers';
 
-//middleware = applyMiddleware(thunk, createLogger())
+const middleware = applyMiddleware(thunk, logger)
 
-const store = createStore(reducer, applyMiddleware(thunk))
+const store = createStore(reducer, middleware)
 
 export default store

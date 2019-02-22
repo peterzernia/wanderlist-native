@@ -14,8 +14,10 @@ export class LoginScreen extends Component {
 
   handlePress = async(username, password) => {
     await this.props.authLogin(username, password);
-    const token = await AsyncStorage.getItem('token');
-    if (token) {
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.authenticated) {
       this.props.navigation.navigate('Main')
     }
   }
@@ -31,6 +33,7 @@ export class LoginScreen extends Component {
 
 const mapState = state => {
   return {
+    authenticated: state.auth.authenticated
   }
 }
 
@@ -44,4 +47,5 @@ export default connect(mapState, mapDispatch)(LoginScreen);
 
 LoginScreen.propTypes = {
   authLogin: PropTypes.func.isRequired,
+  authenticated: PropTypes.bool.isRequired,
 };

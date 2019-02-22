@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Switch } from 'react-native';
+import { View, Switch, Text } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -31,6 +31,7 @@ export class ProfileScreen extends Component {
           value={this.state.switchValue}
           onValueChange={(value) => this.handleValueChange(value)}
         />
+        {this.props.authenticated ? <Text>Authenticated</Text> : <Text>Not Authenticated</Text>}
       </View>
     );
   }
@@ -39,6 +40,7 @@ export class ProfileScreen extends Component {
 
 const mapState = state => {
   return {
+    authenticated: state.auth.authenticated,
   }
 }
 
@@ -52,4 +54,5 @@ export default connect(mapState, mapDispatch)(ProfileScreen);
 
 ProfileScreen.propTypes = {
   authLogout: PropTypes.func.isRequired,
+  authenticated: PropTypes.bool.isRequired,
 };
