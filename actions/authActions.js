@@ -46,7 +46,6 @@ export const authLogin = (username, password) => {
           }
         });
         Alert.alert('Error', error);
-        console.log(error)
       })
   }
 }
@@ -71,8 +70,29 @@ export const authRegister = (username, email, password1, password2, home) => {
         dispatch(authSuccess(token));
       })
       .catch(err => {
-        dispatch(authFail());
-        Alert.alert('Error', err.message)
+        dispatch(authFail()); 
+        let error = '';
+        Object.keys(err.response.data).map(message => {
+          switch(message) {
+            case 'username': {
+              return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
+            }
+            case 'email': {
+              return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
+            }
+            case 'password1': {
+              return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
+            }
+            case 'password2': {
+              return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
+            }
+            case 'home': {
+              return error += `Home Country: This field may not be blank.\n`
+            }
+            default: return null
+          }
+        });
+        Alert.alert('Error', error);
       })
   }
 }

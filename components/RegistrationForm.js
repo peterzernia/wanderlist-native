@@ -10,7 +10,7 @@ export default class RegistrationForm extends Component {
       email:'',
       password1: '',
       password2: '',
-      home: 1,
+      home: 0,
     };
   }
 
@@ -26,6 +26,8 @@ export default class RegistrationForm extends Component {
     const pickerItems = [...countries].sort((a, b) => a.name > b.name).map(country => (
       <Picker.Item key={country.pk} value={country.pk} label={country.name} />
     ))
+
+    pickerItems.splice(0, 0, <Picker.Item key={0} value={0} label="Select your home country" />)
 
 
     return (
