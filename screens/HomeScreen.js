@@ -8,7 +8,7 @@ export default class HomeScreen extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
         <Image 
           style={styles.image}
           source={{uri: 'https://s3.eu-west-3.amazonaws.com/countries-app/media/header.jpeg'}}

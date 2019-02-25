@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 import LoginForm from '../components/LoginForm';
 import { authLogin } from '../actions/authActions';
 
@@ -20,7 +19,7 @@ export class LoginScreen extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
+      <View style={styles.LoginForm}>
         <LoginForm handlePress={this.handlePress} {...this.props} />
       </View>
     );
@@ -45,3 +44,11 @@ LoginScreen.propTypes = {
   authLogin: PropTypes.func.isRequired,
   authenticated: PropTypes.bool.isRequired,
 };
+
+const styles = StyleSheet.create({
+  LoginForm: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1
+  }
+})
