@@ -8,7 +8,7 @@ export const authFail = () => ({type: "AUTH_FAIL"})
 
 export const authLogout = () => {
   try {
-    AsyncStorage.clear();
+    AsyncStorage.removeItem('token');
   } catch (err) {
     console.log(err)
   }
