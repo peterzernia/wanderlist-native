@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 
 // Action creators
 export const authStart = () => ({type: "AUTH_START"})
@@ -24,7 +24,6 @@ export const authLogin = (username, password) => {
     })
       .then(response => {
         var token = response.data.key;
-        console.log(token)
         try {
           AsyncStorage.setItem('token', token);
         } catch (err) {
@@ -34,7 +33,20 @@ export const authLogin = (username, password) => {
       })
       .catch(err => {
         dispatch(authFail());
-        console.log(err)
+        let error = '';
+        Object.keys(err.response.data).map(message => {
+          switch(message) {
+            case 'password': {
+              return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
+            }
+            case 'non_field_errors': {
+              return error += `${err.response.data[message]}\n`
+            }
+            default: return null
+          }
+        });
+        Alert.alert('Error', error);
+        console.log(error)
       })
   }
 }
@@ -60,7 +72,7 @@ export const authRegister = (username, email, password1, password2, home) => {
       })
       .catch(err => {
         dispatch(authFail());
-        console.log(err)
+        Alert.alert('Error', err.message)
       })
   }
 }
