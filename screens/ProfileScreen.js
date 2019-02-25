@@ -21,7 +21,7 @@ export class ProfileScreen extends Component {
   handleValueChange = (value) => {
     this.setState({switchValue: value});
     this.props.authLogout();
-    this.props.navigation.navigate('Auth')
+    this.props.navigation.navigate('Login')
   }
 
   render() {

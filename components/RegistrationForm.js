@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, TextInput, Button, Picker, StyleSheet } from 'react-native'
+import { View, TextInput, Button, Picker, Text, StyleSheet } from 'react-native'
 import countries from '../countries.json'
 
 export default class RegistrationForm extends Component {
@@ -67,6 +67,11 @@ export default class RegistrationForm extends Component {
             this.state.username, this.state.email, 
             this.state.password1, this.state.password2, this.state.home
           )}
+        />
+        <Text>Already have an account?</Text>
+        <Button
+          onPress={() => this.props.navigation.navigate('Login')}
+          title="Login"
         />
       </View>
     )

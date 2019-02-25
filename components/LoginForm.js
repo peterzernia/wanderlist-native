@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
-import { View, TextInput, Button, StyleSheet } from 'react-native'
+import { 
+  Button,
+  Text,
+  TextInput,
+  StyleSheet,
+  View
+} from 'react-native'
 
 export default class LoginForm extends Component {
   constructor(props){
@@ -27,6 +33,11 @@ export default class LoginForm extends Component {
         <Button 
           title="Login" 
           onPress={() => this.props.handlePress(this.state.username, this.state.password)}
+        />
+        <Text>Don't have an account?</Text>
+        <Button
+          onPress={() => this.props.navigation.navigate('Register')}
+          title="Register"
         />
       </View>
     )
