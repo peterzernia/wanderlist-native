@@ -113,12 +113,7 @@ export const authRegister = (username, email, password1, password2, home) => {
   }
 }
 
-export const authCheckState = () => {
-  try {
-    var token = AsyncStorage.getItem('token');
-  } catch (err) {
-    console.log(err);
-  }
+export const authCheckState = (token) => {
   return dispatch => {
     if (token === null) {
       dispatch(authLogout());

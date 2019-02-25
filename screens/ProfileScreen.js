@@ -32,6 +32,7 @@ export class ProfileScreen extends Component {
           onValueChange={(value) => this.handleValueChange(value)}
         />
         {this.props.authenticated ? <Text>Authenticated</Text> : <Text>Not Authenticated</Text>}
+        {this.props.authenticated && <Text>{this.props.token}</Text>}
       </View>
     );
   }
@@ -41,6 +42,7 @@ export class ProfileScreen extends Component {
 const mapState = state => {
   return {
     authenticated: state.auth.authenticated,
+    token: state.auth.token
   }
 }
 

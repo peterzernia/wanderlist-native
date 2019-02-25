@@ -16,8 +16,8 @@ export class AuthLoadingScreen extends Component {
   }
 
   _bootstrapAsync = async () => {
-    this.props.authCheckState();
     const token = await AsyncStorage.getItem('token');
+    this.props.authCheckState(token);
     this.props.navigation.navigate(token === null ? 'Login' : 'Main');
   };
 
