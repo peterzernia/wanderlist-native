@@ -90,6 +90,9 @@ export const authRegister = (username, email, password1, password2, home) => {
             case 'home': {
               return error += `Home Country: This field may not be blank.\n`
             }
+            case 'non_field_errors': {
+              return error += `${err.response.data[message]}\n`
+            }
             default: return null
           }
         });
