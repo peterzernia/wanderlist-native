@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { View, TextInput, Button, Picker, Text, StyleSheet } from 'react-native'
+import { 
+  Picker, 
+  Text, 
+  TextInput, 
+  TouchableOpacity, 
+  View,
+  StyleSheet 
+} from 'react-native'
 import countries from '../countries.json'
 
 export default class RegistrationForm extends Component {
@@ -33,46 +40,55 @@ export default class RegistrationForm extends Component {
     return (
       <View>
         <TextInput 
+          style={styles.textInput}
           placeholder="Username"
           value={this.state.username}
           onChangeText={(value) => this.setState({username: value})}
         />
         <TextInput 
+          style={styles.textInput}
           placeholder="Email"
           value={this.state.email}
           onChangeText={(value) => this.setState({email: value})}
         />
         <TextInput 
+          style={styles.textInput}
           placeholder="Password"
           secureTextEntry={true}
           value={this.state.password1}
           onChangeText={(value) => this.setState({password1: value})}
         />
         <TextInput 
+          style={styles.textInput}
           placeholder="Confirm Password"
           secureTextEntry={true}
           value={this.state.password2}
           onChangeText={(value) => this.setState({password2: value})}
         />
         <Picker
+          style={styles.picker}
           selectedValue={this.state.home}
-          style={{height: 50, width: 100}}
           onValueChange={(value) => this.setState({home: value})}
         >
           {pickerItems}
         </Picker>
-        <Button 
-          title="Register" 
-          onPress={() => this.props.handlePress(
-            this.state.username, this.state.email, 
-            this.state.password1, this.state.password2, this.state.home
-          )}
-        />
-        <Text>Already have an account?</Text>
-        <Button
-          onPress={() => this.props.navigation.navigate('Login')}
-          title="Login"
-        />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.registerButton}
+            onPress={() => this.props.handlePress(
+              this.state.username, this.state.email, 
+              this.state.password1, this.state.password2, this.state.home
+            )}
+          >
+            <Text style={styles.text}>Register</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.loginButton}
+            onPress={() => this.props.navigation.navigate('Login')}
+          >
+            <Text>Login</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -80,5 +96,38 @@ export default class RegistrationForm extends Component {
 
 
 const styles = StyleSheet.create({
-
+  textInput: {
+    width: 300,
+    height: 50,
+  },
+  picker: {
+    width: 300,
+    height: 50,
+  },
+  buttonContainer: {
+    flexDirection: 'row'
+  },
+  registerButton: {
+    width: 100,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#2196f3",
+    flex: 1,
+    marginRight: 5,
+    borderRadius: 10
+  },
+  loginButton: {
+    width: 100,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "white",
+    flex: 1,
+    marginLeft: 5,
+    borderRadius: 10
+  },
+  text: {
+    color: 'white'
+  }
 })

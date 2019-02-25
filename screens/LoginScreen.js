@@ -19,7 +19,7 @@ export class LoginScreen extends Component {
 
   render() {
     return (
-      <View style={styles.LoginForm}>
+      <View style={styles.loginForm}>
         <LoginForm handlePress={this.handlePress} {...this.props} />
       </View>
     );
@@ -46,7 +46,7 @@ LoginScreen.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  LoginForm: {
+  loginForm: {
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1

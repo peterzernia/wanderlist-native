@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -21,7 +21,7 @@ export class RegisterScreen extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
+      <View style={styles.registrationForm}>
         <RegistrationForm handlePress={this.handlePress} {...this.props} />
       </View>
     );
@@ -46,3 +46,11 @@ RegisterScreen.propTypes = {
   authRegister: PropTypes.func.isRequired,
   authenticated: PropTypes.bool.isRequired,
 };
+
+const styles = StyleSheet.create({
+  registrationForm: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1
+  }
+})
