@@ -68,6 +68,7 @@ export const authRegister = (username, email, password1, password2, home) => {
           console.log(err)
         }
         dispatch(authSuccess(token));
+        Alert.alert('Sucess', 'You have successfully created an account.')
       })
       .catch(err => {
         dispatch(authFail()); 
