@@ -127,3 +127,29 @@ export const authCheckState = () => {
     }
   }
 }
+
+export const requestPasswordReset = (email) => {
+  return dispatch => {
+    axios.post(`http://10.0.2.2:8000/api/v1/rest-auth/password/reset/`, {
+      email: email,
+    })
+      .then(response => {
+        Alert.alert('Success', 'New password requested. Check your email for more info.');
+      })
+      .catch(err => {
+        let error = '';
+        Object.keys(err.response.data).map(message => {
+          switch(message) {
+            case 'email': {
+              return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
+            }
+            case 'non_field_errors': {
+              return error += `${err.response.data[message]}\n`
+            }
+            default: return null
+          }
+        });
+        Alert.alert('Error', error);
+      })
+  }
+}

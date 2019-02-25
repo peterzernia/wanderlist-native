@@ -39,7 +39,7 @@ export default class RegistrationForm extends Component {
 
 
     return (
-      <View>
+      <View style={styles.container}>
         <TextInput 
           style={styles.textInput}
           placeholder="Username"
@@ -97,12 +97,13 @@ export default class RegistrationForm extends Component {
 
 
 const styles = StyleSheet.create({
+  container: {
+    width: 300
+  },
   textInput: {
-    width: 300,
     height: 50,
   },
   picker: {
-    width: 300,
     height: 50,
   },
   buttonContainer: {

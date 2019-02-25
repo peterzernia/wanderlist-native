@@ -18,7 +18,7 @@ export default class LoginForm extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <TextInput 
           style={styles.textInput}
           placeholder="Username"
@@ -46,6 +46,12 @@ export default class LoginForm extends Component {
             <Text>Register</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+            style={styles.passwordButton}
+            onPress={() => this.props.navigation.navigate('ForgotPassword')}
+          >
+            <Text>Forgot Password?</Text>
+          </TouchableOpacity>
       </View>
     )
   }
@@ -53,8 +59,10 @@ export default class LoginForm extends Component {
 
 
 const styles = StyleSheet.create({
+  container: {
+    width: 300
+  },
   textInput: {
-    width: 300,
     height: 50,
   },
   buttonContainer: {
@@ -78,6 +86,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flex: 1,
     marginLeft: 5,
+    borderRadius: 10
+  },
+  passwordButton: {
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "white",
+    marginRight: 5,
     borderRadius: 10
   },
   text: {
