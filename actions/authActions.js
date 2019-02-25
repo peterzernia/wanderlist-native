@@ -33,6 +33,12 @@ export const authLogin = (username, password) => {
       })
       .catch(err => {
         dispatch(authFail());
+        /* 
+        Create the error message based on the response from the server. The err.response.data variable will be an object
+        with keys corresponding to which field had errors, e.g. password. The error will be an array with a 
+        string message. The keys strings need to be formated to uppercase. If there are multiple errors, they will be added 
+        into the error variable, ending with a newline. 
+        */
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {
@@ -72,6 +78,12 @@ export const authRegister = (username, email, password1, password2, home) => {
       })
       .catch(err => {
         dispatch(authFail()); 
+        /* 
+        Create the error message based on the response from the server. The err.response.data variable will be an object
+        with keys corresponding to which field had errors, e.g. password. The error will be an array with a 
+        string message. The keys strings need to be formated to uppercase. If there are multiple errors, they will be added 
+        into the error variable, ending with a newline. 
+        */
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {

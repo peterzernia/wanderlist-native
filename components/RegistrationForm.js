@@ -30,11 +30,12 @@ export default class RegistrationForm extends Component {
   }
 
   render() {
+    // Create the Picker items from a list of the countries' names and value, and add a placeholder
+    // to the first position of the array.
     const pickerItems = [...countries].sort((a, b) => a.name > b.name).map(country => (
       <Picker.Item key={country.pk} value={country.pk} label={country.name} />
     ))
-
-    pickerItems.splice(0, 0, <Picker.Item key={0} value={0} label="Select your home country" />)
+    pickerItems.splice(0, 0, <Picker.Item key={0} value={0} label="Select Your Home Country" />)
 
 
     return (
