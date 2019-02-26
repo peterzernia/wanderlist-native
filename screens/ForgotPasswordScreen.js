@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
 import { requestPasswordReset } from '../actions/authActions';
 
@@ -19,7 +20,7 @@ export class ForgotPasswordScreen extends Component {
 
   render() {
     return (
-      <View style={styles.loginForm}>
+      <View style={styles.forgotPasswordForm}>
         <ForgotPasswordForm handlePress={this.handlePress} {...this.props} />
       </View>
     );
@@ -48,7 +49,7 @@ ForgotPasswordScreen.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  loginForm: {
+  forgotPasswordForm: {
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1
