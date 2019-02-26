@@ -1,7 +1,7 @@
 const initialState = {
   fetchingUser: false,
   fetchedUser: false,
-  user: {},
+  user: { countries: [] },
 }
 
 /* Reducer Function*/
@@ -32,7 +32,7 @@ export default function (state = initialState, action) {
     case "AUTH_LOGOUT": {
       return {
         ...state,
-        user: {},
+        user: { countries: [] },
       }
     }
     default:

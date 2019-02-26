@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import Map from '../components/Map';
 import { authLogout } from '../actions/authActions';
 
 export class ProfileScreen extends Component {
@@ -46,6 +47,9 @@ export class ProfileScreen extends Component {
           </View>
         </View>
         <View style={styles.line}></View>
+        <View style={styles.map}>
+          <Map {...this.props} />
+        </View>
       </View>
     );
   }
@@ -122,5 +126,9 @@ const styles = StyleSheet.create({
     width: '90%',
     marginTop: 20,
     marginBottom: 20
+  },
+  map: {
+    height: 300,
+    width: '95%'
   }
 })
