@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { 
+  ActivityIndicator,
   Picker, 
   Text, 
   TextInput, 
@@ -37,6 +38,7 @@ export default class RegistrationForm extends Component {
     ))
     pickerItems.splice(0, 0, <Picker.Item key={0} value={0} label="Select Your Home Country" />)
 
+    var { authenticating } = this.props;
 
     return (
       <View style={styles.container}>
@@ -81,7 +83,11 @@ export default class RegistrationForm extends Component {
               this.state.password1, this.state.password2, this.state.home
             )}
           >
-            <Text style={styles.text}>Register</Text>
+            {
+              authenticating
+              ? <ActivityIndicator size="small" color="white" />
+              : <Text style={styles.text}>Register</Text>
+            }
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.loginButton}

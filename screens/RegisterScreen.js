@@ -9,7 +9,6 @@ import { authRegister } from '../actions/authActions';
 
 export class RegisterScreen extends Component {
   handlePress = async(username, email, password1, password2, home) => {
-    console.log(username, email, password1, password2, home);
     await this.props.authRegister(username, email, password1, password2, home);
   }
 
@@ -31,6 +30,7 @@ export class RegisterScreen extends Component {
 const mapState = state => {
   return {
     authenticated: state.auth.authenticated,
+    authenticating: state.auth.authenticating,
   }
 }
 
@@ -45,6 +45,7 @@ export default connect(mapState, mapDispatch)(RegisterScreen);
 RegisterScreen.propTypes = {
   authRegister: PropTypes.func.isRequired,
   authenticated: PropTypes.bool.isRequired,
+  authenticating: PropTypes.bool.isRequired,
 };
 
 const styles = StyleSheet.create({
