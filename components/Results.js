@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Image, Text, StyleSheet, View } from 'react-native'
+import { Dimensions, Text, StyleSheet, View } from 'react-native'
+import Image from 'react-native-remote-svg'
 
 export default class Results extends Component {
   render() {
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   image: {
-    width: '100%',
+    width: Dimensions.get('window').width*.95,
     height: 400
   }
-})
+}) 
