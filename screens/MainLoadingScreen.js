@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { authCheckState } from '../actions/authActions';
+import { fetchUser } from '../actions/userActions';
 
-export class AuthLoadingScreen extends Component {
+export class MainLoadingScreen extends Component {
   constructor(props) {
     super(props);
     this._bootstrapAsync()
@@ -17,8 +17,8 @@ export class AuthLoadingScreen extends Component {
 
   _bootstrapAsync = async () => {
     const token = await AsyncStorage.getItem('token');
-    this.props.authCheckState(token);
-    this.props.navigation.navigate(token === null ? 'Login' : 'MainLoading');
+    await this.props.fetchUser(token);
+    this.props.navigation.navigate('Main');
   };
 
   render() {
@@ -38,12 +38,12 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return bindActionCreators({
-    authCheckState,
+    fetchUser,
   }, dispatch)
 }
 
-export default connect(mapState, mapDispatch)(AuthLoadingScreen);
+export default connect(mapState, mapDispatch)(MainLoadingScreen);
 
-AuthLoadingScreen.propTypes = {
-  authCheckState: PropTypes.func.isRequired,
+MainLoadingScreen.propTypes = {
+  fetchUser: PropTypes.func.isRequired,
 };

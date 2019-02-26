@@ -31,8 +31,7 @@ export class ProfileScreen extends Component {
           value={this.state.switchValue}
           onValueChange={(value) => this.handleValueChange(value)}
         />
-        {this.props.authenticated ? <Text>Authenticated</Text> : <Text>Not Authenticated</Text>}
-        {this.props.authenticated && <Text>{this.props.token}</Text>}
+        <Text>{this.props.user.username}</Text>
       </View>
     );
   }
@@ -41,8 +40,8 @@ export class ProfileScreen extends Component {
 
 const mapState = state => {
   return {
-    authenticated: state.auth.authenticated,
-    token: state.auth.token
+    token: state.auth.token,
+    user: state.user.user
   }
 }
 
@@ -56,5 +55,5 @@ export default connect(mapState, mapDispatch)(ProfileScreen);
 
 ProfileScreen.propTypes = {
   authLogout: PropTypes.func.isRequired,
-  authenticated: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
 };

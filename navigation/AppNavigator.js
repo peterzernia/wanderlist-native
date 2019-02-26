@@ -6,6 +6,7 @@ import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import MainTabNavigator from './MainTabNavigator';
+import MainLoadingScreen from '../screens/MainLoadingScreen';
 
 export default createSwitchNavigator({
   AuthLoading: AuthLoadingScreen,
@@ -13,6 +14,7 @@ export default createSwitchNavigator({
   Register: RegisterScreen,
   ForgotPassword: ForgotPasswordScreen,
   Main: MainTabNavigator,
+  MainLoading: MainLoadingScreen
 },
 {
   initialRouteName: 'AuthLoading',

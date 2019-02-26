@@ -14,7 +14,7 @@ export class RegisterScreen extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.authenticated) {
-      this.props.navigation.navigate('Main')
+      this.props.navigation.navigate('MainLoading')
     }
   }
 
