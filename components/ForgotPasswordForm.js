@@ -17,6 +17,7 @@ export default class ForgotPasswordForm extends Component {
   }
 
   render() {
+    var { authenticating } = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.infoText}>
@@ -33,7 +34,11 @@ export default class ForgotPasswordForm extends Component {
             style={styles.passwordButton}
             onPress={() => this.props.handlePress(this.state.email)}
           >
-            <Text style={styles.text}>Send Link</Text>
+            {
+              authenticating
+              ? <ActivityIndicator size="small" color="white" />
+              : <Text style={styles.text}>Send Link</Text>
+            }
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.cancelButton}

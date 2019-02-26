@@ -125,13 +125,18 @@ export const authCheckState = (token) => {
 
 export const requestPasswordReset = (email) => {
   return dispatch => {
+    // authStart() is dispatched to change authenticating from false to true for ActivityIndicator in ForgotPasswordForm.js.
+    dispatch(authStart())
     axios.post(`http://10.0.2.2:8000/api/v1/rest-auth/password/reset/`, {
       email: email,
     })
       .then(response => {
-        Alert.alert('Success', 'New password requested. Check your email for more info.');
+        // authFail() is dispatched to change authenticating from true to false for ActivityIndicator in ForgotPasswordForm.js
+        dispatch(authFail())
+        Alert.alert('Success', 'New password requested. Check your email for the password reset link.');
       })
       .catch(err => {
+        dispatch(authFail())
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {
