@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
-import { Dimensions, Text, StyleSheet, View } from 'react-native'
-import Image from 'react-native-remote-svg'
+import React, { Component } from 'react';
+import { Dimensions, Text, StyleSheet, View } from 'react-native';
 
 export default class Results extends Component {
   render() {
@@ -9,10 +8,8 @@ export default class Results extends Component {
         <Text style={styles.header}>
           {this.props.country.name}
         </Text>
-        <Image 
-          style={styles.image}
-          source={{uri: this.props.country.flag}}
-        />
+        <View style={styles.imageContainer}>
+        </View>
       </View>
     )
   }
@@ -32,8 +29,8 @@ const styles = StyleSheet.create({
     fontSize: 23,
     padding: 15,
   },
-  image: {
+  imageContainer: {
     width: Dimensions.get('window').width*.95,
-    height: 400
+    height: Dimensions.get('window').width*.95*2/3
   }
 }) 
