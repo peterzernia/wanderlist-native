@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     width: 300,
     alignItems: 'center',
     margin: 10,
+    marginTop: 30
   },
   textInput: {
     width: 300,

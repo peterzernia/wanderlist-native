@@ -7,10 +7,6 @@ import PropTypes from 'prop-types';
 import { authLogout } from '../actions/authActions';
 
 export class ProfileScreen extends Component {
-  static navigationOptions = {
-    title: 'Profile',
-  };
-
   constructor(props){
     super(props);
     this.state = {
@@ -98,6 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     textAlign: 'left',
+    marginRight: 10,
   },
   usernameText: {
     fontSize: 30,
@@ -117,7 +114,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   biographyText: {
-    fontSize: 16
+    fontSize: 16,
   },
   line: {
     height: 0,
