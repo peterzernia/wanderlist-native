@@ -93,7 +93,7 @@ export default class RegistrationForm extends Component {
             style={styles.loginButton}
             onPress={() => this.props.navigation.navigate('Login')}
           >
-            <Text>Login</Text>
+            <Text style={{ fontSize: 16 }}>Login</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 50,
+    fontSize: 16
   },
   picker: {
     height: 50,
@@ -136,6 +137,7 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   text: {
-    color: 'white'
+    color: 'white',
+    fontSize: 16
   }
 })

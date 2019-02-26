@@ -44,7 +44,7 @@ export default class ForgotPasswordForm extends Component {
             style={styles.cancelButton}
             onPress={() => this.props.navigation.navigate('Login')}
           >
-            <Text>Cancel</Text>
+            <Text style={{ fontSize: 16 }}>Cancel</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -58,10 +58,12 @@ const styles = StyleSheet.create({
     width: 300
   },
   infoText: {
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 16
   },
   textInput: {
     height: 50,
+    fontSize: 16
   },
   buttonContainer: {
     flexDirection: 'row'
@@ -87,6 +89,7 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   text: {
-    color: 'white'
+    color: 'white',
+    fontSize: 16
   }
 })

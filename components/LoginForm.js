@@ -49,14 +49,14 @@ export default class LoginForm extends Component {
             style={styles.registerButton}
             onPress={() => this.props.navigation.navigate('Register')}
           >
-            <Text>Register</Text>
+            <Text style={{ fontSize: 16 }}>Register</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
             style={styles.passwordButton}
             onPress={() => this.props.navigation.navigate('ForgotPassword')}
           >
-            <Text>Forgot Password?</Text>
+            <Text style={{ fontSize: 16 }}>Forgot Password?</Text>
           </TouchableOpacity>
       </View>
     )
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 50,
+    fontSize: 16
   },
   buttonContainer: {
     flexDirection: 'row'
@@ -103,6 +104,7 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   text: {
-    color: 'white'
+    color: 'white',
+    fontSize: 16
   }
 })
