@@ -24,7 +24,7 @@ export class SearchScreen extends Component {
     ));
 
     return (
-      <View>
+      <View style={styles.container}>
         <SearchBar handlePress={this.handlePress} {...this.props} />
         {listResults}
       </View>
@@ -55,5 +55,6 @@ SearchScreen.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
   }
 })
