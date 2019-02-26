@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { 
+  ActivityIndicator,
   TextInput,
   TouchableOpacity,
   StyleSheet,
@@ -17,6 +18,7 @@ export default class LoginForm extends Component {
   }
 
   render() {
+    var { authenticating } = this.props;
     return (
       <View style={styles.container}>
         <TextInput 
@@ -37,7 +39,11 @@ export default class LoginForm extends Component {
             style={styles.loginButton}
             onPress={() => this.props.handlePress(this.state.username, this.state.password)}
           >
-            <Text style={styles.text}>Login</Text>
+          {
+            authenticating
+            ? <ActivityIndicator size="small" color="white" />
+            : <Text style={styles.text}>Login</Text>
+          }
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.registerButton}

@@ -28,7 +28,8 @@ export class LoginScreen extends Component {
 
 const mapState = state => {
   return {
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
+    authenticating: state.auth.authenticating,
   }
 };
 
@@ -43,6 +44,7 @@ export default connect(mapState, mapDispatch)(LoginScreen);
 LoginScreen.propTypes = {
   authLogin: PropTypes.func.isRequired,
   authenticated: PropTypes.bool.isRequired,
+  authenticating: PropTypes.bool.isRequired,
 };
 
 const styles = StyleSheet.create({
