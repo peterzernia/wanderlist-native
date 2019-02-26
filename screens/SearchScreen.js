@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -24,10 +24,10 @@ export class SearchScreen extends Component {
     ));
 
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <SearchBar handlePress={this.handlePress} {...this.props} />
         {listResults}
-      </View>
+      </ScrollView>
     );
   }
 }
