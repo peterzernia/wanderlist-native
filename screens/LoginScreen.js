@@ -7,13 +7,13 @@ import LoginForm from '../components/LoginForm';
 import { authLogin } from '../actions/authActions';
 
 export class LoginScreen extends Component {
-  handlePress = async(username, password) => {
+  handlePress = async (username, password) => {
     await this.props.authLogin(username, password);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.authenticated) {
-      this.props.navigation.navigate('Main')
+      this.props.navigation.navigate('Main');
     }
   }
 
@@ -30,13 +30,13 @@ const mapState = state => {
   return {
     authenticated: state.auth.authenticated
   }
-}
+};
 
 const mapDispatch = dispatch => {
   return bindActionCreators({
     authLogin,
   }, dispatch)
-}
+};
 
 export default connect(mapState, mapDispatch)(LoginScreen);
 
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1
   }
-})
+});
