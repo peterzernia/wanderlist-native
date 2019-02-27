@@ -3,7 +3,9 @@ import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { REACT_APP_API_URL } from 'react-native-dotenv';
 
+import { fetchTripReports } from '../actions/tripReportActions';
 import { fetchUser } from '../actions/userActions';
 
 export class MainLoadingScreen extends Component {
@@ -18,6 +20,7 @@ export class MainLoadingScreen extends Component {
   _bootstrapAsync = async () => {
     const token = await AsyncStorage.getItem('token');
     await this.props.fetchUser(token);
+    await this.props.fetchTripReports(`${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk`);
     this.props.navigation.navigate('Main');
   };
 
@@ -38,6 +41,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return bindActionCreators({
+    fetchTripReports,
     fetchUser,
   }, dispatch)
 }
