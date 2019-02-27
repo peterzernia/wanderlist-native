@@ -7,10 +7,10 @@ export default class Map extends Component {
     super();
     this.state = {
       region: {
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitude: 20,
+        longitude: 0,
+        latitudeDelta: 100,
+        longitudeDelta: 50,
       },
     }
   }
@@ -22,7 +22,6 @@ export default class Map extends Component {
           key={country.id}
           coordinate={{latitude: country.latlng[0], longitude: country.latlng[1]}}
           title={country.name}
-          description={country.name}
         />
       ));
 
@@ -30,7 +29,7 @@ export default class Map extends Component {
       <MapView
         style={styles.map}
         region={this.state.region}
-        onRegionChange={(region) => this.setState({ region })}
+        onRegionChangeComplete={(region) => this.setState({ region })}
         mapType={Platform.OS == "android" ? "none" : "standard"}
         rotateEnabled={false}
         scrollEnabled={true}
