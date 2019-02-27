@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import TripReport from '../components/TripReport';
+import { fetchNextTripReports } from '../actions/tripReportActions';
 
 export class FeedScreen extends Component {
   static navigationOptions = {
@@ -15,16 +16,17 @@ export class FeedScreen extends Component {
   };
 
   render() {
+    // Destructure props.
+    var { tripReports, fetchingTripReports, fetchingNextTripReports, fetchNextTripReports } = this.props;
+
     // Map the Trip Reports into individual Trip Reports components.
-    const listTripReports = this.props.tripReports.results.map(tripReport =>(
+    const listTripReports = tripReports.results.map(tripReport =>(
       <TripReport key={tripReport.id} {...this.props} tripReport={tripReport} />
     ));
 
-    // Destructure props.
-    var { fetchingTripReports } = this.props;
-
+    // Returns true if the scroll screen is within 1px from the bottom. 
     const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
-      const paddingToBottom = 1;
+      const paddingToBottom = 5;
       return layoutMeasurement.height + contentOffset.y >=
         contentSize.height - paddingToBottom;
     };
@@ -32,8 +34,8 @@ export class FeedScreen extends Component {
     return (
       <ScrollView
         onScroll={({nativeEvent}) => {
-          if (isCloseToBottom(nativeEvent)) {
-            console.log('bottom');
+          if (isCloseToBottom(nativeEvent) && tripReports.next && !fetchingNextTripReports) {
+            fetchNextTripReports(tripReports.next);
           }
         }}
         scrollEventThrottle={400}
@@ -50,6 +52,7 @@ export class FeedScreen extends Component {
             ? <ActivityIndicator size="large" color="#2196f3"/>
             : <View>{listTripReports}</View>
           }
+          {fetchingNextTripReports && <ActivityIndicator style={{marginBottom: 10}}size="large" color="#2196f3"/>}
         </View>
       </ScrollView>
     );
@@ -60,11 +63,13 @@ const mapState = state => {
   return {
     tripReports: state.tripReport.tripReports,
     fetchingTripReports: state.tripReport.fetchingTripReports,
+    fetchingNextTripReports: state.tripReport.fetchingNextTripReports,
   }
 }
 
 const mapDispatch = dispatch => {
   return bindActionCreators({
+    fetchNextTripReports,
   }, dispatch)
 }
 
@@ -73,6 +78,8 @@ export default connect(mapState, mapDispatch)(FeedScreen);
 FeedScreen.propTypes = {
   tripReports: PropTypes.object.isRequired,
   fetchingTripReports: PropTypes.bool.isRequired,
+  fetchingNextTripReports: PropTypes.bool.isRequired,
+  fetchNextTripReports: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -81,9 +88,10 @@ const styles = StyleSheet.create({
   },
   sort: {
     height: 60,
+    justifyContent: 'center',
+    padding: 5
   },
   filter: {
-    margin: 5
   },
   loading: {
   }
