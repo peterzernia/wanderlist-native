@@ -49,5 +49,8 @@ const styles = StyleSheet.create({
   body: {
     height: 100,
     justifyContent: 'space-around'
+  },
+  footer: {
+    height: 50
   }
 })

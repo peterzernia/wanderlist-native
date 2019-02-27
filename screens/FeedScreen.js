@@ -22,8 +22,22 @@ export class FeedScreen extends Component {
 
     // Destructure props.
     var { fetchingTripReports } = this.props;
+
+    const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+      const paddingToBottom = 1;
+      return layoutMeasurement.height + contentOffset.y >=
+        contentSize.height - paddingToBottom;
+    };
+    
     return (
-      <ScrollView>
+      <ScrollView
+        onScroll={({nativeEvent}) => {
+          if (isCloseToBottom(nativeEvent)) {
+            console.log('bottom');
+          }
+        }}
+        scrollEventThrottle={400}
+      >
         <View style={styles.container}>
           <View style={styles.sort}>
             <TouchableOpacity>
