@@ -29,6 +29,12 @@ export default function (state = initialState, action) {
         fetchedCountry: false,
       }
     }
+    // Return to initialState on logout.
+    case "AUTH_LOGOUT": {
+      return {
+        ...initialState
+      }
+    }
     default:
       return state
   }

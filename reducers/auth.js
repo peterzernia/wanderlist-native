@@ -28,12 +28,10 @@ export default function (state = initialState, action) {
         authenticated: false,
       }
     }
+    // Return to initialState on logout.
     case "AUTH_LOGOUT": {
       return {
-        ...state,
-        authenticating: false,
-        authenticated: false,
-        token: null,
+        ...initialState
       }
     }
     default:

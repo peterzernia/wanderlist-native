@@ -39,11 +39,11 @@ export default class Map extends Component {
       >
         <UrlTile
             urlTemplate='http://c.tile.openstreetmap.org/{z}/{x}/{y}.png'
-            zIndex={1}
+            zIndex={0}
             maximumZ={19}
         />
         {listMarkers}
-      </MapView>
+      </MapView> 
     );
   }
 }
