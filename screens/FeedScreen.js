@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { 
+  ActivityIndicator, ScrollView, StyleSheet, 
+  Text, TouchableOpacity, View 
+} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -17,16 +20,24 @@ export class FeedScreen extends Component {
       <TripReport key={tripReport.id} {...this.props} tripReport={tripReport} />
     ));
 
+    // Destructure props.
     var { fetchingTripReports } = this.props;
     return (
-      <View>
-        {
-          // Render a loader while the Trip Reports are fetched.
-          fetchingTripReports
-          ? <ActivityIndicator size="small" color="#2196f3" />
-          : <View>{listTripReports}</View>
-        }
-      </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.sort}>
+            <TouchableOpacity>
+              <Text style={styles.filter}>New Posts</Text>
+            </TouchableOpacity>
+          </View>
+          {
+            // Render a loader while the Trip Reports are fetched.
+            fetchingTripReports
+            ? <ActivityIndicator size="large" color="#2196f3"/>
+            : <View>{listTripReports}</View>
+          }
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -52,6 +63,14 @@ FeedScreen.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  sort: {
+    height: 60,
+  },
+  filter: {
+    margin: 5
+  },
+  loading: {
   }
 })
