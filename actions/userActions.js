@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
+import { REACT_APP_API_URL } from 'react-native-dotenv';
 
 // Fetch authenticated user action creators
 export const fetchUserPending = () => ({type: "FETCH_USER_PENDING"})
@@ -9,7 +10,7 @@ export const fetchUserRejected = () => ({type: "FETCH_USER_REJECTED"})
 export const fetchUser = token => {
   return dispatch => {
     dispatch(fetchUserPending());
-    axios.get(`http://10.0.2.2:8000/api/v1/rest-auth/user/`, 
+    axios.get(`${REACT_APP_API_URL}/api/v1/rest-auth/user/`, 
       {
         headers: { 'Authorization': `Token ${token}`}
       })

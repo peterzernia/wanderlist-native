@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { AsyncStorage, Alert } from 'react-native';
+import { REACT_APP_API_URL } from 'react-native-dotenv';
 
 // Action creators
 export const authStart = () => ({type: "AUTH_START"})
@@ -18,7 +19,7 @@ export const authLogout = () => {
 export const authLogin = (username, password) => {
   return dispatch => {
     dispatch(authStart());
-    axios.post(`http://10.0.2.2:8000/api/v1/rest-auth/login/`, {
+    axios.post(`${REACT_APP_API_URL}/api/v1/rest-auth/login/`, {
       username: username,
       password: password
     })
@@ -59,7 +60,7 @@ export const authLogin = (username, password) => {
 export const authRegister = (username, email, password1, password2, home) => {
   return dispatch => {
     dispatch(authStart());
-    axios.post(`http://10.0.2.2:8000/api/v1/rest-auth/registration/`, {
+    axios.post(`${REACT_APP_API_URL}/api/v1/rest-auth/registration/`, {
       username: username,
       email: email,
       password1: password1,
@@ -127,7 +128,7 @@ export const requestPasswordReset = (email) => {
   return dispatch => {
     // authStart() is dispatched to change authenticating from false to true for ActivityIndicator in ForgotPasswordForm.js.
     dispatch(authStart())
-    axios.post(`http://10.0.2.2:8000/api/v1/rest-auth/password/reset/`, {
+    axios.post(`${REACT_APP_API_URL}/api/v1/rest-auth/password/reset/`, {
       email: email,
     })
       .then(response => {
