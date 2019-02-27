@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Alert } from 'react-native';
 import { REACT_APP_API_URL } from 'react-native-dotenv';
 
 // Fetch authenticated user action creators
@@ -20,7 +21,16 @@ export const fetchUser = token => {
         })
         .catch(err => {
           dispatch(fetchUserRejected());
-          dispatch({type: "ADD_ERROR", error: err});
+          let error = '';
+          Object.keys(err.response.data).map(message => {
+            switch(message) {
+              case 'non_field_errors': {
+                return error += `${err.response.data[message]}\n`
+              }
+              default: return error += `message: ${err.response.data[message]}\n`
+            }
+          });
+          Alert.alert('Error', error);
         })
   }
 }

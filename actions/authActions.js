@@ -49,7 +49,7 @@ export const authLogin = (username, password) => {
             case 'non_field_errors': {
               return error += `${err.response.data[message]}\n`
             }
-            default: return null
+            default: return error += `message: ${err.response.data[message]}\n`
           }
         });
         Alert.alert('Error', error);
@@ -106,7 +106,7 @@ export const authRegister = (username, email, password1, password2, home) => {
             case 'non_field_errors': {
               return error += `${err.response.data[message]}\n`
             }
-            default: return null
+            default: return error += `message: ${err.response.data[message]}\n`
           }
         });
         Alert.alert('Error', error);
@@ -147,7 +147,7 @@ export const requestPasswordReset = (email) => {
             case 'non_field_errors': {
               return error += `${err.response.data[message]}\n`
             }
-            default: return null
+            default: return error += `message: ${err.response.data[message]}\n`
           }
         });
         Alert.alert('Error', error);

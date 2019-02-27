@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Switch, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -23,34 +23,37 @@ export class ProfileScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Switch 
-          style={styles.switch}
-          value={this.state.switchValue}
-          onValueChange={(value) => this.handleValueChange(value)}
-        />
-        <View style={styles.wrapper}>
-          <View style={styles.flagContainer}>
+      <ScrollView>
+        <View style={styles.container}>
+          <Switch 
+            style={styles.switch}
+            value={this.state.switchValue}
+            onValueChange={(value) => this.handleValueChange(value)}
+          />
+          <View style={styles.wrapper}>
+            <View style={styles.flagContainer}>
+            </View>
+            <View style={styles.biography}>
+              <Text style={styles.usernameText}>
+                {this.props.user.username}
+              </Text>
+              <TouchableOpacity
+                style={styles.editProfileButton}
+              >
+                <Text style={styles.buttonText}>Edit Profile</Text>
+              </TouchableOpacity>
+              <Text style={styles.biographyText}>
+                {this.props.user.biography}
+              </Text>
+            </View>
           </View>
-          <View style={styles.biography}>
-            <Text style={styles.usernameText}>
-              {this.props.user.username}
-            </Text>
-            <TouchableOpacity
-              style={styles.editProfileButton}
-            >
-              <Text style={styles.buttonText}>Edit Profile</Text>
-            </TouchableOpacity>
-            <Text style={styles.biographyText}>
-              {this.props.user.biography}
-            </Text>
+          <View style={styles.line}></View>
+          <View style={styles.map}>
+            <Map {...this.props} />
           </View>
+          <View style={styles.line}></View>
         </View>
-        <View style={styles.line}></View>
-        <View style={styles.map}>
-          <Map {...this.props} />
-        </View>
-      </View>
+      </ScrollView>
     );
   }
 }
