@@ -61,7 +61,7 @@ export class FeedScreen extends Component {
     var { tripReports, fetchingTripReports } = this.props;
 
     return (
-      <View>
+      <View style={styles.container}>
         {
           // Render a loader while the Trip Reports are fetched.
           fetchingTripReports
@@ -112,7 +112,8 @@ FeedScreen.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: '100%'
   },
   sort: {
     height: 60,
