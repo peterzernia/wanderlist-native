@@ -6,9 +6,10 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { REACT_APP_API_URL } from 'react-native-dotenv';
 
 import TripReport from '../components/TripReport';
-import { fetchNextTripReports } from '../actions/tripReportActions';
+import { fetchTripReports, fetchNextTripReports } from '../actions/tripReportActions';
 
 export class FeedScreen extends Component {
   static navigationOptions = {
@@ -62,26 +63,23 @@ export class FeedScreen extends Component {
 
     return (
       <View style={styles.container}>
-        {
-          // Render a loader while the Trip Reports are fetched.
-          fetchingTripReports
-          ? <ActivityIndicator size="large" color="#2196f3"/>
-          : <FlatList
-              data={tripReports.results}
-              renderItem={({ item }) => (
-                <TripReport
-                  key={item.id} 
-                  tripReport={item}
-                  {...this.props} 
-                />
-              )}
-              keyExtractor={item => item.id}
-              ListHeaderComponent={this.renderHeader()}
-              ListFooterComponent={this.renderFooter()}
-              onEndReached={this.handleLoadMore()}
-              onEndReachedThreshold={0}
+        <FlatList
+          data={tripReports.results}
+          renderItem={({ item }) => (
+            <TripReport
+              key={item.id} 
+              tripReport={item}
+              {...this.props} 
             />
-        }
+          )}
+          keyExtractor={item => item.id}
+          ListHeaderComponent={this.renderHeader()}
+          ListFooterComponent={this.renderFooter()}
+          refreshing={fetchingTripReports}
+          onRefresh={() => this.props.fetchTripReports(`${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk`)}
+          onEndReached={this.handleLoadMore()}
+          onEndReachedThreshold={0}
+        />
       </View>
     );
   }
@@ -97,6 +95,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return bindActionCreators({
+    fetchTripReports,
     fetchNextTripReports,
   }, dispatch)
 }
@@ -107,6 +106,7 @@ FeedScreen.propTypes = {
   tripReports: PropTypes.object.isRequired,
   fetchingTripReports: PropTypes.bool.isRequired,
   fetchingNextTripReports: PropTypes.bool.isRequired,
+  fetchTripReports: PropTypes.func.isRequired,
   fetchNextTripReports: PropTypes.func.isRequired,
 };
 
