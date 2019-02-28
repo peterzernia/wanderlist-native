@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { 
-  ActivityIndicator, ScrollView, StyleSheet, 
+  ActivityIndicator, FlatList, ScrollView, StyleSheet, 
   Text, TouchableOpacity, View 
 } from 'react-native';
 import { bindActionCreators } from 'redux';
@@ -15,46 +15,57 @@ export class FeedScreen extends Component {
     title: 'Feed',
   };
 
+  renderHeader = () => {
+    return (
+      <View style={styles.sort}>
+        <TouchableOpacity>
+          <Text style={styles.filter}>New Posts</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  };
+
+  renderFooter = () => {
+    if (!this.props.fetchingNextTripReports) return null;
+    return (
+      <View style={{marginBottom: 10}}>
+        <ActivityIndicator size="large" color="#2196f3"/>
+      </View>
+    );
+  };
+
+  handleLoadMore = () => {
+    if (this.props.tripReports.next) {
+      this.props.fetchNextTripReports(this.props.tripReports.next);
+    }
+  }
+
   render() {
     // Destructure props.
-    var { tripReports, fetchingTripReports, fetchingNextTripReports, fetchNextTripReports } = this.props;
+    var { tripReports, fetchingTripReports } = this.props;
 
-    // Map the Trip Reports into individual Trip Reports components.
-    const listTripReports = tripReports.results.map(tripReport =>(
-      <TripReport key={tripReport.id} {...this.props} tripReport={tripReport} />
-    ));
-
-    // Returns true if the scroll screen is within 1px from the bottom. 
-    const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
-      const paddingToBottom = 5;
-      return layoutMeasurement.height + contentOffset.y >=
-        contentSize.height - paddingToBottom;
-    };
-    
     return (
-      <ScrollView
-        onScroll={({nativeEvent}) => {
-          if (isCloseToBottom(nativeEvent) && tripReports.next && !fetchingNextTripReports) {
-            fetchNextTripReports(tripReports.next);
-          }
-        }}
-        scrollEventThrottle={400}
-      >
-        <View style={styles.container}>
-          <View style={styles.sort}>
-            <TouchableOpacity>
-              <Text style={styles.filter}>New Posts</Text>
-            </TouchableOpacity>
-          </View>
-          {
-            // Render a loader while the Trip Reports are fetched.
-            fetchingTripReports
-            ? <ActivityIndicator size="large" color="#2196f3"/>
-            : <View>{listTripReports}</View>
-          }
-          {fetchingNextTripReports && <ActivityIndicator style={{marginBottom: 10}}size="large" color="#2196f3"/>}
-        </View>
-      </ScrollView>
+      <View>
+        {
+          // Render a loader while the Trip Reports are fetched.
+          fetchingTripReports
+          ? <ActivityIndicator size="large" color="#2196f3"/>
+          : <FlatList
+              data={tripReports.results}
+              renderItem={({ item }) => (
+                <TripReport
+                  key={item.id} 
+                  tripReport={item}
+                  {...this.props} 
+                />
+              )}
+              ListHeaderComponent={this.renderHeader()}
+              ListFooterComponent={this.renderFooter()}
+              onEndReached={this.handleLoadMore()}
+              onEndReachedThreshold={0}
+            />
+        }
+      </View>
     );
   }
 }

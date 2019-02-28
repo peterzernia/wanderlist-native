@@ -15,7 +15,7 @@ export default class TripReport extends Component {
           <Text style={styles.author}>{tripReport.author.username}</Text>
         </View>
         <View style={styles.body}>
-          <Text>{tripReport.content}</Text>
+          <Text>{tripReport.content.substr(0,100)}</Text>
         </View>
         <View style={styles.footer}>
           {listCountries}
