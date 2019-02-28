@@ -33,18 +33,22 @@ export class FeedScreen extends Component {
   };
 
   renderFooter = () => {
-    if (!this.props.fetchingNextTripReports) return null;
-    return (
-      <View style={{marginBottom: 10}}>
-        <ActivityIndicator size="large" color="#2196f3"/>
-      </View>
-    );
+    if (this.props.fetchingNextTripReports && this.props.tripReports.next) {
+      return (
+        <View style={{marginBottom: 10}}>
+          <ActivityIndicator size="large" color="#2196f3"/>
+        </View>
+      );
+    } else {
+      return null;
+    }
   };
 
   handleLoadMore = () => {
     /* 
-    fetchNextTripReports was being called multiple times with the same URL. This fix saves the
-    URL that was called into state, and then checks to see if it has already been called.
+    fetchNextTripReports was being called multiple times with the same URL before the GET request. 
+    returned a new URL. This fix saves the URL that was called into state, and then checks to see 
+    if it has already been called.
     */
     if (this.props.tripReports.next && this.state.url !== this.props.tripReports.next) {
       this.props.fetchNextTripReports(this.props.tripReports.next);
@@ -71,10 +75,11 @@ export class FeedScreen extends Component {
                   {...this.props} 
                 />
               )}
+              keyExtractor={item => item.id}
               ListHeaderComponent={this.renderHeader()}
               ListFooterComponent={this.renderFooter()}
               onEndReached={this.handleLoadMore()}
-              onEndReachedThreshold={0.5}
+              onEndReachedThreshold={0}
             />
         }
       </View>
@@ -113,9 +118,5 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: 'center',
     padding: 5
-  },
-  filter: {
-  },
-  loading: {
   }
 })
