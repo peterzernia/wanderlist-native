@@ -15,6 +15,13 @@ export class FeedScreen extends Component {
     title: 'Feed',
   };
 
+  constructor() {
+    super();
+    this.state = {
+      url: ''
+    }
+  }
+
   renderHeader = () => {
     return (
       <View style={styles.sort}>
@@ -35,8 +42,13 @@ export class FeedScreen extends Component {
   };
 
   handleLoadMore = () => {
-    if (this.props.tripReports.next) {
+    /* 
+    fetchNextTripReports was being called multiple times with the same URL. This fix saves the
+    URL that was called into state, and then checks to see if it has already been called.
+    */
+    if (this.props.tripReports.next && this.state.url !== this.props.tripReports.next) {
       this.props.fetchNextTripReports(this.props.tripReports.next);
+      this.setState({url: this.props.tripReports.next});
     }
   }
 
@@ -62,7 +74,7 @@ export class FeedScreen extends Component {
               ListHeaderComponent={this.renderHeader()}
               ListFooterComponent={this.renderFooter()}
               onEndReached={this.handleLoadMore()}
-              onEndReachedThreshold={0}
+              onEndReachedThreshold={0.5}
             />
         }
       </View>
