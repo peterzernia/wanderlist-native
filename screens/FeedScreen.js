@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { 
-  ActivityIndicator, FlatList, ScrollView, StyleSheet, 
+  ActivityIndicator, FlatList, Picker, StyleSheet, 
   Text, TouchableOpacity, View 
 } from 'react-native';
 import { bindActionCreators } from 'redux';
@@ -19,16 +19,24 @@ export class FeedScreen extends Component {
   constructor() {
     super();
     this.state = {
-      url: ''
+      url: '',
+      sortURL: '/api/v1/reports/?ordering=-pk'
     }
   }
 
   renderHeader = () => {
     return (
       <View style={styles.sort}>
-        <TouchableOpacity>
-          <Text style={styles.filter}>New Posts</Text>
-        </TouchableOpacity>
+        <Picker
+          style={styles.picker}
+          selectedValue={this.state.sortURL}
+          onValueChange={(value) => {
+            this.setState({sortURL: value, url: ''}); 
+            this.props.fetchTripReports(`${REACT_APP_API_URL}${this.state.sortURL}`);
+        }}>
+          <Picker.Item key={0} value='/api/v1/reports/?ordering=-pk' label='New Posts' />
+          <Picker.Item key={1} value='/api/v1/reports/' label='Best Posts' />
+        </Picker>
       </View>
     )
   };
@@ -59,7 +67,7 @@ export class FeedScreen extends Component {
 
   render() {
     // Destructure props.
-    var { tripReports, fetchingTripReports } = this.props;
+    var { tripReports, fetchTripReports, fetchingTripReports } = this.props;
 
     return (
       <View style={styles.container}>
@@ -76,7 +84,7 @@ export class FeedScreen extends Component {
           ListHeaderComponent={this.renderHeader()}
           ListFooterComponent={this.renderFooter()}
           refreshing={fetchingTripReports}
-          onRefresh={() => this.props.fetchTripReports(`${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk`)}
+          onRefresh={() => fetchTripReports(`${REACT_APP_API_URL}${this.state.sortURL}`)}
           onEndReached={this.handleLoadMore()}
           onEndReachedThreshold={0}
         />
@@ -119,5 +127,8 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: 'center',
     padding: 5
+  },
+  picker: {
+    width: 145,
   }
 })
