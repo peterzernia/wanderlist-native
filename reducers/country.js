@@ -1,32 +1,32 @@
 const initialState = {
-  fetchingCountry: false,
-  fetchedCountry: false,
-  country: [],
+  fetchingCountries: false,
+  fetchedCountries: false,
+  countries: [],
 }
 
 /* Reducer Function*/
 export default function (state = initialState, action) {
   switch (action.type) {
-    case "FETCH_COUNTRY_PENDING": {
+    case "FETCH_COUNTRIES_PENDING": {
       return {
         ...state,
-        fetchingCountry: true,
-        fetchedCountry: false,
+        fetchingCountries: true,
+        fetchedCountries: false,
       }
     }
-    case "FETCH_COUNTRY_FULFILLED": {
+    case "FETCH_COUNTRIES_FULFILLED": {
       return {
         ...state,
-        fetchingCountry: false,
-        fetchedCountry: true,
-        country: action.country,
+        fetchingCountries: false,
+        fetchedCountries: true,
+        countries: action.countries,
       }
     }
-    case "FETCH_COUNTRY_REJECTED": {
+    case "FETCH_COUNTRIES_REJECTED": {
       return {
         ...state,
-        fetchingCountry: false,
-        fetchedCountry: false,
+        fetchingCountries: false,
+        fetchedCountries: false,
       }
     }
     // Return to initialState on logout.

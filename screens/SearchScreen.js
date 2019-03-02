@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Alert, ScrollView, StyleSheet } from 'react-native';
+import { AsyncStorage, ScrollView, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Results from '../components/Results';
 import SearchBar from '../components/SearchBar';
-import { fetchCountry } from '../actions/countryActions';
+import { fetchCountries } from '../actions/countryActions';
 import { updateUser } from '../actions/userActions';
 
 export class SearchScreen extends Component {
@@ -20,8 +20,8 @@ export class SearchScreen extends Component {
     }
   }
 
-  handleSearch = async (country) => {
-    await this.props.fetchCountry(country);
+  handleSearch = async (query) => {
+    await this.props.fetchCountries(query);
   }
 
   handleUpdate = async (country) => {
@@ -51,6 +51,7 @@ export class SearchScreen extends Component {
   }
 
   render() {
+    const { fetchingCountries } = this.props;
     // Map the search countries array into individual Results components.
     const listResults = this.props.searchedCountries.map(country =>(
       <Results 
@@ -64,7 +65,11 @@ export class SearchScreen extends Component {
 
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <SearchBar handleSearch={this.handleSearch} {...this.props} />
+        <SearchBar 
+          findCountry={this.findCountry}
+          handleSearch={this.handleSearch} 
+          {...this.props} 
+        />
         {listResults}
       </ScrollView>
     );
@@ -73,8 +78,8 @@ export class SearchScreen extends Component {
 
 const mapState = state => {
   return {
-    fetchingCountry: state.country.fetchingCountry,
-    searchedCountries: state.country.country,
+    fetchingCountries: state.country.fetchingCountries,
+    searchedCountries: state.country.countries,
     user: state.user.user,
     updatingUser: state.user.updatingUser,
   }
@@ -82,7 +87,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return bindActionCreators({
-    fetchCountry,
+    fetchCountries,
     updateUser,
   }, dispatch)
 }
@@ -90,8 +95,8 @@ const mapDispatch = dispatch => {
 export default connect(mapState, mapDispatch)(SearchScreen);
 
 SearchScreen.propTypes = {
-  fetchCountry: PropTypes.func.isRequired,
-  fetchingCountry: PropTypes.bool.isRequired,
+  fetchCountries: PropTypes.func.isRequired,
+  fetchingCountries: PropTypes.bool.isRequired,
   searchedCountries: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,

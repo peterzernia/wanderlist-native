@@ -50,4 +50,5 @@ export default connect(mapState, mapDispatch)(MainLoadingScreen);
 
 MainLoadingScreen.propTypes = {
   fetchUser: PropTypes.func.isRequired,
+  fetchTripReports: PropTypes.func.isRequired,
 };

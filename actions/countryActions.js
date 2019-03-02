@@ -2,21 +2,21 @@ import axios from 'axios';
 import { REACT_APP_API_URL } from 'react-native-dotenv';
 
 // Action creators
-export const fetchCountryPending = () => ({type: "FETCH_COUNTRY_PENDING"})
-export const fetchCountryFulfilled = country => ({type: "FETCH_COUNTRY_FULFILLED", country})
-export const fetchCountryRejected = () => ({type: "FETCH_COUNTRY_REJECTED"})
+export const fetchCountriesPending = () => ({type: "FETCH_COUNTRIES_PENDING"})
+export const fetchCountriesFulfilled = countries => ({type: "FETCH_COUNTRIES_FULFILLED", countries})
+export const fetchCountriesRejected = () => ({type: "FETCH_COUNTRIES_REJECTED"})
 
 
-export const fetchCountry = (query) => {
+export const fetchCountries = (query) => {
   return dispatch => {
-    dispatch(fetchCountryPending());
+    dispatch(fetchCountriesPending());
     return axios.get(`${REACT_APP_API_URL}/api/v1/countries/?search=${query}`)
       .then(response => {
-        const country = response.data;
-        dispatch(fetchCountryFulfilled(country));
+        const countries = response.data;
+        dispatch(fetchCountriesFulfilled(countries));
       })
       .catch(err => {
-        dispatch(fetchCountryRejected());
+        dispatch(fetchCountriesRejected());
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {

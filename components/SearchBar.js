@@ -1,56 +1,94 @@
-import React, { Component } from 'react'
-import { ActivityIndicator, Text, TextInput, TouchableOpacity, StyleSheet, View } from 'react-native'
+import React, { Component } from 'react';
+import { ActivityIndicator, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
+import Autocomplete from 'react-native-autocomplete-input';
+import countries from '../countries.json';
 
 export default class SearchBar extends Component {
   constructor(props){
     super(props);
     this.state = {
-      country: ''
+      query: '',
+      hide: false,
     };
+  }
+
+  findCountry = (query) => {
+    if (query === '') {
+      return [];
+    }
+    const regex = new RegExp(`${query.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}`, 'i');
+    return countries.filter(country => country.name.search(regex) >= 0);
   }
 
   render() {
 
-    var { fetchingCountry } = this.props;
+    const { query, hide } = this.state;
+    const countries = this.findCountry(query);
+    const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
+    var { fetchingCountries, handleSearch } = this.props;
 
     return (
       <View style={styles.container}>
-        <TextInput 
+        <Autocomplete
+          autoCapitalize="none"
+          autoCorrect={false}
+          hideResults={hide}
+          containerStyle={styles.autocompleteInput}
+          inputContainerStyle={styles.textInputContainer}
           style={styles.textInput}
+          data={countries.length === 1 && comp(query, countries[0].name) ? [] : countries}
+          defaultValue={query}
+          onChangeText={text => this.setState({ query: text, hide: false })}
           placeholder="Search for a Country or Territory"
-          value={this.state.country}
-          onChangeText={(value) => this.setState({country: value})}
+          renderItem={({ name }) => (
+            <TouchableOpacity onPress={() => this.setState({ query: name, hide: true })}>
+              <Text style={styles.queryText}>
+                {name}
+              </Text>
+            </TouchableOpacity>
+          )}
         />
         <TouchableOpacity
             style={styles.searchButton}
-            onPress={() => this.props.handleSearch(this.state.country)}
+            onPress={() => handleSearch(query)}
           >
             {
-              fetchingCountry
+              fetchingCountries
               ? <ActivityIndicator size="small" color="white" />
-              : <Text style={styles.text}>Search</Text>
+              : <Text style={styles.buttonText}>Search</Text>
             }
-          </TouchableOpacity>
+        </TouchableOpacity>
       </View>
-    )
+    );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
     width: 300,
     alignItems: 'center',
     margin: 10,
-    marginTop: 30
+    marginTop: 30,
+  },
+  autocompleteInput: {
+    width: 300,
+    marginBottom: 7,
+    position: 'relative',
+    zIndex: 1,
+  },
+  textInputContainer: {
+    borderWidth: 0,
+    borderColor: 'black',
+    borderBottomWidth: 1,
   },
   textInput: {
-    width: 300,
-    height: 50,
-    borderColor: 'black',
+    backgroundColor: 'rgba(52, 52, 52, 0)', 
+    fontSize: 16
+  },
+  queryText: {
     fontSize: 16,
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    marginBottom: 7
+    margin: 3,
   },
   searchButton: {
     width: 100,
@@ -61,8 +99,8 @@ const styles = StyleSheet.create({
     marginRight: 5,
     borderRadius: 10
   },
-  text: {
+  buttonText: {
     color: 'white',
     fontSize: 16
-  }
-})
+}
+});
