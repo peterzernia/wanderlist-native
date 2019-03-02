@@ -13,6 +13,12 @@ export class SearchScreen extends Component {
   static navigationOptions = {
     title: 'Search',
   };
+  constructor() {
+    super();
+    this.state = {
+      country: { name: null }
+    }
+  }
 
   handleSearch = async (country) => {
     await this.props.fetchCountry(country);
@@ -23,6 +29,7 @@ export class SearchScreen extends Component {
     const token = await AsyncStorage.getItem('token');
     let newCountries;
     let success;
+    this.setState({country})
 
     if (user.countries.length === 0) {
       newCountries = [country.id];
@@ -50,6 +57,7 @@ export class SearchScreen extends Component {
         {...this.props} 
         country={country} 
         handleUpdate={this.handleUpdate}
+        pendingCountry={this.state.country}
       />
     ));
 

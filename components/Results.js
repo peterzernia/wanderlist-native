@@ -9,7 +9,7 @@ export default class Results extends Component {
 
     // Map the userCountries into an array of just the countries' names.
     const userCountries = this.props.user.countries.map(country => country.name);
-    const { country, updatingUser, handleUpdate } = this.props;
+    const { country, updatingUser, handleUpdate, pendingCountry } = this.props;
 
     return (
       <View style={styles.card}>
@@ -24,7 +24,7 @@ export default class Results extends Component {
             onPress={() => handleUpdate(country)}
           >
           {
-            (!updatingUser && userCountries.includes(country.name))
+            (userCountries.includes(country.name) && (!updatingUser || (updatingUser && pendingCountry.name !== country.name)))
             && (
               <Image
                 style={styles.button}
@@ -33,7 +33,7 @@ export default class Results extends Component {
             )
           }
           {
-            (!updatingUser && !userCountries.includes(country.name))
+            (!userCountries.includes(country.name) && (!updatingUser || (updatingUser && pendingCountry.name !== country.name)))
             && ( 
               <Image
                 style={styles.button}
@@ -41,7 +41,10 @@ export default class Results extends Component {
               />  
             )
           }
-          {updatingUser && <ActivityIndicator size="small" color="black" />}
+          {
+            (updatingUser && pendingCountry.name === country.name)
+            && <ActivityIndicator size="small" color="black" />
+          }
           </TouchableOpacity>
         </View>
         <View style={styles.imageContainer}>
