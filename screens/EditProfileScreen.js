@@ -9,11 +9,12 @@ import EditProfileForm from '../components/EditProfileForm';
 
 export class EditProfileScreen extends Component {
   handlePress = async (username, email, home, biography) => {
+    const { user, updateUser } = this.props;
     const token = await AsyncStorage.getItem('token');
     // The HTTP request must contain countries as a list of ids, not country objects.
-    const countries = this.props.user.countries.map(country => country.id);
+    const countries = user.countries.map(country => country.id);
     const success = 'Your profile has been updated.';
-    this.props.updateUser(token, username, email, countries, home, biography, success);
+    updateUser(token, username, email, countries, home, biography, success);
   }
 
   render() {

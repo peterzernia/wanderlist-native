@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { 
+  ActivityIndicator, Dimensions, Image, 
+  StyleSheet, Text, TouchableOpacity, View 
+} from 'react-native';
 
 export default class Results extends Component {
   render() {
 
     // Map the userCountries into an array of just the countries' names.
     const userCountries = this.props.user.countries.map(country => country.name);
-    const { country } = this.props;
+    const { country, updatingUser, handleUpdate } = this.props;
 
     return (
       <View style={styles.card}>
@@ -18,23 +21,27 @@ export default class Results extends Component {
           </Text>
           <TouchableOpacity 
             style={styles.buttonContainer}
-            onPress={() => this.props.handleUpdate(country)}
+            onPress={() => handleUpdate(country)}
           >
           {
-            /* 
-            Check to see if the country is in the user's list of countries and render 
-            the appropriate button.
-            */
-            userCountries.includes(country.name)
-            ? <Image
+            (!updatingUser && userCountries.includes(country.name))
+            && (
+              <Image
                 style={styles.button}
                 source={require('../assets/images/remove.png')}
               />
-            : <Image
+            )
+          }
+          {
+            (!updatingUser && !userCountries.includes(country.name))
+            && ( 
+              <Image
                 style={styles.button}
                 source={require('../assets/images/add.png')}
               />  
+            )
           }
+          {updatingUser && <ActivityIndicator size="small" color="black" />}
           </TouchableOpacity>
         </View>
         <View style={styles.imageContainer}>

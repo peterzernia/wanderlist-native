@@ -67,6 +67,7 @@ const mapState = state => {
     fetchingCountry: state.country.fetchingCountry,
     searchedCountries: state.country.country,
     user: state.user.user,
+    updatingUser: state.user.updatingUser,
   }
 }
 
@@ -85,6 +86,7 @@ SearchScreen.propTypes = {
   searchedCountries: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
+  updatingUser: PropTypes.bool.isRequired,
 };
 
 const styles = StyleSheet.create({
