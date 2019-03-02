@@ -10,7 +10,9 @@ export default class SearchBar extends Component {
   }
 
   render() {
+
     var { fetchingCountry } = this.props;
+
     return (
       <View style={styles.container}>
         <TextInput 
@@ -21,7 +23,7 @@ export default class SearchBar extends Component {
         />
         <TouchableOpacity
             style={styles.searchButton}
-            onPress={() => this.props.handlePress(this.state.country)}
+            onPress={() => this.props.handleSearch(this.state.country)}
           >
             {
               fetchingCountry
