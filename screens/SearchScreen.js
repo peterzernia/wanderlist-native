@@ -33,6 +33,7 @@ export class SearchScreen extends Component {
 
     if (user.countries.length === 0) {
       newCountries = [country.id];
+      success = `${country.name} has been added to your map.`
     } else {
       newCountries = user.countries.map(country => country.id)
       if (newCountries.includes(country.id)) {

@@ -24,6 +24,7 @@ export default class Results extends Component {
             onPress={() => handleUpdate(country)}
           >
           {
+            // Render Remove button when country is included in users list, but is not the pending country.
             (userCountries.includes(country.name) && (!updatingUser || (updatingUser && pendingCountry.name !== country.name)))
             && (
               <Image
@@ -33,6 +34,7 @@ export default class Results extends Component {
             )
           }
           {
+            // Render Add button when country is not included in users list, but is not the pending country.
             (!userCountries.includes(country.name) && (!updatingUser || (updatingUser && pendingCountry.name !== country.name)))
             && ( 
               <Image
@@ -42,6 +44,7 @@ export default class Results extends Component {
             )
           }
           {
+            // If the updatingUser, and the pendingCountry matches the country shown, render loader
             (updatingUser && pendingCountry.name === country.name)
             && <ActivityIndicator size="small" color="black" />
           }
