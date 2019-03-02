@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Text, StyleSheet, TouchableOpacity, View } from 'react-native'
 
-export default class TripReport extends Component {
+export default class TripReport extends PureComponent {
   render() {
     var { tripReport } = this.props;
 

@@ -3,7 +3,7 @@ const initialState = {
   fetchedTripReports: false,
   fetchingNextTripReports: false,
   fetchedNextTripReports: false,
-  tripReports: { results: [], count: null, next: null, previous: null},
+  tripReports: { results: [], count: null, next: null, previous: null },
 }
 
 export default function (state = initialState, action) {
@@ -12,6 +12,8 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fetchingTripReports: true,
+        fetchedTripReports: false,
+        tripReports: { results: [], count: null, next: null, previous: null },
       }
     }
     case "FETCH_TRIP_REPORTS_FULFILLED": {
@@ -31,8 +33,7 @@ export default function (state = initialState, action) {
     }
     /*
     In the case of fetching the next page of trip reports, the new trip reports
-    need to be added to the list of existing, fetched trip reports. They must
-    not overwnite the original list.
+    need to be added to the list of existing, fetched trip reports, not ovewrite them.
     */
     case "FETCH_NEXT_TRIP_REPORTS_PENDING": {
       return {

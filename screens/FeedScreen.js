@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { 
-  ActivityIndicator, FlatList, Picker, StyleSheet, 
-  Text, TouchableOpacity, View 
-} from 'react-native';
+import { ActivityIndicator, FlatList, Picker, StyleSheet, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -31,8 +28,8 @@ export class FeedScreen extends Component {
           style={styles.picker}
           selectedValue={this.state.sortURL}
           onValueChange={(value) => {
-            this.setState({sortURL: value, url: ''}); 
-            this.props.fetchTripReports(`${REACT_APP_API_URL}${this.state.sortURL}`);
+            this.setState({sortURL: value}); 
+            this.props.fetchTripReports(`${REACT_APP_API_URL}${value}`);
         }}>
           <Picker.Item key={0} value='/api/v1/reports/?ordering=-pk' label='New Posts' />
           <Picker.Item key={1} value='/api/v1/reports/' label='Best Posts' />
@@ -80,13 +77,12 @@ export class FeedScreen extends Component {
               {...this.props} 
             />
           )}
-          keyExtractor={item => item.id}
-          ListHeaderComponent={this.renderHeader()}
-          ListFooterComponent={this.renderFooter()}
+          keyExtractor={item => item.slug}
+          ListHeaderComponent={() => this.renderHeader()}
+          ListFooterComponent={() => this.renderFooter()}
           refreshing={fetchingTripReports}
           onRefresh={() => fetchTripReports(`${REACT_APP_API_URL}${this.state.sortURL}`)}
-          onEndReached={this.handleLoadMore()}
-          onEndReachedThreshold={0}
+          onEndReached={() => this.handleLoadMore()}
         />
       </View>
     );
