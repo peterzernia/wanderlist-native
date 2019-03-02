@@ -21,13 +21,19 @@ export default class EditProfileForm extends Component {
     };
   }
 
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.props.updatedUser) {
+  //     this.props.navigation.navigate('Profile');
+  //   }
+  // }
+
   render() {
     // Create the Picker items from a list of the countries' names and value.
     const pickerItems = [...countries].sort((a, b) => a.name > b.name).map(country => (
       <Picker.Item key={country.pk} value={country.pk} label={country.name} />
     ))
 
-    var { authenticating } = this.props;
+    var { updatingUser } = this.props;
 
     return (
       <View style={styles.container}>
@@ -57,8 +63,15 @@ export default class EditProfileForm extends Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.updateButton}
+            onPress={() => this.props.handlePress(
+              this.state.username, this.state.email, this.state.home, this.state.biography
+            )}
           >
-            <Text style={styles.text}>Update</Text>
+            {
+              updatingUser
+              ? <ActivityIndicator size="small" color="white" />
+              : <Text style={styles.text}>Update</Text>
+            }
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.cancelButton}

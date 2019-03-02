@@ -8,7 +8,7 @@ import tripReport from './tripReport';
 import user from './user';
 
 const reducer = combineReducers({auth, country, tripReport, user})
-const enhancer = applyMiddleware(thunk, logger)
+const enhancer = applyMiddleware(thunk)//, logger)
 const store = createStore(reducer, enhancer)
 
 export default store
