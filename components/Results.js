@@ -76,10 +76,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 23,
     padding: 15,
+    flexWrap: 'wrap',
+    width: '70%'
   },
   buttonContainer: {
     width: 25,
-    margin: 15
+    margin: 15,
   },
   button: {
     width: 25,
