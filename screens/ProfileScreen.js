@@ -39,6 +39,7 @@ export class ProfileScreen extends Component {
               </Text>
               <TouchableOpacity
                 style={styles.editProfileButton}
+                onPress={() => this.props.navigation.navigate('EditProfile')}
               >
                 <Text style={styles.buttonText}>Edit Profile</Text>
               </TouchableOpacity>

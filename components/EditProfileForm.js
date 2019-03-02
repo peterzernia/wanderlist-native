@@ -10,25 +10,22 @@ import {
 } from 'react-native'
 import countries from '../countries.json'
 
-export default class RegistrationForm extends Component {
-  constructor(){
-    super();
+export default class EditProfileForm extends Component {
+  constructor(props){
+    super(props);
     this.state = {
-      username: '',
-      email:'',
-      password1: '',
-      password2: '',
-      home: 0,
+      username: props.user.username,
+      email: props.user.email,
+      biography: props.user.biography,
+      home: props.user.home.id,
     };
   }
 
   render() {
-    // Create the Picker items from a list of the countries' names and value, and add a placeholder
-    // to the first position of the array.
+    // Create the Picker items from a list of the countries' names and value.
     const pickerItems = [...countries].sort((a, b) => a.name > b.name).map(country => (
       <Picker.Item key={country.pk} value={country.pk} label={country.name} />
     ))
-    pickerItems.splice(0, 0, <Picker.Item key={0} value={0} label="Select Your Home Country" />)
 
     var { authenticating } = this.props;
 
@@ -36,29 +33,19 @@ export default class RegistrationForm extends Component {
       <View style={styles.container}>
         <TextInput 
           style={styles.textInput}
-          placeholder="Username"
           value={this.state.username}
           onChangeText={(value) => this.setState({username: value})}
         />
         <TextInput 
           style={styles.textInput}
-          placeholder="Email"
           value={this.state.email}
           onChangeText={(value) => this.setState({email: value})}
         />
         <TextInput 
           style={styles.textInput}
-          placeholder="Password"
-          secureTextEntry={true}
-          value={this.state.password1}
-          onChangeText={(value) => this.setState({password1: value})}
-        />
-        <TextInput 
-          style={styles.textInput}
-          placeholder="Confirm Password"
-          secureTextEntry={true}
-          value={this.state.password2}
-          onChangeText={(value) => this.setState({password2: value})}
+          placeholder='Biography'
+          value={this.state.biography}
+          onChangeText={(value) => this.setState({biography: value})}
         />
         <Picker
           style={styles.picker}
@@ -69,23 +56,15 @@ export default class RegistrationForm extends Component {
         </Picker>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={styles.registerButton}
-            onPress={() => this.props.handlePress(
-              this.state.username, this.state.email, 
-              this.state.password1, this.state.password2, this.state.home
-            )}
+            style={styles.updateButton}
           >
-            {
-              authenticating
-              ? <ActivityIndicator size="small" color="white" />
-              : <Text style={styles.text}>Register</Text>
-            }
+            <Text style={styles.text}>Update</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.loginButton}
-            onPress={() => this.props.navigation.navigate('Login')}
+            style={styles.cancelButton}
+            onPress={() => this.props.navigation.navigate('Profile')}
           >
-            <Text style={{ fontSize: 16 }}>Login</Text>
+            <Text style={{ fontSize: 16 }}>Cancel</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -108,7 +87,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row'
   },
-  registerButton: {
+  updateButton: {
     width: 100,
     height: 50,
     alignItems: 'center',
@@ -118,7 +97,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
     borderRadius: 10
   },
-  loginButton: {
+  cancelButton: {
     width: 100,
     height: 50,
     alignItems: 'center',
