@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class TripReport extends PureComponent {
   render() {
-    var { tripReport, user } = this.props;
+    var { tripReport, user, handlePress } = this.props;
 
     const listCountries = tripReport.countries.map(country => {
       <Text>{country.name}</Text>
@@ -24,7 +24,10 @@ export default class TripReport extends PureComponent {
           {listCountries}
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity style={styles.favoriteButton}>
+          <TouchableOpacity 
+            style={styles.favoriteButton}
+            onPress={() => handlePress(tripReport.id)}
+          >
           {
             tripReport.favoriters.includes(user.pk)
             ? <Icon name='favorite' size={25} />

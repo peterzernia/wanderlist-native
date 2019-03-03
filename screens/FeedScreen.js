@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, Picker, StyleSheet, View } from 'react-native';
+import { AsyncStorage, ActivityIndicator, FlatList, Picker, StyleSheet, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,6 +7,7 @@ import { REACT_APP_API_URL } from 'react-native-dotenv';
 
 import TripReport from '../components/TripReport';
 import { fetchTripReports, fetchNextTripReports } from '../actions/tripReportActions';
+import { toggleFavorite } from '../actions/favoriteActions';
 
 export class FeedScreen extends Component {
   static navigationOptions = {
@@ -19,6 +20,11 @@ export class FeedScreen extends Component {
       url: '',
       sortURL: '/api/v1/reports/?ordering=-pk'
     }
+  }
+
+  handlePress = async (id) => {
+    const token = await AsyncStorage.getItem('token');
+    this.props.toggleFavorite(id, token);
   }
 
   renderHeader = () => {
@@ -70,7 +76,7 @@ export class FeedScreen extends Component {
   }
 
   render() {
-    var { tripReports, fetchTripReports, fetchingTripReports } = this.props;
+    var { tripReports, fetchTripReports, fetchingTripReports, toggleFavorite } = this.props;
     const { sortURL } = this.state;
 
     return (
@@ -79,9 +85,9 @@ export class FeedScreen extends Component {
           data={tripReports.results}
           renderItem={({ item }) => (
             <TripReport
-              key={item.id} 
               tripReport={item}
-              {...this.props} 
+              {...this.props}
+              handlePress={this.handlePress} 
             />
           )}
           keyExtractor={item => item.slug}
@@ -109,6 +115,7 @@ const mapDispatch = dispatch => {
   return bindActionCreators({
     fetchTripReports,
     fetchNextTripReports,
+    toggleFavorite,
   }, dispatch)
 }
 
@@ -121,6 +128,7 @@ FeedScreen.propTypes = {
   fetchTripReports: PropTypes.func.isRequired,
   fetchNextTripReports: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

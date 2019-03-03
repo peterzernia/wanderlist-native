@@ -122,6 +122,25 @@ export default function (state = initialState, action) {
         fetchingNextUserTripReports: false,
       }
     }
+    case "TOGGLE_FAVORITE_FULFILLED": {
+      /*
+      The response of the axios call to toggle favorite returns the new 
+      Trip Report object with updated favorites array. This Trip Report 
+      favoriters must replace the old Trip Report favoriters. User Trip 
+      Reports do not need to be updated since a favorite button is never 
+      shown for that array.
+      */
+      return {
+        ...state,
+        tripReports: {
+          // Since order matters, only the specific index of the array should be changed.
+          results: [...state.tripReports.results].map( tripReport => tripReport.id === action.response.id ? { ...tripReport, favoriters: action.response.favoriters} : {...tripReport}),
+          count: state.tripReports.count,
+          next: state.tripReports.next,
+          previous: state.tripReports.previous
+        }
+      }
+    }
     // Return initialState on logout.
     case "AUTH_LOGOUT": {
       return {
