@@ -50,9 +50,9 @@ ProfileStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
+  FeedStack,
   ProfileStack,
   SearchStack,
-  FeedStack,
   // FeedStack,
   // SearchStack,
   // ProfileStack,

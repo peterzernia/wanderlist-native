@@ -3,6 +3,7 @@ import {
   ActivityIndicator, Dimensions, Image, 
   StyleSheet, Text, TouchableOpacity, View 
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class Results extends Component {
   render() {
@@ -27,22 +28,12 @@ export default class Results extends Component {
           {
             // Render Remove button when country is included in users list, but is not the pending country.
             (userCountries.includes(country.name) && (!updatingUser || (updatingUser && pendingCountry.name !== country.name)))
-            && (
-              <Image
-                style={styles.button}
-                source={require('../assets/images/remove.png')}
-              />
-            )
+            && <Icon name='remove-circle' size={25} />
           }
           {
             // Render Add button when country is not included in users list, but is not the pending country.
             (!userCountries.includes(country.name) && (!updatingUser || (updatingUser && pendingCountry.name !== country.name)))
-            && ( 
-              <Image
-                style={styles.button}
-                source={require('../assets/images/add.png')}
-              />  
-            )
+            && <Icon name='add-circle' size={25} />
           }
           {
             // If the updatingUser, and the pendingCountry matches the country shown, render loader
@@ -82,7 +73,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: 25,
-    margin: 15,
+    marginRight: 20,
   },
   button: {
     width: 25,

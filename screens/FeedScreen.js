@@ -101,6 +101,7 @@ const mapState = state => {
     tripReports: state.tripReport.tripReports,
     fetchingTripReports: state.tripReport.fetchingTripReports,
     fetchingNextTripReports: state.tripReport.fetchingNextTripReports,
+    user: state.user.user,
   }
 }
 
@@ -119,6 +120,7 @@ FeedScreen.propTypes = {
   fetchingNextTripReports: PropTypes.bool.isRequired,
   fetchTripReports: PropTypes.func.isRequired,
   fetchNextTripReports: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({

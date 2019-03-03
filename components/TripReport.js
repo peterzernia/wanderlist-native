@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react'
 import { Text, StyleSheet, TouchableOpacity, View } from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class TripReport extends PureComponent {
   render() {
-    var { tripReport } = this.props;
+    var { tripReport, user } = this.props;
 
     const listCountries = tripReport.countries.map(country => {
       <Text>{country.name}</Text>
@@ -15,11 +16,23 @@ export default class TripReport extends PureComponent {
           <Text style={styles.author}>{tripReport.author.username}</Text>
         </View>
         <View style={styles.body}>
-          <Text>{tripReport.content.substr(0,100)}</Text>
+          <Text numberOfLines={3}>
+            {tripReport.content}
+          </Text>
+        </View>
+        <View style={styles.countriesSection}>
+          {listCountries}
         </View>
         <View style={styles.footer}>
-          {listCountries}
-          <TouchableOpacity>
+          <TouchableOpacity style={styles.favoriteButton}>
+          {
+            tripReport.favoriters.includes(user.pk)
+            ? <Icon name='favorite' size={25} />
+            : <Icon name='favorite-border' size={25} />
+          }
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.shareButton}>
+            <Icon name='share' size={25} />
           </TouchableOpacity>
         </View>
       </View>
@@ -47,10 +60,20 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   body: {
-    height: 100,
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    padding: 10,
+  },
+  countriesSection: {
+
   },
   footer: {
-    height: 50
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 5,
+  },
+  favoriteButton: {
+  },
+  shareButton: {
   }
 })
