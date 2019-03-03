@@ -25,7 +25,7 @@ export class ProfileScreen extends Component {
 
   renderHeader = () => {
     const {switchValue} = this.state;
-    const { user, navigation, userTripReports } = this.props;
+    const { user, navigation, userTripReports, fetchingUserTripReports } = this.props;
 
     return (
       <View style={styles.headerContainer}>
@@ -59,7 +59,7 @@ export class ProfileScreen extends Component {
         <View style={styles.line}></View>
         {/* Display info message if the user has not written any Trip Reports */}
         {
-          !userTripReports.results.length &&
+          (!userTripReports.results.length && !fetchingUserTripReports) &&
           <View style={styles.infoTextContainer}>
             <Text style={styles.infoText}>
               It looks like you haven't written any Trip Reports yet. Once you do they'll show up here.
@@ -137,6 +137,7 @@ const mapState = state => {
     user: state.user.user,
     fetchingUser: state.user.fetchingUser,
     userTripReports: state.tripReport.userTripReports,
+    fetchingUserTripReports: state.tripReport.fetchingUserTripReports,
     fetchingNextUserTripReports: state.tripReport.fetchingNextUserTripReports
   }
 }
@@ -155,6 +156,7 @@ ProfileScreen.propTypes = {
   user: PropTypes.object.isRequired,
   fetchingUser: PropTypes.bool.isRequired,
   userTripReports: PropTypes.object.isRequired,
+  fetchingUserTripReports: PropTypes.bool.isRequired,
   fetchingNextUserTripReports: PropTypes.bool.isRequired,
   fetchNextUserTripReports: PropTypes.func.isRequired,
 };
