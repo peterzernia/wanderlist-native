@@ -1,6 +1,7 @@
 import axios from 'axios'
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+import { REACT_APP_API_URL } from 'react-native-dotenv';
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 // For fetching the first page of all of the Trip Reports
 export const fetchTripReportsPending = () => ({type: "FETCH_TRIP_REPORTS_PENDING"})
@@ -11,6 +12,16 @@ export const fetchTripReportsRejected = () => ({type: "FETCH_TRIP_REPORTS_REJECT
 export const fetchNextTripReportsPending = () => ({type: "FETCH_NEXT_TRIP_REPORTS_PENDING"})
 export const fetchNextTripReportsFulfilled = tripReports => ({type: "FETCH_NEXT_TRIP_REPORTS_FULFILLED", tripReports})
 export const fetchNextTripReportsRejected = () => ({type: "FETCH_NEXT_TRIP_REPORTS_REJECTED"})
+
+// For fetching the first page of Trip Reports of the authenticated user
+export const fetchUserTripReportsPending = () => ({type: "FETCH_USER_TRIP_REPORTS_PENDING"})
+export const fetchUserTripReportsFulfilled = tripReports => ({type: "FETCH_USER_TRIP_REPORTS_FULFILLED", tripReports})
+export const fetchUserTripReportsRejected = () => ({type: "FETCH_USER_TRIP_REPORTS_REJECTED"})
+
+// For fetching the next page of the authenticated users Trip Reports
+export const fetchNextUserTripReportsPending = () => ({type: "FETCH_NEXT_USER_TRIP_REPORTS_PENDING"})
+export const fetchNextUserTripReportsFulfilled = tripReports => ({type: "FETCH_NEXT_USER_TRIP_REPORTS_FULFILLED", tripReports})
+export const fetchNextUserTripReportsRejected = () => ({type: "FETCH_NEXT_USER_TRIP_REPORTS_REJECTED"})
 
 /*
 GET requests the Django REST API and returns the first page of a list of Trip
@@ -29,9 +40,6 @@ export const fetchTripReports = (url) => {
         let error = '';
           Object.keys(err.response.data).map(message => {
             switch(message) {
-              // case 'non_field_errors': {
-              //   return error += `${err.response.data[message]}\n`
-              // }
               default: return error += `${message}: ${err.response.data[message]}\n`
             }
           });
@@ -58,13 +66,59 @@ export const fetchNextTripReports = (url) => {
         let error = '';
           Object.keys(err.response.data).map(message => {
             switch(message) {
-              // case 'non_field_errors': {
-              //   return error += `${err.response.data[message]}\n`
-              // }
               default: return error += `${message}: ${err.response.data[message]}\n`
             }
           });
           Alert.alert('Error', error);
+      })
+  }
+}
+
+/*
+GET requests the Django REST API with the parameter of username to return the
+first page of the list of the Users TripReports.
+*/
+export const fetchUserTripReports = (username) => {
+  return dispatch => {
+    dispatch(fetchUserTripReportsPending());
+    axios.get(`${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk&search=${username}`)
+      .then(response => {
+        const tripReports = response.data;
+        dispatch(fetchUserTripReportsFulfilled(tripReports));
+      })
+      .catch(err => {
+        dispatch(fetchUserTripReportsRejected());
+        let error = '';
+        Object.keys(err.response.data).map(message => {
+          switch(message) {
+            default: return error += `${message}: ${err.response.data[message]}\n`
+          }
+        });
+      })
+  }
+}
+
+/*
+Again, the paginated API returns a next variable that is the url to the next
+page, which is passed into this function to retrieve the next page of the user's
+Trip Reports.
+*/
+export const fetchNextUserTripReports = (url) => {
+  return dispatch => {
+    dispatch(fetchNextUserTripReportsPending());
+    axios.get(url)
+      .then(response => {
+        const tripReports = response.data;
+        dispatch(fetchNextUserTripReportsFulfilled(tripReports));
+      })
+      .catch(err => {
+        dispatch(fetchNextUserTripReportsRejected());
+        let error = '';
+        Object.keys(err.response.data).map(message => {
+          switch(message) {
+            default: return error += `${message}: ${err.response.data[message]}\n`
+          }
+        });
       })
   }
 }

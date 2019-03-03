@@ -22,6 +22,11 @@ export class ProfileScreen extends Component {
   }
 
   render() {
+
+    const listTripReports = this.props.userTripReports.results.map(tripReport => 
+      <Text key={tripReport.id}>{tripReport.title}</Text>
+    )
+    
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -53,6 +58,9 @@ export class ProfileScreen extends Component {
             <Map {...this.props} />
           </View>
           <View style={styles.line}></View>
+          <View>
+            {listTripReports}
+          </View>
         </View>
       </ScrollView>
     );
@@ -62,8 +70,8 @@ export class ProfileScreen extends Component {
 
 const mapState = state => {
   return {
-    token: state.auth.token,
-    user: state.user.user
+    user: state.user.user,
+    userTripReports: state.tripReport.userTripReports
   }
 }
 
@@ -78,6 +86,7 @@ export default connect(mapState, mapDispatch)(ProfileScreen);
 ProfileScreen.propTypes = {
   authLogout: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
+  userTripReports: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({

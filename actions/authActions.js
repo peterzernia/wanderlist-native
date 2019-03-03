@@ -10,6 +10,7 @@ export const authFail = () => ({type: "AUTH_FAIL"})
 export const authLogout = () => {
   try {
     AsyncStorage.removeItem('token');
+    AsyncStorage.removeItem('username');
   } catch (err) {
     console.log(err)
   }
@@ -27,6 +28,7 @@ export const authLogin = (username, password) => {
         var token = response.data.key;
         try {
           AsyncStorage.setItem('token', token);
+          AsyncStorage.setItem('username', username);
         } catch (err) {
           console.log(err)
         }
@@ -71,6 +73,7 @@ export const authRegister = (username, email, password1, password2, home) => {
         var token = response.data.key;
         try {
           AsyncStorage.setItem('token', token);
+          AsyncStorage.setItem('username', username);
         } catch (err) {
           console.log(err)
         }
