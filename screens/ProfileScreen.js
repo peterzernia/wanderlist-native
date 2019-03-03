@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Switch, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, ScrollView, Switch, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -24,49 +24,58 @@ export class ProfileScreen extends Component {
   render() {
 
     const {switchValue} = this.state;
-    const { user, userTripReports, navigation } = this.props;
+    const { user, userTripReports, fetchingUser, navigation } = this.props;
 
     const listTripReports = userTripReports.results.map(tripReport => 
       <Text key={tripReport.id}>{tripReport.title}</Text>
     )
 
-    return (
-      <ScrollView>
-        <View style={styles.container}>
-          <Switch 
-            style={styles.switch}
-            value={switchValue}
-            onValueChange={(value) => this.handleValueChange(value)}
-          />
-          <View style={styles.wrapper}>
-            <View style={styles.flagContainer}>
-            </View>
-            <View style={styles.biography}>
-              <Text style={styles.usernameText}>
-                {user.username}
-              </Text>
-              <TouchableOpacity
-                style={styles.editProfileButton}
-                onPress={() => navigation.navigate('EditProfile')}
-              >
-                <Text style={styles.buttonText}>Edit Profile</Text>
-              </TouchableOpacity>
-              <Text style={styles.biographyText}>
-                {user.biography}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.line}></View>
-          <View style={styles.map}>
-            <Map {...this.props} />
-          </View>
-          <View style={styles.line}></View>
-          <View>
-            {listTripReports}
-          </View>
+    // While fetchingUser is true, render a loader to prevent any errors.
+    if (fetchingUser) {
+      return (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#2196f3" />
         </View>
-      </ScrollView>
-    );
+      )
+    } else {
+      return (
+        <ScrollView>
+          <View style={styles.container}>
+            <Switch 
+              style={styles.switch}
+              value={switchValue}
+              onValueChange={(value) => this.handleValueChange(value)}
+            />
+            <View style={styles.wrapper}>
+              <View style={styles.flagContainer}>
+              </View>
+              <View style={styles.biography}>
+                <Text style={styles.usernameText}>
+                  {user.username}
+                </Text>
+                <TouchableOpacity
+                  style={styles.editProfileButton}
+                  onPress={() => navigation.navigate('EditProfile')}
+                >
+                  <Text style={styles.buttonText}>Edit Profile</Text>
+                </TouchableOpacity>
+                <Text style={styles.biographyText}>
+                  {user.biography}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.line}></View>
+            <View style={styles.map}>
+              <Map {...this.props} />
+            </View>
+            <View style={styles.line}></View>
+            <View>
+              {listTripReports}
+            </View>
+          </View>
+        </ScrollView>
+      );
+    }
   }
 }
 
@@ -74,7 +83,8 @@ export class ProfileScreen extends Component {
 const mapState = state => {
   return {
     user: state.user.user,
-    userTripReports: state.tripReport.userTripReports
+    userTripReports: state.tripReport.userTripReports,
+    fetchingUser: state.user.fetchingUser,
   }
 }
 
@@ -90,11 +100,16 @@ ProfileScreen.propTypes = {
   authLogout: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   userTripReports: PropTypes.object.isRequired,
+  fetchingUser: PropTypes.bool.isRequired,
 };
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center'
+  },
+  loadingContainer: {
+    height: '100%',
+    justifyContent: 'center'
   },
   switch: {
     alignSelf: 'flex-end'
