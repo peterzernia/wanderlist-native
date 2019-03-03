@@ -30,39 +30,40 @@ export default class RegistrationForm extends Component {
     ))
     pickerItems.splice(0, 0, <Picker.Item key={0} value={0} label="Select Your Home Country" />)
 
-    var { authenticating } = this.props;
+    const { authenticating, handlePress, navigation } = this.props;
+    const { username, email, password1, password2, home } = this.state;
 
     return (
       <View style={styles.container}>
         <TextInput 
           style={styles.textInput}
           placeholder="Username"
-          value={this.state.username}
+          value={username}
           onChangeText={(value) => this.setState({username: value})}
         />
         <TextInput 
           style={styles.textInput}
           placeholder="Email"
-          value={this.state.email}
+          value={email}
           onChangeText={(value) => this.setState({email: value})}
         />
         <TextInput 
           style={styles.textInput}
           placeholder="Password"
           secureTextEntry={true}
-          value={this.state.password1}
+          value={password1}
           onChangeText={(value) => this.setState({password1: value})}
         />
         <TextInput 
           style={styles.textInput}
           placeholder="Confirm Password"
           secureTextEntry={true}
-          value={this.state.password2}
+          value={password2}
           onChangeText={(value) => this.setState({password2: value})}
         />
         <Picker
           style={styles.picker}
-          selectedValue={this.state.home}
+          selectedValue={home}
           onValueChange={(value) => this.setState({home: value})}
         >
           {pickerItems}
@@ -70,10 +71,7 @@ export default class RegistrationForm extends Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.registerButton}
-            onPress={() => this.props.handlePress(
-              this.state.username, this.state.email, 
-              this.state.password1, this.state.password2, this.state.home
-            )}
+            onPress={() => handlePress(username, email, password1, password2, home)}
           >
             {
               authenticating
@@ -83,7 +81,7 @@ export default class RegistrationForm extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.loginButton}
-            onPress={() => this.props.navigation.navigate('Login')}
+            onPress={() => navigation.navigate('Login')}
           >
             <Text style={{ fontSize: 16 }}>Login</Text>
           </TouchableOpacity>

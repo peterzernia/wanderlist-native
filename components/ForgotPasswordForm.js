@@ -17,7 +17,9 @@ export default class ForgotPasswordForm extends Component {
   }
 
   render() {
-    var { authenticating } = this.props;
+    const { authenticating, handlePress, navigation } = this.props;
+    const { email } = this.state;
+
     return (
       <View style={styles.container}>
         <Text style={styles.infoText}>
@@ -26,13 +28,13 @@ export default class ForgotPasswordForm extends Component {
         <TextInput 
           style={styles.textInput}
           placeholder="Email"
-          value={this.state.email}
+          value={email}
           onChangeText={(value) => this.setState({email: value})}
         />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.passwordButton}
-            onPress={() => this.props.handlePress(this.state.email)}
+            onPress={() => handlePress(email)}
           >
             {
               authenticating
@@ -42,7 +44,7 @@ export default class ForgotPasswordForm extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.cancelButton}
-            onPress={() => this.props.navigation.navigate('Login')}
+            onPress={() => navigation.navigate('Login')}
           >
             <Text style={{ fontSize: 16 }}>Cancel</Text>
           </TouchableOpacity>

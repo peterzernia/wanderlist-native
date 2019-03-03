@@ -6,10 +6,11 @@ import {
 
 export default class Results extends Component {
   render() {
+    const { country, user, updatingUser, handleUpdate, pendingCountry } = this.props;
 
     // Map the userCountries into an array of just the countries' names.
-    const userCountries = this.props.user.countries.map(country => country.name);
-    const { country, updatingUser, handleUpdate, pendingCountry } = this.props;
+    const userCountries = user.countries.map(country => country.name);
+
 
     return (
       <View style={styles.card}>

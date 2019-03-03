@@ -33,29 +33,30 @@ export default class EditProfileForm extends Component {
       <Picker.Item key={country.pk} value={country.pk} label={country.name} />
     ))
 
-    var { updatingUser } = this.props;
+    const { updatingUser, handlePress, navigation } = this.props;
+    const { username, email, biography, home } = this.state;
 
     return (
       <View style={styles.container}>
         <TextInput 
           style={styles.textInput}
-          value={this.state.username}
+          value={username}
           onChangeText={(value) => this.setState({username: value})}
         />
         <TextInput 
           style={styles.textInput}
-          value={this.state.email}
+          value={email}
           onChangeText={(value) => this.setState({email: value})}
         />
         <TextInput 
           style={styles.textInput}
           placeholder='Biography'
-          value={this.state.biography}
+          value={biography}
           onChangeText={(value) => this.setState({biography: value})}
         />
         <Picker
           style={styles.picker}
-          selectedValue={this.state.home}
+          selectedValue={home}
           onValueChange={(value) => this.setState({home: value})}
         >
           {pickerItems}
@@ -63,9 +64,7 @@ export default class EditProfileForm extends Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.updateButton}
-            onPress={() => this.props.handlePress(
-              this.state.username, this.state.email, this.state.home, this.state.biography
-            )}
+            onPress={() => handlePress(username, email, home, biography)}
           >
             {
               updatingUser
@@ -75,7 +74,7 @@ export default class EditProfileForm extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.cancelButton}
-            onPress={() => this.props.navigation.navigate('Profile')}
+            onPress={() => navigation.navigate('Profile')}
           >
             <Text style={{ fontSize: 16 }}>Cancel</Text>
           </TouchableOpacity>

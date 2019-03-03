@@ -16,8 +16,11 @@ export default class Map extends Component {
   }
   
   render() {
+    const { user } = this.props;
+    const { region } = this.state;
+
       // Adds Markers to the map at the coordinates of all of the countries on the users list.
-      const listMarkers = this.props.user.countries.map(country =>(
+      const listMarkers = user.countries.map(country =>(
         <Marker
           key={country.id}
           coordinate={{latitude: country.latlng[0], longitude: country.latlng[1]}}
@@ -28,7 +31,7 @@ export default class Map extends Component {
     return (
       <MapView
         style={styles.map}
-        region={this.state.region}
+        region={region}
         onRegionChangeComplete={(region) => this.setState({ region })}
         mapType={Platform.OS == "android" ? "none" : "standard"}
         rotateEnabled={false}

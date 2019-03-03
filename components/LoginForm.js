@@ -18,26 +18,27 @@ export default class LoginForm extends Component {
   }
 
   render() {
-    var { authenticating } = this.props;
+    const { authenticating, handlePress, navigation } = this.props;
+    const { username, password } = this.state;
     return (
       <View style={styles.container}>
         <TextInput 
           style={styles.textInput}
           placeholder="Username"
-          value={this.state.username}
+          value={username}
           onChangeText={(value) => this.setState({username: value})}
         />
         <TextInput 
           style={styles.textInput}
           placeholder="Password"
           secureTextEntry={true}
-          value={this.state.password}
+          value={password}
           onChangeText={(value) => this.setState({password: value})}
         />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.loginButton}
-            onPress={() => this.props.handlePress(this.state.username, this.state.password)}
+            onPress={() => handlePress(username, password)}
           >
           {
             authenticating
@@ -47,14 +48,14 @@ export default class LoginForm extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.registerButton}
-            onPress={() => this.props.navigation.navigate('Register')}
+            onPress={() => navigation.navigate('Register')}
           >
             <Text style={{ fontSize: 16 }}>Register</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
             style={styles.passwordButton}
-            onPress={() => this.props.navigation.navigate('ForgotPassword')}
+            onPress={() => navigation.navigate('ForgotPassword')}
           >
             <Text style={{ fontSize: 16 }}>Forgot Password?</Text>
           </TouchableOpacity>
