@@ -24,16 +24,19 @@ export default class TripReport extends PureComponent {
           {listCountries}
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity 
-            style={styles.favoriteButton}
-            onPress={() => handlePress(tripReport.id)}
-          >
-          {
-            tripReport.favoriters.includes(user.pk)
-            ? <Icon name='favorite' size={25} />
-            : <Icon name='favorite-border' size={25} />
-          }
-          </TouchableOpacity>
+          <View style={styles.favoriteButtonContainer}>
+            <Text style={styles.favoriteCount}>{tripReport.favoriters.length}</Text>
+            <TouchableOpacity 
+              style={styles.favoriteButton}
+              onPress={() => handlePress(tripReport.id)}
+            >
+            {
+              tripReport.favoriters.includes(user.pk)
+              ? <Icon name='favorite' size={25} />
+              : <Icon name='favorite-border' size={25} />
+            }
+            </TouchableOpacity>
+          </View>
           <TouchableOpacity style={styles.shareButton}>
             <Icon name='share' size={25} />
           </TouchableOpacity>
@@ -74,6 +77,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 5,
+  },
+  favoriteButtonContainer: {
+    flexDirection: 'row',
+  },
+  favoriteCount: {
+    fontSize: 18,
+    marginRight: 2
   },
   favoriteButton: {
   },
