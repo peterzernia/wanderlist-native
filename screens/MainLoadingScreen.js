@@ -19,12 +19,14 @@ export class MainLoadingScreen extends Component {
 
   _bootstrapAsync = async () => {
     // Initial load for App data.
+    const { fetchUser, fetchTripReports, fetchUserTripReports, navigation } = this.props;
     const token = await AsyncStorage.getItem('token');
     const username = await AsyncStorage.getItem('username');
-    await this.props.fetchUser(token);
-    await this.props.fetchTripReports(`${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk`);
-    await this.props.fetchUserTripReports(username);
-    this.props.navigation.navigate('Main');
+    
+    await fetchUser(token);
+    await fetchTripReports(`${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk`);
+    await fetchUserTripReports(username);
+    navigation.navigate('Main');
   };
 
   render() {

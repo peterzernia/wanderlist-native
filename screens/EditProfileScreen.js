@@ -11,6 +11,7 @@ export class EditProfileScreen extends Component {
   handlePress = async (username, email, home, biography) => {
     const { user, updateUser } = this.props;
     const token = await AsyncStorage.getItem('token');
+    
     // The HTTP request must contain countries as a list of ids, not country objects.
     const countries = user.countries.map(country => country.id);
     const success = 'Your profile has been updated.';

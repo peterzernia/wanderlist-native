@@ -23,16 +23,19 @@ export class ProfileScreen extends Component {
 
   render() {
 
-    const listTripReports = this.props.userTripReports.results.map(tripReport => 
+    const {switchValue} = this.state;
+    const { user, userTripReports, navigation } = this.props;
+
+    const listTripReports = userTripReports.results.map(tripReport => 
       <Text key={tripReport.id}>{tripReport.title}</Text>
     )
-    
+
     return (
       <ScrollView>
         <View style={styles.container}>
           <Switch 
             style={styles.switch}
-            value={this.state.switchValue}
+            value={switchValue}
             onValueChange={(value) => this.handleValueChange(value)}
           />
           <View style={styles.wrapper}>
@@ -40,16 +43,16 @@ export class ProfileScreen extends Component {
             </View>
             <View style={styles.biography}>
               <Text style={styles.usernameText}>
-                {this.props.user.username}
+                {user.username}
               </Text>
               <TouchableOpacity
                 style={styles.editProfileButton}
-                onPress={() => this.props.navigation.navigate('EditProfile')}
+                onPress={() => navigation.navigate('EditProfile')}
               >
                 <Text style={styles.buttonText}>Edit Profile</Text>
               </TouchableOpacity>
               <Text style={styles.biographyText}>
-                {this.props.user.biography}
+                {user.biography}
               </Text>
             </View>
           </View>

@@ -16,7 +16,7 @@ export class SearchScreen extends Component {
   constructor() {
     super();
     this.state = {
-      country: { name: null }
+      pendingCountry: { name: null }
     }
   }
 
@@ -29,7 +29,7 @@ export class SearchScreen extends Component {
     const token = await AsyncStorage.getItem('token');
     let newCountries;
     let success;
-    this.setState({country})
+    this.setState({pendingCountry: country})
 
     if (user.countries.length === 0) {
       newCountries = [country.id];
@@ -51,15 +51,17 @@ export class SearchScreen extends Component {
   }
 
   render() {
-    const { fetchingCountries } = this.props;
+    const { pendingCountry } = this.state;
+    const { searchedCountries } = this.props;
+    
     // Map the search countries array into individual Results components.
-    const listResults = this.props.searchedCountries.map(country =>(
+    const listResults = searchedCountries.map(country =>(
       <Results 
         key={country.id} 
         {...this.props} 
         country={country} 
         handleUpdate={this.handleUpdate}
-        pendingCountry={this.state.country}
+        pendingCountry={pendingCountry}
       />
     ));
 

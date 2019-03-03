@@ -22,14 +22,16 @@ export class FeedScreen extends Component {
   }
 
   renderHeader = () => {
+    const { fetchTripReports } = this.props;
+    const { sortURL } = this.state;
     return (
       <View style={styles.sort}>
         <Picker
           style={styles.picker}
-          selectedValue={this.state.sortURL}
+          selectedValue={sortURL}
           onValueChange={(value) => {
             this.setState({sortURL: value}); 
-            this.props.fetchTripReports(`${REACT_APP_API_URL}${value}`);
+            fetchTripReports(`${REACT_APP_API_URL}${value}`);
         }}>
           <Picker.Item key={0} value='/api/v1/reports/?ordering=-pk' label='New Posts' />
           <Picker.Item key={1} value='/api/v1/reports/' label='Best Posts' />
@@ -39,7 +41,9 @@ export class FeedScreen extends Component {
   };
 
   renderFooter = () => {
-    if (this.props.fetchingNextTripReports && this.props.tripReports.next) {
+    const { fetchingNextTripReports, tripReports } = this.props;
+
+    if (fetchingNextTripReports && tripReports.next) {
       return (
         <View style={{marginBottom: 10}}>
           <ActivityIndicator size="large" color="#2196f3"/>
@@ -56,15 +60,18 @@ export class FeedScreen extends Component {
     returned a new URL. This fix saves the URL that was called into state, and then checks to see 
     if it has already been called.
     */
-    if (this.props.tripReports.next && this.state.url !== this.props.tripReports.next) {
-      this.props.fetchNextTripReports(this.props.tripReports.next);
-      this.setState({url: this.props.tripReports.next});
+   const { url } = this.state;
+   const { tripReports, fetchNextTripReports } = this.props;
+
+    if (tripReports.next && url !== tripReports.next) {
+      fetchNextTripReports(tripReports.next);
+      this.setState({url: tripReports.next});
     }
   }
 
   render() {
-    // Destructure props.
     var { tripReports, fetchTripReports, fetchingTripReports } = this.props;
+    const { sortURL } = this.state;
 
     return (
       <View style={styles.container}>
@@ -81,7 +88,7 @@ export class FeedScreen extends Component {
           ListHeaderComponent={() => this.renderHeader()}
           ListFooterComponent={() => this.renderFooter()}
           refreshing={fetchingTripReports}
-          onRefresh={() => fetchTripReports(`${REACT_APP_API_URL}${this.state.sortURL}`)}
+          onRefresh={() => fetchTripReports(`${REACT_APP_API_URL}${sortURL}`)}
           onEndReached={() => this.handleLoadMore()}
         />
       </View>

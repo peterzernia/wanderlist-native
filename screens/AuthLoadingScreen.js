@@ -3,7 +3,6 @@ import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { REACT_APP_API_URL } from 'react-native-dotenv'
 
 import { authCheckState } from '../actions/authActions';
 
@@ -17,9 +16,10 @@ export class AuthLoadingScreen extends Component {
   }
 
   _bootstrapAsync = async () => {
+    const { authCheckState, navigation} = this.props;
     const token = await AsyncStorage.getItem('token');
-    this.props.authCheckState(token);
-    this.props.navigation.navigate(token === null ? 'Login' : 'MainLoading');
+    authCheckState(token);
+    navigation.navigate(token === null ? 'Login' : 'MainLoading');
   };
 
   render() {
