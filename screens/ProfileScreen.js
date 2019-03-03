@@ -220,6 +220,7 @@ const styles = StyleSheet.create({
     height: 400,
     width: '95%',
     borderWidth: .5,
+    overflow: 'hidden',
   },
   buttonContainer: {
     width: '95%',
