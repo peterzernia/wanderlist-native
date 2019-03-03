@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, ScrollView, Switch, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Linking, Switch, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -55,7 +55,13 @@ export class ProfileScreen extends Component {
         <View style={styles.line}></View>
         <View style={styles.map}>
           <Map {...this.props} />
-          <Text style={styles.oSMLogo}>©OpenStreetMap</Text>
+          {/* Open link to OSM copyright page when the text is clicked. */}
+          <TouchableOpacity 
+            style={styles.oSMLogo}
+            onPress={() => Linking.openURL('https://www.openstreetmap.org/copyright')}
+          >
+            <Text style={{fontSize: 10, color: 'blue'}}> ©OpenStreetMap </Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.line}></View>
         {/* Display info message if the user has not written any Trip Reports */}
@@ -227,7 +233,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     right: 0,
-    fontSize: 10,
+    backgroundColor: 'rgba(255, 255, 255, .75)',
+
   },
   buttonContainer: {
     width: '95%',
