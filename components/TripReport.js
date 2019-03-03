@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class TripReport extends PureComponent {
   render() {
-    var { tripReport, user, handlePress } = this.props;
+    const { tripReport, user, handlePress, onShare} = this.props;
 
     const listCountries = tripReport.countries.map(country => {
       <Text>{country.name}</Text>
@@ -25,7 +25,11 @@ export default class TripReport extends PureComponent {
         </View>
         <View style={styles.footer}>
           <View style={styles.favoriteButtonContainer}>
-            <Text style={styles.favoriteCount}>{tripReport.favoriters.length}</Text>
+            {/* If the trip report favorite count is not 0, display the count */}
+            {
+             (!!tripReport.favoriters.length) && 
+             <Text style={styles.favoriteCount}>{tripReport.favoriters.length}</Text>
+            }
             <TouchableOpacity 
               style={styles.favoriteButton}
               onPress={() => handlePress(tripReport.id)}
@@ -37,7 +41,10 @@ export default class TripReport extends PureComponent {
             }
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.shareButton}>
+          <TouchableOpacity 
+            style={styles.shareButton}
+            onPress={() => onShare(tripReport.slug)}
+          >
             <Icon name='share' size={25} />
           </TouchableOpacity>
         </View>
