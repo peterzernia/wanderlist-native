@@ -55,6 +55,7 @@ export class ProfileScreen extends Component {
         <View style={styles.line}></View>
         <View style={styles.map}>
           <Map {...this.props} />
+          <Text style={styles.oSMLogo}>©OpenStreetMap</Text>
         </View>
         <View style={styles.line}></View>
         {/* Display info message if the user has not written any Trip Reports */}
@@ -221,6 +222,12 @@ const styles = StyleSheet.create({
     width: '95%',
     borderWidth: .5,
     overflow: 'hidden',
+  },
+  oSMLogo: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    fontSize: 10,
   },
   buttonContainer: {
     width: '95%',
