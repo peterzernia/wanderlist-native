@@ -60,8 +60,8 @@ export class FeedScreen extends Component {
     returned a new URL. This fix saves the URL that was called into state, and then checks to see 
     if it has already been called.
     */
-   const { url } = this.state;
-   const { tripReports, fetchNextTripReports } = this.props;
+    const { url } = this.state;
+    const { tripReports, fetchNextTripReports } = this.props;
 
     if (tripReports.next && url !== tripReports.next) {
       fetchNextTripReports(tripReports.next);
