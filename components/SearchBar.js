@@ -35,6 +35,7 @@ export default class SearchBar extends Component {
           autoCorrect={false}
           hideResults={hide}
           containerStyle={styles.autocompleteInput}
+          listContainerStyle={{backgroundColor: 'rgba(52, 52, 52, 0)'}}
           inputContainerStyle={styles.textInputContainer}
           style={styles.textInput}
           data={countries.length === 1 && comp(query, countries[0].name) ? [] : countries}
@@ -92,8 +93,8 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   queryText: {
-    fontSize: 16,
-    margin: 3,
+    fontSize: 18,
+    margin: 5,
   },
   searchButton: {
     width: 100,
