@@ -1,12 +1,15 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, Text, StyleSheet, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import TripReportFooter from './TripReportFooter';
+import TripReportHeader from './TripReportHeader';
 
 // TripReportCard is shows a truncated text of the TripReport 
 // on the FeedScreen, rendered in a FlatList.
 export default function TripReportCard(props) {
   const { tripReport, navigation } = props;
+  var { alpha2code } = props.tripReport.author.home;
+  alpha2code = alpha2code.toLowerCase()
 
   return (
     <TouchableOpacity 
@@ -16,10 +19,7 @@ export default function TripReportCard(props) {
       )}
     >
       <View style={styles.card}>
-        <View style={styles.header}>
-          <Text style={styles.title}>{tripReport.title} </Text>
-          <Text style={styles.author}>{tripReport.author.username}</Text>
-        </View>
+        <TripReportHeader {...props} />
         <View style={styles.body}>
           <Text numberOfLines={3}>
             {tripReport.content}
@@ -42,17 +42,6 @@ const styles = StyleSheet.create({
     borderWidth: .1,
     marginBottom: 10,
     padding: 5,
-  },
-  header: {
-  },
-  title: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20
-  },
-  author: {
-    textAlign: 'center',
-    fontSize: 20
   },
   body: {
     alignItems: 'center',

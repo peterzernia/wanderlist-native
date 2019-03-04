@@ -59,9 +59,9 @@ export default class Results extends Component {
           }
           </TouchableOpacity>
         </View>
-        <View style={{width: Dimensions.get('window').width*.95, height: this.state.height}}>
+        <View style={[styles.flagContainer, {height: this.state.height}]}>
           <Image
-            style={{width: Dimensions.get('window').width*.95, height: this.state.height, resizeMode: 'cover'}}
+            style={[styles.flag, {height: this.state.height}]}
             source={{uri: `https://raw.githubusercontent.com/peterzernia/flags/master/${alpha2code}.png`}}
           />
         </View>
@@ -107,4 +107,11 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
   },
+  flagContainer: {
+    width: Dimensions.get('window').width*.95, 
+  },
+  flag: {
+    width: Dimensions.get('window').width*.95,  
+    resizeMode: 'cover'
+  }
 });
