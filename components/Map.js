@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MapView, { UrlTile, Marker } from 'react-native-maps';
 import { Platform, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
 export default class Map extends Component {
   constructor(){
@@ -48,6 +49,10 @@ export default class Map extends Component {
       </MapView> 
     );
   }
+}
+
+Map.propTypes = {
+  user: PropTypes.object.isRequired,
 }
 
 const styles = StyleSheet.create({

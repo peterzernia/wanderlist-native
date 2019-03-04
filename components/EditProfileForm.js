@@ -8,6 +8,7 @@ import {
   View,
   StyleSheet 
 } from 'react-native'
+import PropTypes from 'prop-types';
 import countries from '../countries.json'
 
 export default class EditProfileForm extends Component {
@@ -78,6 +79,11 @@ export default class EditProfileForm extends Component {
   }
 }
 
+EditProfileForm.propTypes = {
+  updatingUser: PropTypes.bool.isRequired,
+  handlePress: PropTypes.func.isRequired,
+}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -117,4 +123,4 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16
   }
-})
+});

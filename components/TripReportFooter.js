@@ -1,6 +1,7 @@
 import React from 'react';
 import { AsyncStorage, StyleSheet, Text, TouchableOpacity, Share, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import PropTypes from 'prop-types';
 
 // Reusable TripReportFooter Component used in TripReportCard and TripReportScreen.
 export default function TripReportFooter(props) {
@@ -70,6 +71,12 @@ export default function TripReportFooter(props) {
   );
 }
 
+TripReportFooter.propTypes = {
+  tripReport: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
+}
+
 const styles = StyleSheet.create({
   line: {
     height: 0,
@@ -106,4 +113,4 @@ const styles = StyleSheet.create({
   },
   shareButton: {
   }
-})
+});

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
+import PropTypes from 'prop-types';
 import TripReportFooter from './TripReportFooter';
 
 // TripReportCard is shows a truncated text of the TripReport 
@@ -30,11 +31,15 @@ export default function TripReportCard(props) {
   )
 }
 
+TripReportCard.propTypes = {
+  tripReport: PropTypes.object.isRequired,
+}
+
 const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
-    // borderRadius: 5, 
-    // borderWidth: .1,
+    borderRadius: 5, 
+    borderWidth: .1,
     marginBottom: 10
   },
   header: {

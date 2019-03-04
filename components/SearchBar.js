@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 import Autocomplete from 'react-native-autocomplete-input';
 import countries from '../countries.json';
 
@@ -25,7 +26,7 @@ export default class SearchBar extends Component {
     const { query, hide } = this.state;
     const countries = this.findCountry(query);
     const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
-    var { fetchingCountries, handleSearch } = this.props;
+    const { fetchingCountries, handleSearch } = this.props;
 
     return (
       <View style={styles.container}>
@@ -63,6 +64,10 @@ export default class SearchBar extends Component {
   }
 }
 
+SearchBar.propType = {
+  fetchingCountries: PropTypes.bool.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+}
 
 const styles = StyleSheet.create({
   container: {

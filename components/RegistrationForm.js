@@ -1,14 +1,7 @@
-import React, { Component } from 'react'
-import { 
-  ActivityIndicator,
-  Picker, 
-  Text, 
-  TextInput, 
-  TouchableOpacity, 
-  View,
-  StyleSheet 
-} from 'react-native'
-import countries from '../countries.json'
+import React, { Component } from 'react';
+import { ActivityIndicator, Picker, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
+import countries from '../countries.json';
 
 export default class RegistrationForm extends Component {
   constructor(){
@@ -91,6 +84,10 @@ export default class RegistrationForm extends Component {
   }
 }
 
+RegistrationForm.propTypes = {
+  authenticating: PropTypes.bool.isRequired,
+  handlePress: PropTypes.func.isRequired,
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -130,4 +127,4 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16
   }
-})
+});

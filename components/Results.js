@@ -1,8 +1,6 @@
 import React from 'react';
-import { 
-  ActivityIndicator, Dimensions, Image, 
-  StyleSheet, Text, TouchableOpacity, View 
-} from 'react-native';
+import { ActivityIndicator, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function Results(props) {
@@ -47,6 +45,14 @@ export default function Results(props) {
   )
 }
 
+Results.propTypes = {
+  country: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  updatingUser: PropTypes.bool.isRequired,
+  handleUpdate: PropTypes.func.isRequired,
+  pendingCountry: PropTypes.object.isRequired,
+}
+
 const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
@@ -81,4 +87,4 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width*.95,
     height: Dimensions.get('window').width*.95*2/3
   }
-}) 
+});

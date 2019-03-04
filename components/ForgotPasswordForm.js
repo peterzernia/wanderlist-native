@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { 
   ActivityIndicator,
   TextInput,
@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Text,
   View
-} from 'react-native'
+} from 'react-native';
+import PropTypes from 'prop-types';
 
 export default class ForgotPasswordForm extends Component {
   constructor(props){
@@ -54,6 +55,11 @@ export default class ForgotPasswordForm extends Component {
   }
 }
 
+ForgotPasswordForm.propTypes = {
+  authenticating: PropTypes.bool.isRequired,
+  handlePress: PropTypes.func.isRequired,
+}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -94,4 +100,4 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16
   }
-})
+});
