@@ -30,6 +30,7 @@ export default function TripReportScreen(props) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
+    padding: 5,
   },
   header: {
   },
