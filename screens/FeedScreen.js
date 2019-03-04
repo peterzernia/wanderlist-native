@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage, ActivityIndicator, FlatList, Picker, Share, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, Picker, StyleSheet, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -21,30 +21,6 @@ export class FeedScreen extends Component {
       sortURL: '/api/v1/reports/?ordering=-pk'
     }
   }
-
-  handlePress = async (id) => {
-    const token = await AsyncStorage.getItem('token');
-    this.props.toggleFavorite(id, token);
-  }
-
-  onShare = async (slug) => {
-    try {
-      const result = await Share.share({
-        message: 
-          `Check out this Trip Report on Wanderlist:\nhttps://w4nderlist.herokuapp.com/p/${slug}/`,
-      })
-
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-      }
-    } catch (error) {
-      alert(error.message);
-    }
-  };
 
   renderHeader = () => {
     const { fetchTripReports } = this.props;
@@ -95,7 +71,7 @@ export class FeedScreen extends Component {
   }
 
   render() {
-    var { tripReports, fetchTripReports, fetchingTripReports, toggleFavorite } = this.props;
+    var { tripReports, fetchTripReports, fetchingTripReports } = this.props;
     const { sortURL } = this.state;
 
     return (

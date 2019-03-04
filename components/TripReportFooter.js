@@ -1,14 +1,38 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, TouchableOpacity, Share, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // Reusable TripReportFooter Component used in TripReportCard and TripReportScreen.
 export default function TripReportFooter(props) {
-  const { tripReport, user, handlePress, onShare} = props;
+  const { tripReport, user, toggleFavorite } = props;
 
   const listCountries = tripReport.countries.map(country => (
     <Text style={styles.country} key={country.id}>{country.name}</Text>
   ));
+
+  onShare = async (slug) => {
+    try {
+      const result = await Share.share({
+        message: 
+          `Check out this Trip Report on Wanderlist:\nhttps://w4nderlist.herokuapp.com/p/${slug}/`,
+      })
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  handlePress = async (id) => {
+    const token = await AsyncStorage.getItem('token');
+    toggleFavorite(id, token);
+  }
   
   return (
     <View style={{alignItems: 'center'}}>
