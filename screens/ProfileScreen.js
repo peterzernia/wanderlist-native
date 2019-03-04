@@ -9,6 +9,10 @@ import { authLogout } from '../actions/authActions';
 import { fetchNextUserTripReports } from '../actions/tripReportActions';
 
 export class ProfileScreen extends Component {
+  static navigationOptions = {
+    title: 'Profile',
+  };
+
   constructor(props){
     super(props);
     this.state = {

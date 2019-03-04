@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { Text, StyleSheet, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default class TripReport extends PureComponent {
+export default class TripReportCard extends PureComponent {
   render() {
     const { tripReport, user, handlePress, onShare} = this.props;
 
@@ -25,7 +25,7 @@ export default class TripReport extends PureComponent {
         </View>
         <View style={styles.footer}>
           <View style={styles.favoriteButtonContainer}>
-            {/* If the trip report favorite count is not 0, display the count */}
+            {/* If the trip report favorite count is not 0, display the count. */}
             {
              (!!tripReport.favoriters.length) && 
              <Text style={styles.favoriteCount}>{tripReport.favoriters.length}</Text>

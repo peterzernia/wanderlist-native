@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { REACT_APP_API_URL } from 'react-native-dotenv';
 
-import TripReport from '../components/TripReport';
+import TripReportCard from '../components/TripReportCard';
 import { fetchTripReports, fetchNextTripReports } from '../actions/tripReportActions';
 import { toggleFavorite } from '../actions/favoriteActions';
 
@@ -103,7 +103,7 @@ export class FeedScreen extends Component {
         <FlatList
           data={tripReports.results}
           renderItem={({ item }) => (
-            <TripReport
+            <TripReportCard
               tripReport={item}
               {...this.props}
               handlePress={this.handlePress}
