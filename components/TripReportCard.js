@@ -5,7 +5,7 @@ import TripReportFooter from './TripReportFooter';
 // TripReportCard is shows a truncated text of the TripReport 
 // on the FeedScreen, rendered in a FlatList.
 export default function TripReportCard(props) {
-  const { tripReport, navigation, user, handlePress, onShare } = props;
+  const { tripReport, navigation } = props;
 
   const listCountries = tripReport.countries.map(country => {
     <Text>{country.name}</Text>
@@ -16,7 +16,7 @@ export default function TripReportCard(props) {
       style={styles.card}
       // Pass props into navigation to TripReportScreen.
       onPress={() => navigation.navigate(
-        'TripReport', {tripReport, user, handlePress, onShare}
+        'TripReport', {...props}
       )}
     >
       <View style={styles.header}>
