@@ -7,31 +7,25 @@ import TripReportFooter from './TripReportFooter';
 export default function TripReportCard(props) {
   const { tripReport, navigation } = props;
 
-  const listCountries = tripReport.countries.map(country => {
-    <Text>{country.name}</Text>
-  });
-
   return (
     <TouchableOpacity 
-      style={styles.card}
       // Pass props into navigation to TripReportScreen.
       onPress={() => navigation.navigate(
         'TripReport', {...props}
       )}
     >
-      <View style={styles.header}>
-        <Text style={styles.title}>{tripReport.title} </Text>
-        <Text style={styles.author}>{tripReport.author.username}</Text>
+      <View style={styles.card}>
+        <View style={styles.header}>
+          <Text style={styles.title}>{tripReport.title} </Text>
+          <Text style={styles.author}>{tripReport.author.username}</Text>
+        </View>
+        <View style={styles.body}>
+          <Text numberOfLines={3}>
+            {tripReport.content}
+          </Text>
+        </View>
+        <TripReportFooter {...props} />
       </View>
-      <View style={styles.body}>
-        <Text numberOfLines={3}>
-          {tripReport.content}
-        </Text>
-      </View>
-      <View style={styles.countriesSection}>
-        {listCountries}
-      </View>
-      <TripReportFooter {...props} />
     </TouchableOpacity>
   )
 }
@@ -39,9 +33,8 @@ export default function TripReportCard(props) {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
-    borderRadius: 5, 
-    borderWidth: .1,
-    alignItems: 'center',
+    // borderRadius: 5, 
+    // borderWidth: .1,
     marginBottom: 10
   },
   header: {
@@ -56,9 +49,8 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   body: {
+    alignItems: 'center',
     justifyContent: 'space-around',
     padding: 10,
-  },
-  countriesSection: {
   },
 });

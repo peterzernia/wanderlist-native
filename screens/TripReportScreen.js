@@ -5,12 +5,9 @@ import TripReportFooter from '../components/TripReportFooter';
 
 // TripReportScreen displays the full text of the Trip Reports.
 export default function TripReportScreen(props) {
+  
   // Pull tripReport prop out of navigation parameters.
   const { tripReport } = props.navigation.state.params;
-  
-  const listCountries = tripReport.countries.map(country => {
-    <Text>{country.name}</Text>
-  });
 
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
@@ -23,9 +20,6 @@ export default function TripReportScreen(props) {
           <Text>
             {tripReport.content}
           </Text>
-        </View>
-        <View style={styles.countriesSection}>
-          {listCountries}
         </View>
         <TripReportFooter {...props.navigation.state.params} />
       </View>
@@ -49,9 +43,8 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   body: {
+    alignItems: 'center',
     justifyContent: 'space-around',
     padding: 10,
-  },
-  countriesSection: {
   },
 })
