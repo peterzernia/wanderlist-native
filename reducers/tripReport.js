@@ -141,6 +141,17 @@ export default function (state = initialState, action) {
         }
       }
     }
+    case "UPDATE_USER_FULFILLED": {
+      return {
+        ...state,
+        tripReports: {
+          results: [...state.tripReports.results].map( tripReport => tripReport.author.pk === action.user.pk ? { ...tripReport, author: action.user} : {...tripReport}),
+          count: state.tripReports.count,
+          next: state.tripReports.next,
+          previous: state.tripReports.previous
+        }
+      }
+    }
     // Return initialState on logout.
     case "AUTH_LOGOUT": {
       return {
