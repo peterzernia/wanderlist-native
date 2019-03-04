@@ -7,13 +7,13 @@ import TripReportFooter from '../components/TripReportFooter';
 export default function TripReportScreen(props) {
   // Pull tripReport prop out of navigation parameters.
   const { tripReport } = props.navigation.state.params;
-
+  
   const listCountries = tripReport.countries.map(country => {
     <Text>{country.name}</Text>
   });
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: 'white'}}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>{tripReport.title} </Text>
@@ -36,7 +36,6 @@ export default function TripReportScreen(props) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    height: '100%',
   },
   header: {
   },
