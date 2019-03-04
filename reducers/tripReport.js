@@ -138,6 +138,12 @@ export default function (state = initialState, action) {
           count: state.tripReports.count,
           next: state.tripReports.next,
           previous: state.tripReports.previous
+        },
+        userTripReports: {
+          results: [...state.userTripReports.results].map( tripReport => tripReport.id === action.response.id ? { ...tripReport, favoriters: action.response.favoriters} : {...tripReport}),
+          count: state.userTripReports.count,
+          next: state.userTripReports.next,
+          previous: state.userTripReports.previous
         }
       }
     }
@@ -149,6 +155,12 @@ export default function (state = initialState, action) {
           count: state.tripReports.count,
           next: state.tripReports.next,
           previous: state.tripReports.previous
+        },
+        userTripReports: {
+          results: [...state.userTripReports.results].map( tripReport => tripReport.author.pk === action.user.pk ? { ...tripReport, author: action.user} : {...tripReport}),
+          count: state.userTripReports.count,
+          next: state.userTripReports.next,
+          previous: state.userTripReports.previous
         }
       }
     }
