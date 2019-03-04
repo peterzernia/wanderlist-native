@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-// Reusable TripReportFooter Component
+// Reusable TripReportFooter Component used in TripReportCard and TripReportScreen.
 export default function TripReportFooter(props) {
   const { tripReport, user, handlePress, onShare} = props;
   
@@ -18,7 +18,7 @@ export default function TripReportFooter(props) {
           style={styles.favoriteButton}
           onPress={() => handlePress(tripReport.id)}
         >
-        {/* Display border icon if Trip Report is not like. */}
+        {/* Display border icon if Trip Report is not favorited. */}
         {
           tripReport.favoriters.includes(user.pk)
           ? <Icon name='favorite' size={25} />

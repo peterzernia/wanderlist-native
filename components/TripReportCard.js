@@ -2,18 +2,22 @@ import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
 import TripReportFooter from './TripReportFooter';
 
-// TripReportCard is shown on FeedScreen in a FlatList.
+// TripReportCard is shows a truncated text of the TripReport 
+// on the FeedScreen, rendered in a FlatList.
 export default function TripReportCard(props) {
-  const { tripReport, navigation } = props;
+  const { tripReport, navigation, user, handlePress, onShare } = props;
 
   const listCountries = tripReport.countries.map(country => {
     <Text>{country.name}</Text>
   });
+
   return (
     <TouchableOpacity 
       style={styles.card}
-      // Pass tripReport prop into navigation to Trip Report Screen.
-      onPress={() => navigation.navigate('TripReport', {tripReport: tripReport})}
+      // Pass props into navigation to TripReportScreen.
+      onPress={() => navigation.navigate(
+        'TripReport', {tripReport, user, handlePress, onShare}
+      )}
     >
       <View style={styles.header}>
         <Text style={styles.title}>{tripReport.title} </Text>

@@ -21,12 +21,6 @@ export default class EditProfileForm extends Component {
     };
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.props.updatedUser) {
-  //     this.props.navigation.navigate('Profile');
-  //   }
-  // }
-
   render() {
     // Create the Picker items from a list of the countries' names and value.
     const pickerItems = [...countries].sort((a, b) => a.name > b.name).map(country => (
