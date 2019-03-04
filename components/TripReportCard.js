@@ -4,13 +4,17 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class TripReportCard extends PureComponent {
   render() {
-    const { tripReport, user, handlePress, onShare} = this.props;
+    const { tripReport, user, navigation, handlePress, onShare} = this.props;
 
     const listCountries = tripReport.countries.map(country => {
       <Text>{country.name}</Text>
     });
     return (
-      <View style={styles.card}>
+      <TouchableOpacity 
+        style={styles.card}
+        // Pass tripReport prop into navigation to Trip Report Screen.
+        onPress={() => navigation.navigate('TripReport', {tripReport: tripReport})}
+      >
         <View style={styles.header}>
           <Text style={styles.title}>{tripReport.title} </Text>
           <Text style={styles.author}>{tripReport.author.username}</Text>
@@ -48,7 +52,7 @@ export default class TripReportCard extends PureComponent {
             <Icon name='share' size={25} />
           </TouchableOpacity>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 }

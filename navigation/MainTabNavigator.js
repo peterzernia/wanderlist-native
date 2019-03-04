@@ -2,13 +2,17 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
-import TabBarIcon from '../components/TabBarIcon';
+import EditProfileScreen from '../screens/EditProfileScreen';
 import FeedScreen from '../screens/FeedScreen';
-import SearchScreen from '../screens/SearchScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import SearchScreen from '../screens/SearchScreen';
+import TabBarIcon from '../components/TabBarIcon';
+import TripReportScreen from '../screens/TripReportScreen';
+
 
 const FeedStack = createStackNavigator({
-  Links: FeedScreen,
+  Feed: FeedScreen,
+  TripReport: TripReportScreen
 }); 
 
 FeedStack.navigationOptions = {
@@ -22,7 +26,7 @@ FeedStack.navigationOptions = {
 };
 
 const SearchStack = createStackNavigator({
-  Settings: SearchScreen,
+  Search: SearchScreen,
 });
 
 SearchStack.navigationOptions = {
@@ -37,6 +41,7 @@ SearchStack.navigationOptions = {
 
 const ProfileStack = createStackNavigator({
   Profile: ProfileScreen,
+  EditProfile: EditProfileScreen
 });
 
 ProfileStack.navigationOptions = {
