@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, Linking, Switch, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Image, Linking, Switch, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -31,6 +31,8 @@ export class ProfileScreen extends Component {
   renderHeader = () => {
     const {switchValue} = this.state;
     const { user, navigation, userTripReports, fetchingUserTripReports } = this.props;
+    var { alpha2code } = this.props.user.home;
+    alpha2code = alpha2code.toLowerCase()
 
     return (
       <View style={styles.headerContainer}>
@@ -41,6 +43,10 @@ export class ProfileScreen extends Component {
         />
         <View style={styles.wrapper}>
           <View style={styles.flagContainer}>
+            <Image
+              style={styles.flag}
+              source={{uri: `https://raw.githubusercontent.com/peterzernia/flags/master/${alpha2code}.png`}}
+            />
           </View>
           <View style={styles.biography}>
             <Text style={styles.usernameText}>
@@ -202,6 +208,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginLeft: 10,
     marginRight: 20,
+    overflow: 'hidden',
+  },
+  flag: {
+    resizeMode: 'cover', 
+    height: 150,
+    width: 'auto'
   },
   biography: {
     flex: 1,
@@ -247,7 +259,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     backgroundColor: 'rgba(255, 255, 255, .75)',
-
   },
   buttonContainer: {
     width: '95%',
