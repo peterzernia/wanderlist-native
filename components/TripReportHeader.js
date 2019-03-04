@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 export default function TripReportHeader(props) {
@@ -9,13 +9,16 @@ export default function TripReportHeader(props) {
 
   return (
     <View style={styles.header}>
-      <TouchableOpacity style={styles.flagContainer}>
+      <TouchableOpacity 
+        style={styles.flagContainer}
+        onPress={() => Alert.alert('', tripReport.author.home.name)}
+      >
         <Image
           style={styles.flag}
           source={{uri: `https://raw.githubusercontent.com/peterzernia/flags/master/${alpha2code}.png`}}
         />
       </TouchableOpacity>
-      <View>
+      <View style={styles.textContainer}>
         <Text style={styles.title}>{tripReport.title} </Text>
         <Text style={styles.author}>{tripReport.author.username}</Text>
       </View>
@@ -39,7 +42,8 @@ const styles = StyleSheet.create({
     borderRadius: 50/2,
     borderWidth: .5,
     borderColor: 'black',
-    marginLeft: 10,
+    marginRight: 5,
+    marginLeft: 5,
     overflow: 'hidden',
   },
   flag: {
@@ -51,15 +55,19 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50/2,
-    marginRight: 10,
+    marginRight: 5,
+    marginLeft: 5,
+  },
+  textContainer: {
+    maxWidth: '50%',
   },
   title: {
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 18
   },
   author: {
     textAlign: 'center',
-    fontSize: 20
+    fontSize: 18
   },
 })
