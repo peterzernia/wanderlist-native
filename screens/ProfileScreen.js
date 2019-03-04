@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, Linking, Switch, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, AsyncStorage, FlatList, Linking, Share, Switch, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import Map from '../components/Map';
 import { authLogout } from '../actions/authActions';
 import { fetchNextUserTripReports } from '../actions/tripReportActions';
+import { toggleFavorite } from '../actions/favoriteActions';
 
 export class ProfileScreen extends Component {
   static navigationOptions = {
@@ -20,6 +21,30 @@ export class ProfileScreen extends Component {
       url: '',
     }
   }
+
+  handlePress = async (id) => {
+    const token = await AsyncStorage.getItem('token');
+    this.props.toggleFavorite(id, token);
+  }
+
+  onShare = async (slug) => {
+    try {
+      const result = await Share.share({
+        message: 
+          `Check out this Trip Report on Wanderlist:\nhttps://w4nderlist.herokuapp.com/p/${slug}/`,
+      })
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   handleValueChange = (value) => {
     this.setState({switchValue: value});
@@ -112,7 +137,7 @@ export class ProfileScreen extends Component {
 
 
   render() {
-    const { fetchingUser, userTripReports } = this.props;
+    const { fetchingUser, userTripReports, navigation, user } = this.props;
 
     // While fetchingUser is true, render a loader to prevent any errors.
     if (fetchingUser) {
@@ -127,7 +152,13 @@ export class ProfileScreen extends Component {
           <FlatList
             data={userTripReports.results}
             renderItem={({ item }) => (
-              <TouchableOpacity style={styles.buttonContainer}>
+              <TouchableOpacity 
+                style={styles.buttonContainer}
+                onPress={() => navigation.navigate(
+                  'TripReport', 
+                  {tripReport: item, user: user, handlePress: this.handlePress, onShare: this.onShare}
+                )}
+              >
                 <Text style={styles.tripReportText}>{item.title}</Text>
               </TouchableOpacity>
             )}
@@ -157,6 +188,7 @@ const mapDispatch = dispatch => {
   return bindActionCreators({
     authLogout,
     fetchNextUserTripReports,
+    toggleFavorite,
   }, dispatch)
 }
 
@@ -170,6 +202,7 @@ ProfileScreen.propTypes = {
   fetchingUserTripReports: PropTypes.bool.isRequired,
   fetchingNextUserTripReports: PropTypes.bool.isRequired,
   fetchNextUserTripReports: PropTypes.func.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

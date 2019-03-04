@@ -41,7 +41,8 @@ SearchStack.navigationOptions = {
 
 const ProfileStack = createStackNavigator({
   Profile: ProfileScreen,
-  EditProfile: EditProfileScreen
+  EditProfile: EditProfileScreen,
+  TripReport: TripReportScreen
 });
 
 ProfileStack.navigationOptions = {
