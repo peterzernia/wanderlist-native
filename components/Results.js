@@ -1,52 +1,50 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { 
   ActivityIndicator, Dimensions, Image, 
   StyleSheet, Text, TouchableOpacity, View 
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default class Results extends Component {
-  render() {
-    const { country, user, updatingUser, handleUpdate, pendingCountry } = this.props;
+export default function Results(props) {
+  const { country, user, updatingUser, handleUpdate, pendingCountry } = props;
 
-    // Map the userCountries into an array of just the countries' names.
-    const userCountries = user.countries.map(country => country.name);
+  // Map the userCountries into an array of just the countries' names.
+  const userCountries = user.countries.map(country => country.name);
 
 
-    return (
-      <View style={styles.card}>
-        <View style={styles.header}>
-          {/* This empty View is for offsetting the button on the opposite side of the header text */}
-          <View style={styles.buttonContainer}></View>
-          <Text style={styles.headerText}>
-            {country.name}
-          </Text>
-          <TouchableOpacity 
-            style={styles.buttonContainer}
-            onPress={() => handleUpdate(country)}
-          >
-          {
-            // Render Remove button when country is included in users list, but is not the pending country.
-            (userCountries.includes(country.name) && (!updatingUser || (updatingUser && pendingCountry.name !== country.name)))
-            && <Icon name='remove-circle' size={25} />
-          }
-          {
-            // Render Add button when country is not included in users list, but is not the pending country.
-            (!userCountries.includes(country.name) && (!updatingUser || (updatingUser && pendingCountry.name !== country.name)))
-            && <Icon name='add-circle' size={25} />
-          }
-          {
-            // If the updatingUser, and the pendingCountry matches the country shown, render loader
-            (updatingUser && pendingCountry.name === country.name)
-            && <ActivityIndicator size="small" color="black" />
-          }
-          </TouchableOpacity>
-        </View>
-        <View style={styles.imageContainer}>
-        </View>
+  return (
+    <View style={styles.card}>
+      <View style={styles.header}>
+        {/* This empty View is for offsetting the button on the opposite side of the header text */}
+        <View style={styles.buttonContainer}></View>
+        <Text style={styles.headerText}>
+          {country.name}
+        </Text>
+        <TouchableOpacity 
+          style={styles.buttonContainer}
+          onPress={() => handleUpdate(country)}
+        >
+        {
+          // Render Remove button when country is included in users list, but is not the pending country.
+          (userCountries.includes(country.name) && (!updatingUser || (updatingUser && pendingCountry.name !== country.name)))
+          && <Icon name='remove-circle' size={25} />
+        }
+        {
+          // Render Add button when country is not included in users list, but is not the pending country.
+          (!userCountries.includes(country.name) && (!updatingUser || (updatingUser && pendingCountry.name !== country.name)))
+          && <Icon name='add-circle' size={25} />
+        }
+        {
+          // If the updatingUser, and the pendingCountry matches the country shown, render loader
+          (updatingUser && pendingCountry.name === country.name)
+          && <ActivityIndicator size="small" color="black" />
+        }
+        </TouchableOpacity>
       </View>
-    )
-  }
+      <View style={styles.imageContainer}>
+      </View>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
