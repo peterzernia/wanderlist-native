@@ -59,19 +59,16 @@ export default class EditProfileForm extends Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.updateButton}
-            onPress={() => handlePress(username, email, home, biography)}
+            onPress={() => {
+              handlePress(username, email, home, biography);
+              navigation.navigate('Profile')
+            }}
           >
             {
               updatingUser
               ? <ActivityIndicator size="small" color="white" />
               : <Text style={styles.text}>Update</Text>
             }
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.cancelButton}
-            onPress={() => navigation.navigate('Profile')}
-          >
-            <Text style={{ fontSize: 16 }}>Cancel</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -97,26 +94,17 @@ const styles = StyleSheet.create({
     height: 50,
   },
   buttonContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   updateButton: {
-    width: 100,
+    maxWidth: 100,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: "#2196f3",
     flex: 1,
     marginRight: 5,
-    borderRadius: 10
-  },
-  cancelButton: {
-    width: 100,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: "white",
-    flex: 1,
-    marginLeft: 5,
     borderRadius: 10
   },
   text: {

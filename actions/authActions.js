@@ -45,13 +45,10 @@ export const authLogin = (username, password) => {
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {
-            case 'password': {
-              return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
-            }
             case 'non_field_errors': {
               return error += `${err.response.data[message]}\n`
             }
-            default: return error += `message: ${err.response.data[message]}\n`
+            default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
           }
         });
         Alert.alert('Error', error);
@@ -91,25 +88,10 @@ export const authRegister = (username, email, password1, password2, home) => {
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {
-            case 'username': {
-              return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
-            }
-            case 'email': {
-              return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
-            }
-            case 'password1': {
-              return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
-            }
-            case 'password2': {
-              return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
-            }
-            case 'home': {
-              return error += `Home Country: This field may not be blank.\n`
-            }
             case 'non_field_errors': {
               return error += `${err.response.data[message]}\n`
             }
-            default: return error += `message: ${err.response.data[message]}\n`
+            default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
           }
         });
         Alert.alert('Error', error);
@@ -144,13 +126,10 @@ export const requestPasswordReset = (email) => {
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {
-            case 'email': {
-              return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
-            }
             case 'non_field_errors': {
               return error += `${err.response.data[message]}\n`
             }
-            default: return error += `message: ${err.response.data[message]}\n`
+            default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
           }
         });
         Alert.alert('Error', error);

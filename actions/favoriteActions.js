@@ -19,7 +19,7 @@ export const toggleFavorite = (id, token) => {
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {
-            default: return error += `message: ${err.response.data[message]}\n`
+            default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
           }
         });
       })

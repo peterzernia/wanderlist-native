@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
+import { Alert } from 'react-native';
 import { REACT_APP_API_URL } from 'react-native-dotenv';
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -22,6 +23,11 @@ export const fetchUserTripReportsRejected = () => ({type: "FETCH_USER_TRIP_REPOR
 export const fetchNextUserTripReportsPending = () => ({type: "FETCH_NEXT_USER_TRIP_REPORTS_PENDING"})
 export const fetchNextUserTripReportsFulfilled = tripReports => ({type: "FETCH_NEXT_USER_TRIP_REPORTS_FULFILLED", tripReports})
 export const fetchNextUserTripReportsRejected = () => ({type: "FETCH_NEXT_USER_TRIP_REPORTS_REJECTED"})
+
+// For the authenticated user to POST request a new trip report
+export const postTripReportPending = () => ({type: "POST_TRIP_REPORT_PENDING"})
+export const postTripReportFulfilled = response => ({type: "POST_TRIP_REPORT_FULFILLED", response})
+export const postTripReportRejected = () => ({type: "POST_TRIP_REPORT_REJECTED"})
 
 /*
 GET requests the Django REST API and returns the first page of a list of Trip
@@ -66,7 +72,7 @@ export const fetchNextTripReports = (url) => {
         let error = '';
           Object.keys(err.response.data).map(message => {
             switch(message) {
-              default: return error += `${message}: ${err.response.data[message]}\n`
+              default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
             }
           });
           Alert.alert('Error', error);
@@ -91,9 +97,10 @@ export const fetchUserTripReports = (username) => {
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {
-            default: return error += `${message}: ${err.response.data[message]}\n`
+            default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
           }
         });
+        Alert.alert('Error', error);
       })
   }
 }
@@ -116,9 +123,38 @@ export const fetchNextUserTripReports = (url) => {
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {
-            default: return error += `${message}: ${err.response.data[message]}\n`
+            default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
           }
         });
+        Alert.alert('Error', error);
+      })
+  }
+}
+
+/*
+POST requests a new trip report to the Django REST API by the authenticated
+user.
+*/
+export const postTripReport = (token, author, title, content, countries) => {
+  return dispatch => {
+    dispatch(postTripReportPending());
+    axios.post(
+      `${REACT_APP_API_URL}/api/v1/reports/`, 
+      { author, title, content, countries},
+      {headers: { 'Authorization': `Token ${token}`}}
+    )
+      .then(response => {
+        dispatch(postTripReportFulfilled(response.data));
+      })
+      .catch(err => {
+        dispatch(postTripReportRejected());
+        let error = '';
+        Object.keys(err.response.data).map(message => {
+          switch(message) {
+            default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
+          }
+        });
+        Alert.alert('Error', error);
       })
   }
 }

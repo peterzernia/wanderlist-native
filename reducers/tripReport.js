@@ -1,4 +1,5 @@
 const initialState = {
+  posting: false,
   fetchingTripReports: false,
   fetchedTripReports: false,
   fetchingNextTripReports: false,
@@ -146,6 +147,41 @@ export default function (state = initialState, action) {
           previous: state.userTripReports.previous
         }
       }
+    }
+    case "POST_TRIP_REPORT_PENDING": {
+      return {
+        ...state,
+        posting: true
+        }
+    }
+    case "POST_TRIP_REPORT_FULFILLED": {
+      /*
+      The axios response is a single trip report. The new trip report must be
+      added onto the array, then the array must be sorted by id for both the
+      Trip Reports and User Trip Reports lists.
+      */
+      return {
+        ...state,
+        tripReports: {
+          results: [...state.tripReports.results].concat(action.response).sort((a, b) => a.id < b.id),
+          count: state.tripReports.count,
+          next: state.tripReports.next,
+          previous: state.tripReports.previous
+        },
+        userTripReports: {
+          results: [...state.userTripReports.results].concat(action.response).sort((a, b) => a.id < b.id),
+          count: state.userTripReports.count,
+          next: state.userTripReports.next,
+          previous: state.userTripReports.previous
+        },
+        posting: false
+      }
+    }
+    case "POST_TRIP_REPORT_REJECTED": {
+      return {
+        ...state,
+        posting: false
+        }
     }
     case "UPDATE_USER_FULFILLED": {
       return {

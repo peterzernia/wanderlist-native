@@ -67,7 +67,10 @@ export default class NewPostForm extends Component {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.postButton}
-              onPress={() => handlePress(title, content, selectedCountries)}
+              onPress={() => {
+                handlePress(title, content, selectedCountries);
+                navigation.navigate('Feed');
+              }}
             >
               {
                 posting

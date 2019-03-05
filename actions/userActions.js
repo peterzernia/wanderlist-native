@@ -33,7 +33,7 @@ export const fetchUser = token => {
               case 'detail': {
                 return error += `${err.response.data[message]}\n`
               }
-              default: return error += `${message}: ${err.response.data[message]}\n`
+              default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
             }
           });
           Alert.alert('Error', error);
@@ -70,7 +70,7 @@ export const updateUser = (token, username, email, countries, home, biography, s
             case 'detail': {
               return error += `${err.response.data[message]}\n`
             }
-            default: return error += `${message}: ${err.response.data[message]}\n`
+            default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
           }
         });
         Alert.alert('Error', error);
