@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, Picker, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, Picker, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { REACT_APP_API_URL } from 'react-native-dotenv';
 
 import TripReportCard from '../components/TripReportCard';
@@ -23,20 +24,28 @@ export class FeedScreen extends Component {
   }
 
   renderHeader = () => {
-    const { fetchTripReports } = this.props;
+    const { fetchTripReports, navigation } = this.props;
     const { sortURL } = this.state;
     return (
-      <View style={styles.sort}>
-        <Picker
-          style={styles.picker}
-          selectedValue={sortURL}
-          onValueChange={(value) => {
-            this.setState({sortURL: value}); 
-            fetchTripReports(`${REACT_APP_API_URL}${value}`);
-        }}>
-          <Picker.Item key={0} value='/api/v1/reports/?ordering=-pk' label='New Posts' />
-          <Picker.Item key={1} value='/api/v1/reports/' label='Best Posts' />
-        </Picker>
+      <View style={styles.header}>
+        <View style={styles.sort}>
+          <Picker
+            style={styles.picker}
+            selectedValue={sortURL}
+            onValueChange={(value) => {
+              this.setState({sortURL: value}); 
+              fetchTripReports(`${REACT_APP_API_URL}${value}`);
+          }}>
+            <Picker.Item key={0} value='/api/v1/reports/?ordering=-pk' label='New Posts' />
+            <Picker.Item key={1} value='/api/v1/reports/' label='Best Posts' />
+          </Picker>
+        </View>
+        <TouchableOpacity 
+          style={styles.newPostButton}
+          onPress={() => navigation.navigate('NewPost')}
+        >
+          <Icon style={styles.buttonIcon} name='edit' color='black' size={25} />
+        </TouchableOpacity>
       </View>
     )
   };
@@ -132,10 +141,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: '100%'
   },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   sort: {
     height: 60,
     justifyContent: 'center',
     padding: 5
+  },
+  newPostButton: {
+    maxWidth: 50,
+    height: 50,
+    flex: 1,
+    margin: 5,
+    marginRight: 10,
+    justifyContent: 'center',
+    alignContent: 'center'
+  },
+  buttonIcon: {
+    textAlign: 'center'
   },
   picker: {
     width: 145,
