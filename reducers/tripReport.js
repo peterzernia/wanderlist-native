@@ -183,7 +183,7 @@ export default function (state = initialState, action) {
         posting: false
         }
     }
-    case "DELETE_TRIP_REPORTS_FULFILLED": {
+    case "DELETE_TRIP_REPORT_FULFILLED": {
       /*
       The response is the deleted post that must be filtered out of both
       lists.

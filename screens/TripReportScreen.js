@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { AsyncStorage, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -15,14 +15,19 @@ export class TripReportScreen extends Component {
   // Custom headerTitle component.
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
-    return { headerTitle: <TripReportTitle {...params} /> }
+    return { headerTitle: <TripReportTitle {...params} handleDelete={navigation.getParam('handleDelete')} /> }
   };
 
-  // handleDelete = async (id) => {
-  //   const { deleteTripReport } = this.props;
-  //   const token = await AsyncStorage.getItem('token');
-  //   deleteTripReport(token, id);
-  // }
+  // Set handleDelete() as a parameter to pass into TripReportTitle.
+  componentDidMount() {
+    this.props.navigation.setParams({ handleDelete: this.handleDelete });
+  }
+
+  handleDelete = async (tripReport) => {
+    const { deleteTripReport } = this.props;
+    const token = await AsyncStorage.getItem('token');
+    deleteTripReport(token, tripReport);
+  }
 
   render(){
     // Pull tripReport prop out of navigation parameters.

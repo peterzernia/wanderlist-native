@@ -165,16 +165,19 @@ export const postTripReport = (token, author, title, content, countries) => {
 }
 
 // DELETES a post of the authenticated user on the API.
-export const deleteTripReport = (token, id) => {
+export const deleteTripReport = (token, tripReport) => {
   return dispatch => {
     dispatch(deleteTripReportPending());
-    axios.delete(`${REACT_APP_API_URL}/api/v1/reports/${id}/`, {headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRFToken': 'csrftoken',
-      'Authorization': `Token ${token}`
-    }})
+    axios.delete(`${REACT_APP_API_URL}/api/v1/reports/${tripReport.id}/`, 
+    {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRFToken': 'csrftoken',
+        'Authorization': `Token ${token}`
+      }
+    })
       .then(response => {
-        dispatch(deleteTripReportFulfilled(response.data));
+        dispatch(deleteTripReportFulfilled(tripReport));
         Alert.alert('Success', 'Your post has been deleted.')
       })
       .catch(err => {

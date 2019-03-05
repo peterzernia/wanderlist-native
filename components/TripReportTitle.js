@@ -63,7 +63,7 @@ export default class TripReportTitle extends Component {
                           [
                             {text: 'OK', onPress: () => {
                               this.setState({ modalVisible: false});
-                              //handleDelete(tripReport.id);
+                              handleDelete(tripReport);
                               navigation.navigate('Feed');
                             }},
                             {text: 'Cancel'}
@@ -95,7 +95,7 @@ export default class TripReportTitle extends Component {
 TripReportTitle.propTypes = {
   tripReport: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  handleDelete: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func,
 }
 
 const styles = StyleSheet.create({
