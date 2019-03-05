@@ -64,7 +64,7 @@ export default class TripReportTitle extends Component {
                             {text: 'OK', onPress: () => {
                               this.setState({ modalVisible: false});
                               handleDelete(tripReport);
-                              navigation.navigate('Feed');
+                              navigation.goBack(null);
                             }},
                             {text: 'Cancel'}
                           ]
