@@ -1,28 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import TripReportFooter from '../components/TripReportFooter';
 import TripReportHeader from '../components/TripReportHeader';
+import TripReportTitle from '../components/TripReportTitle';
 
 // TripReportScreen displays the full text of the Trip Reports.
-export default function TripReportScreen(props) {
+export default class TripReportScreen extends Component {
   
-  // Pull tripReport prop out of navigation parameters.
-  const { tripReport } = props.navigation.state.params;
+  // Custom headerTitle component.
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+    return { headerTitle: <TripReportTitle {...params} /> }
+  };
 
-  return (
-    <ScrollView style={{backgroundColor: 'white'}}>
-      <View style={styles.container}>
-        <TripReportHeader {...props.navigation.state.params} />
-        <View style={styles.body}>
-          <Text>
-            {tripReport.content}
-          </Text>
+  render(){
+    // Pull tripReport prop out of navigation parameters.
+    const { tripReport } = this.props.navigation.state.params;
+
+    return (
+      <ScrollView style={{backgroundColor: 'white'}}>
+        <View style={styles.container}>
+          <TripReportHeader {...this.props.navigation.state.params} />
+          <View style={styles.body}>
+            <Text>
+              {tripReport.content}
+            </Text>
+          </View>
+          <TripReportFooter {...this.props.navigation.state.params} />
         </View>
-        <TripReportFooter {...props.navigation.state.params} />
-      </View>
-    </ScrollView>
-  )
+      </ScrollView>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
