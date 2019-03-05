@@ -48,7 +48,10 @@ export default class TripReportTitle extends Component {
                   <View>
                     {/* Modal renders a button to edit and a button to delete the Trip Report. */}
                     <TouchableOpacity
-                      onPress={() => {this.setState({ modalVisible: false});}}
+                      onPress={() => {
+                        this.setState({ modalVisible: false});
+                        navigation.navigate('Post', {...this.props})
+                      }}
                     >
                       <View style={styles.modalButtonContainer}>
                         <Icon name='edit' size={25} />

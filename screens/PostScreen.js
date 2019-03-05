@@ -4,29 +4,46 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import NewPostForm from '../components/NewPostForm';
+import PostForm from '../components/PostForm';
 import { postTripReport } from '../actions/tripReportActions';
 
-export class NewPostScreen extends Component {
-  static navigationOptions = {
-    title: 'New Trip Report',
+// PostScreen is used for new posts and to edit posts. If there are no params in 
+// navigiation.state, then a new post is being made.
+export class PostScreen extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+    if (params) {
+      return { title: 'Edit Trip Report' }
+    } else {
+      return { title: 'New Trip Report' }
+    }
   };
 
   handlePress = async (title, content, selectedCountries) => {
     const { user, postTripReport } = this.props;
     const token = await AsyncStorage.getItem('token');
-    const countries = selectedCountries.map( id =>  Math.trunc(id) );
+    const countries = selectedCountries.map(id =>  Math.trunc(id));
     if (countries.length) {
-      postTripReport(token, user.pk, title, content, countries);
+      // If params, updateTripReport() else create a new post with postTripReport()
+      if (this.props.navigation.state.params) {
+        console.log(title, content, countries);
+      } else {
+        postTripReport(token, user.pk, title, content, countries);
+      }
     } else {
       Alert.alert('Error', 'Countries: This field is required.')
     }
   }
 
   render() {
+    var tripReport;
+    if (this.props.navigation.state.params) {
+      tripReport = this.props.navigation.state.params.tripReport;
+    }
+
     return (
       <View style={styles.container}>
-        <NewPostForm {...this.props} handlePress={this.handlePress} />
+        <PostForm {...this.props} handlePress={this.handlePress} tripReport={tripReport} />
       </View>
     );
   }
@@ -45,9 +62,9 @@ const mapDispatch = dispatch => {
   }, dispatch)
 }
 
-export default connect(mapState, mapDispatch)(NewPostScreen);
+export default connect(mapState, mapDispatch)(PostScreen);
 
-NewPostScreen.propTypes = {
+PostScreen.propTypes = {
   postTripReport: PropTypes.func.isRequired,
   posting: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,

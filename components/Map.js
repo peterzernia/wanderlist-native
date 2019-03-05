@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MapView, { UrlTile, Marker } from 'react-native-maps';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
 export default class Map extends Component {
@@ -34,7 +34,7 @@ export default class Map extends Component {
         style={styles.map}
         region={region}
         onRegionChangeComplete={(region) => this.setState({ region })}
-        mapType={Platform.OS == "android" ? "none" : "standard"}
+        mapType='none' //{Platform.OS == "android" ? "none" : "standard"}
         rotateEnabled={false}
         scrollEnabled={true}
         zoomEnabled={true}

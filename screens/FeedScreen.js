@@ -42,7 +42,7 @@ export class FeedScreen extends Component {
         </View>
         <TouchableOpacity 
           style={styles.newPostButton}
-          onPress={() => navigation.navigate('NewPost')}
+          onPress={() => navigation.navigate('Post')}
         >
           <Icon style={styles.buttonIcon} name='edit' color='black' size={25} />
         </TouchableOpacity>

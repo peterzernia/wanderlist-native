@@ -5,16 +5,15 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import EditProfileScreen from '../screens/EditProfileScreen';
 import FeedScreen from '../screens/FeedScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import NewPostScreen from '../screens/NewPostScreen';
+import PostScreen from '../screens/PostScreen';
 import SearchScreen from '../screens/SearchScreen';
 import TabBarIcon from '../components/TabBarIcon';
 import TripReportScreen from '../screens/TripReportScreen';
 
-
 const FeedStack = createStackNavigator({
   Feed: FeedScreen,
   TripReport: TripReportScreen,
-  NewPost: NewPostScreen,
+  Post: PostScreen,
 }); 
 
 FeedStack.navigationOptions = {
@@ -44,7 +43,8 @@ SearchStack.navigationOptions = {
 const ProfileStack = createStackNavigator({
   Profile: ProfileScreen,
   EditProfile: EditProfileScreen,
-  TripReport: TripReportScreen
+  TripReport: TripReportScreen,
+  Post: PostScreen,
 });
 
 ProfileStack.navigationOptions = {

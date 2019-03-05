@@ -4,14 +4,32 @@ import PropTypes from 'prop-types';
 import MultiSelect from 'react-native-multiple-select';
 import countries from '../countries.json';
 
-export default class NewPostForm extends Component {
+export default class PostForm extends Component {
   constructor(){
     super();
     this.state = {
-      username: '',
-      email:'',
+      title: '',
+      content:'',
       selectedCountries: [],
     };
+  }
+
+  componentDidMount() {
+    // If the tripReport is not null (i.e. we're editing a post), setState with the
+    // values from the tripReport to fill the forms.
+    const { tripReport } = this.props;
+    if (tripReport) {
+      var countries = tripReport.countries.map(country => (
+        country.id
+      ));
+      countries = countries.map(String);
+      console.log(countries)
+      this.setState({
+        title: tripReport.title,
+        content: tripReport.content,
+        selectedCountries: countries
+      });
+    }
   }
 
   render() {
@@ -69,7 +87,7 @@ export default class NewPostForm extends Component {
               style={styles.postButton}
               onPress={() => {
                 handlePress(title, content, selectedCountries);
-                navigation.navigate('Feed');
+                navigation.goBack(null);
               }}
             >
               {
@@ -85,7 +103,7 @@ export default class NewPostForm extends Component {
   }
 }
 
-NewPostForm.propTypes = {
+PostForm.propTypes = {
   posting: PropTypes.bool.isRequired,
   handlePress: PropTypes.func.isRequired,
 }
