@@ -106,8 +106,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   textField: {
-    height: 300,
+    marginTop: 5,
+    height: 'auto',
+    minHeight: 250,
     fontSize: 16,
+    textAlignVertical: 'top'
   },
   buttonContainer: {
     flexDirection: 'row',
