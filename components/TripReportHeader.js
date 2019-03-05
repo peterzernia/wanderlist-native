@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 export default function TripReportHeader(props) {
   const { tripReport } = props;
-  var { alpha2code } = props.tripReport.author.home;
-  alpha2code = alpha2code.toLowerCase()
 
   return (
     <View style={styles.header}>
@@ -15,7 +13,7 @@ export default function TripReportHeader(props) {
       >
         <Image
           style={styles.flag}
-          source={{uri: `https://raw.githubusercontent.com/peterzernia/flags/master/${alpha2code}.png`}}
+          source={{uri: tripReport.author.home.flag}}
         />
       </TouchableOpacity>
       <View style={styles.textContainer}>

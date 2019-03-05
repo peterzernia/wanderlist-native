@@ -31,8 +31,6 @@ export class ProfileScreen extends Component {
   renderHeader = () => {
     const {switchValue} = this.state;
     const { user, navigation, userTripReports, fetchingUserTripReports } = this.props;
-    var { alpha2code } = this.props.user.home;
-    alpha2code = alpha2code.toLowerCase()
 
     return (
       <View style={styles.headerContainer}>
@@ -45,7 +43,7 @@ export class ProfileScreen extends Component {
           <View style={styles.flagContainer}>
             <Image
               style={styles.flag}
-              source={{uri: `https://raw.githubusercontent.com/peterzernia/flags/master/${alpha2code}.png`}}
+              source={{uri: user.home.flag}}
             />
           </View>
           <View style={styles.biography}>

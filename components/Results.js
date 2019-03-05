@@ -12,10 +12,9 @@ export default class Results extends Component {
   }
 
   componentDidMount() {
-    var { alpha2code } = this.props.country;
-    alpha2code = alpha2code.toLowerCase();
+    var { country } = this.props;
 
-    Image.getSize(`https://raw.githubusercontent.com/peterzernia/flags/master/${alpha2code}.png`, (width, height) => {
+    Image.getSize(country.flag, (width, height) => {
       this.setState({  
         height: Dimensions.get('window').width*.95*height/width 
       });
@@ -27,8 +26,6 @@ export default class Results extends Component {
 
     // Map the userCountries into an array of just the countries' names.
     const userCountries = user.countries.map(country => country.name);
-    var { alpha2code } = country;
-    alpha2code = alpha2code.toLowerCase();
 
     return (
       <View style={styles.card}>
@@ -62,7 +59,7 @@ export default class Results extends Component {
         <View style={[styles.flagContainer, {height: this.state.height}]}>
           <Image
             style={[styles.flag, {height: this.state.height}]}
-            source={{uri: `https://raw.githubusercontent.com/peterzernia/flags/master/${alpha2code}.png`}}
+            source={{uri: country.flag}}
           />
         </View>
       </View>
