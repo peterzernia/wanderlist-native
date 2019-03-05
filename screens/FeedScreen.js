@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, Picker, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Picker, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -91,8 +91,6 @@ export class FeedScreen extends Component {
             <TripReportCard
               tripReport={item}
               {...this.props}
-              handlePress={this.handlePress}
-              onShare={this.onShare} 
             />
           )}
           keyExtractor={item => item.slug}

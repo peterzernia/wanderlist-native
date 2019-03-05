@@ -29,6 +29,11 @@ export const postTripReportPending = () => ({type: "POST_TRIP_REPORT_PENDING"})
 export const postTripReportFulfilled = response => ({type: "POST_TRIP_REPORT_FULFILLED", response})
 export const postTripReportRejected = () => ({type: "POST_TRIP_REPORT_REJECTED"})
 
+// For the authenticated user to delete a Trip Report of theirs
+export const deleteTripReportPending = () => ({type: "DELETE_TRIP_REPORT_PENDING"})
+export const deleteTripReportFulfilled = response => ({type: "DELETE_TRIP_REPORT_FULFILLED", response})
+export const deleteTripReportRejected = () => ({type: "DELETE_TRIP_REPORT_REJECTED"})
+
 /*
 GET requests the Django REST API and returns the first page of a list of Trip
 Reports. The passed in url can have filter parameters added.
@@ -148,6 +153,33 @@ export const postTripReport = (token, author, title, content, countries) => {
       })
       .catch(err => {
         dispatch(postTripReportRejected());
+        let error = '';
+        Object.keys(err.response.data).map(message => {
+          switch(message) {
+            default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
+          }
+        });
+        Alert.alert('Error', error);
+      })
+  }
+}
+
+// DELETES a post of the authenticated user on the API.
+export const deleteTripReport = (token, id) => {
+  return dispatch => {
+    dispatch(deleteTripReportPending());
+    axios.delete(`${REACT_APP_API_URL}/api/v1/reports/${id}/`, {headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRFToken': 'csrftoken',
+      'Authorization': `Token ${token}`
+    }})
+      .then(response => {
+        dispatch(deleteTripReportFulfilled(response.data));
+        Alert.alert('Success', 'Your post has been deleted.')
+      })
+      .catch(err => {
+        dispatch(deleteTripReportRejected());
+        dispatch({type: "ADD_ERROR", error: err});
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {

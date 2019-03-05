@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { Modal, Text, TouchableOpacity, TouchableWithoutFeedback, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, Modal, Text, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -13,8 +13,9 @@ export default class TripReportTitle extends Component {
   }
 
   render() {
-    const { tripReport, user } = this.props;
+    const { tripReport, user, handleDelete, navigation } = this.props;
 
+    // If the author of the post is the authenticated user, render the modal for deleting and editing the post.
     if (tripReport.author.pk === user.pk) {
       return (
         <View style={styles.container}>
@@ -54,8 +55,21 @@ export default class TripReportTitle extends Component {
                         <Text style={styles.modalText}> Edit</Text>
                       </View>
                     </TouchableOpacity>
+                    {/* Close the modal, delete the post, and navigate to the Feed page on confirm delete. */}
                     <TouchableOpacity
-                      onPress={() => {this.setState({ modalVisible: false});}}
+                      onPress={() => {
+                        Alert.alert(
+                          'Confirm Delete', 'Are you sure you want to delete this post?',
+                          [
+                            {text: 'OK', onPress: () => {
+                              this.setState({ modalVisible: false});
+                              //handleDelete(tripReport.id);
+                              navigation.navigate('Feed');
+                            }},
+                            {text: 'Cancel'}
+                          ]
+                        );
+                      }}
                     >
                       <View style={styles.modalButtonContainer}>
                         <Icon name='delete' size={25} />
@@ -70,6 +84,7 @@ export default class TripReportTitle extends Component {
         </View>
       )
     } else {
+      // If the author of the post is not the authenticated user, render null.
       return (
         null
       )
@@ -80,6 +95,7 @@ export default class TripReportTitle extends Component {
 TripReportTitle.propTypes = {
   tripReport: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({

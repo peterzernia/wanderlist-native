@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import TripReportFooter from '../components/TripReportFooter';
 import TripReportHeader from '../components/TripReportHeader';
 import TripReportTitle from '../components/TripReportTitle';
+import { deleteTripReport } from '../actions/tripReportActions';
 
 // TripReportScreen displays the full text of the Trip Reports.
-export default class TripReportScreen extends Component {
+export class TripReportScreen extends Component {
   
   // Custom headerTitle component.
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
     return { headerTitle: <TripReportTitle {...params} /> }
   };
+
+  // handleDelete = async (id) => {
+  //   const { deleteTripReport } = this.props;
+  //   const token = await AsyncStorage.getItem('token');
+  //   deleteTripReport(token, id);
+  // }
 
   render(){
     // Pull tripReport prop out of navigation parameters.
@@ -33,6 +43,23 @@ export default class TripReportScreen extends Component {
     )
   }
 }
+
+const mapState = state => {
+  return {
+  }
+}
+
+const mapDispatch = dispatch => {
+  return bindActionCreators({
+    deleteTripReport,
+  }, dispatch)
+}
+
+export default connect(mapState, mapDispatch)(TripReportScreen);
+
+TripReportScreen.propTypes = {
+  deleteTripReport: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {

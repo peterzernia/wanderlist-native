@@ -183,6 +183,27 @@ export default function (state = initialState, action) {
         posting: false
         }
     }
+    case "DELETE_TRIP_REPORTS_FULFILLED": {
+      /*
+      The response is the deleted post that must be filtered out of both
+      lists.
+      */
+      return {
+        ...state,
+        tripReports: {
+          results: [...state.tripReports.results].filter(tripReport => tripReport.id !== action.response.id),
+          count: state.tripReports.count,
+          next: state.tripReports.next,
+          previous: state.tripReports.previous
+        },
+        userTripReports: {
+          results: [...state.userTripReports.results].filter(tripReport => tripReport.id !== action.response.id),
+          count: state.userTripReports.count,
+          next: state.userTripReports.next,
+          previous: state.userTripReports.previous
+        },
+      }
+    }
     case "UPDATE_USER_FULFILLED": {
       return {
         ...state,
