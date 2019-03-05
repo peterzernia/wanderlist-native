@@ -8,6 +8,10 @@ import { updateUser } from '../actions/userActions';
 import EditProfileForm from '../components/EditProfileForm';
 
 export class EditProfileScreen extends Component {
+  static navigationOptions = {
+    title: 'Edit Profile',
+  };
+
   handlePress = async (username, email, home, biography) => {
     const { user, updateUser } = this.props;
     const token = await AsyncStorage.getItem('token');

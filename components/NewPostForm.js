@@ -30,18 +30,14 @@ export default class NewPostForm extends Component {
         contentContainerStyle={{alignItems: 'center', justifyContent: 'center'}}
       >
         <View style={styles.container}>
-          <TextInput 
-            style={styles.textInput}
-            placeholder="Title"
-            value={title}
-            onChangeText={(value) => this.setState({title: value})}
-          />
-          <TextInput 
-            style={styles.textInput}
-            placeholder="Content"
-            value={content}
-            onChangeText={(value) => this.setState({content: value})}
-          />
+          <View style={styles.titleContainer}>
+            <TextInput 
+              style={styles.textInput}
+              placeholder="Title"
+              value={title}
+              onChangeText={(value) => this.setState({title: value})}
+            />
+          </View>
           <MultiSelect
             hideTags
             items={items}
@@ -61,6 +57,13 @@ export default class NewPostForm extends Component {
           <View>
             {this.multiSelect && this.multiSelect.getSelectedItemsExt(selectedCountries)}
           </View>
+          <TextInput 
+            style={styles.textField}
+            placeholder="Content"
+            value={content}
+            multiline={true}
+            onChangeText={(value) => this.setState({content: value})}
+          />
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.postButton}
@@ -71,12 +74,6 @@ export default class NewPostForm extends Component {
                 ? <ActivityIndicator size="small" color="white" />
                 : <Text style={styles.text}>Post</Text>
               }
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.cancelButton}
-              onPress={() => navigation.navigate('Feed')}
-            >
-              <Text style={{ fontSize: 16 }}>Cancel</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -95,32 +92,33 @@ const styles = StyleSheet.create({
     width: 300,
     height: '100%'
   },
+  titleContainer: {
+    borderBottomWidth: .5,
+    borderColor: '#CCC',
+    marginBottom: 10,
+    marginTop: 10
+  },
   textInput: {
     height: 50,
-    fontSize: 16
+    fontSize: 16,
+  },
+  textField: {
+    height: 300,
+    fontSize: 16,
   },
   buttonContainer: {
     flexDirection: 'row',
     marginTop: 10,
+    justifyContent: 'center'
   },
   postButton: {
-    width: 100,
+    maxWidth: 100,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: "#2196f3",
     flex: 1,
     marginRight: 5,
-    borderRadius: 10
-  },
-  cancelButton: {
-    width: 100,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: "white",
-    flex: 1,
-    marginLeft: 5,
     borderRadius: 10
   },
   text: {

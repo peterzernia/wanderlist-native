@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import NewPostForm from '../components/NewPostForm';
 
 export default class NewPostScreen extends Component {
+  static navigationOptions = {
+    title: 'New Trip Report',
+  };
 
   handlePress = (title, content, selectedCountries) => {
     console.log(title, content, selectedCountries);
