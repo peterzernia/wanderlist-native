@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import Autocomplete from 'react-native-autocomplete-input';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import countries from '../countries.json';
 
 export default class SearchBar extends Component {
@@ -30,26 +31,31 @@ export default class SearchBar extends Component {
 
     return (
       <View style={styles.container}>
-        <Autocomplete
-          autoCapitalize="none"
-          autoCorrect={false}
-          hideResults={hide}
-          containerStyle={styles.autocompleteInput}
-          listContainerStyle={{backgroundColor: 'rgba(52, 52, 52, 0)'}}
-          inputContainerStyle={styles.textInputContainer}
-          style={styles.textInput}
-          data={countries.length === 1 && comp(query, countries[0].name) ? [] : countries}
-          defaultValue={query}
-          onChangeText={text => this.setState({ query: text, hide: false })}
-          placeholder="Search for a Country or Territory"
-          renderItem={({ name }) => (
-            <TouchableOpacity onPress={() => this.setState({ query: name, hide: true })}>
-              <Text style={styles.queryText}>
-                {name}
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
+        <View style={styles.input}>
+          <Autocomplete
+            autoCapitalize="none"
+            autoCorrect={false}
+            hideResults={hide}
+            containerStyle={styles.autocompleteInput}
+            listContainerStyle={{backgroundColor: 'rgba(52, 52, 52, 0)'}}
+            inputContainerStyle={styles.textInputContainer}
+            style={styles.textInput}
+            data={countries.length === 1 && comp(query, countries[0].name) ? [] : countries}
+            defaultValue={query}
+            onChangeText={text => this.setState({ query: text, hide: false })}
+            placeholder="Search for a Country or Territory"
+            renderItem={({ name }) => (
+              <TouchableOpacity onPress={() => this.setState({ query: name, hide: true })}>
+                <Text style={styles.queryText}>
+                  {name}
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+          <TouchableOpacity onPress={() => this.setState({query: ''})}>
+            <Icon name='close' size={20} />
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity
             style={styles.searchButton}
             onPress={() => handleSearch(query)}
@@ -76,6 +82,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 10,
     marginTop: 30,
+  },
+  input: {
+    flexDirection: 'row'
   },
   autocompleteInput: {
     width: 300,
