@@ -29,11 +29,13 @@ export class FeedScreen extends Component {
 
   // Set handleSearch() as a parameter to pass into FeedTitleHeader.
   componentDidMount() {
-    this.props.navigation.setParams({ handleSearch: this.handleSearch });
+    const { setParams } = this.props.navigation;
+    setParams({ handleSearch: this.handleSearch });
   }
 
   handleSearch = (query) => {
-    console.log(query);
+    const { fetchTripReports } = this.props;
+    fetchTripReports(`${REACT_APP_API_URL}/api/v1/reports/?search=${query}`);
   }
 
   renderHeader = () => {
