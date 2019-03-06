@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import PostForm from '../components/PostForm';
+import PostTitleHeader from '../components/PostTitleHeader';
 import { postTripReport } from '../actions/tripReportActions';
 
 // PostScreen is used for new posts and to edit posts. If there are no params in 
@@ -13,11 +14,22 @@ export class PostScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
     if (params) {
-      return { title: 'Edit Trip Report' }
+      return { 
+        title: 'Edit Trip Report', 
+        headerTitle: <PostTitleHeader {...params} handleDelete={navigation.getParam('handleDelete')} /> 
+      }
     } else {
-      return { title: 'New Trip Report' }
+      return { 
+        title: 'New Trip Report', 
+        headerTitle: <PostTitleHeader handlePress={navigation.getParam('handlePress')} /> 
+      }
     }
   };
+
+  // Set handlePress() as a parameter to pass into TripReportTitle.
+  componentDidMount() {
+    this.props.navigation.setParams({ handlePress: this.handlePress });
+  }
 
   handlePress = async (title, content, selectedCountries) => {
     const { user, postTripReport } = this.props;
