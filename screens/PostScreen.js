@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import PostForm from '../components/PostForm';
 import PostTitleHeader from '../components/PostTitleHeader';
-import { postTripReport } from '../actions/tripReportActions';
+import { postTripReport, updateTripReport } from '../actions/tripReportActions';
 
 // PostScreen is used for new posts and to edit posts. If there are no params in 
 // navigiation.state, then a new post is being made.
@@ -32,13 +32,14 @@ export class PostScreen extends Component {
   }
 
   handlePress = async (title, content, selectedCountries) => {
-    const { user, postTripReport } = this.props;
+    // handlePress updates or posts a Trip Report depending on if there is a Trip Report in params.
+    const { user, postTripReport, updateTripReport } = this.props;
     const token = await AsyncStorage.getItem('token');
     const countries = selectedCountries.map(id =>  Math.trunc(id));
     if (countries.length) {
-      // If params, updateTripReport() else create a new post with postTripReport()
       if (this.props.navigation.state.params) {
-        console.log(title, content, countries);
+        const { tripReport } = this.props.navigation.state.params;
+        updateTripReport(token, tripReport.id, user.pk, title, content, countries);
       } else {
         postTripReport(token, user.pk, title, content, countries);
       }
@@ -71,6 +72,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return bindActionCreators({
     postTripReport,
+    updateTripReport,
   }, dispatch)
 }
 

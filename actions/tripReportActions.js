@@ -34,6 +34,11 @@ export const deleteTripReportPending = () => ({type: "DELETE_TRIP_REPORT_PENDING
 export const deleteTripReportFulfilled = response => ({type: "DELETE_TRIP_REPORT_FULFILLED", response})
 export const deleteTripReportRejected = () => ({type: "DELETE_TRIP_REPORT_REJECTED"})
 
+// For the authenticated user to update a Trip Report of theirs
+export const updateTripReportPending = () => ({type: "UPDATE_TRIP_REPORT_PENDING"})
+export const updateTripReportFulfilled = response => ({type: "UPDATE_TRIP_REPORT_FULFILLED", response})
+export const updateTripReportRejected = () => ({type: "UPDATE_TRIP_REPORT_REJECTED"})
+
 /*
 GET requests the Django REST API and returns the first page of a list of Trip
 Reports. The passed in url can have filter parameters added.
@@ -164,7 +169,7 @@ export const postTripReport = (token, author, title, content, countries) => {
   }
 }
 
-// DELETES a post of the authenticated user on the API.
+// Deletes a post of the authenticated user on the API.
 export const deleteTripReport = (token, tripReport) => {
   return dispatch => {
     dispatch(deleteTripReportPending());
@@ -178,11 +183,41 @@ export const deleteTripReport = (token, tripReport) => {
     })
       .then(response => {
         dispatch(deleteTripReportFulfilled(tripReport));
-        Alert.alert('Success', 'Your post has been deleted.')
+        Alert.alert('Success', 'Your post has been deleted.');
       })
       .catch(err => {
         dispatch(deleteTripReportRejected());
-        dispatch({type: "ADD_ERROR", error: err});
+        let error = '';
+        Object.keys(err.response.data).map(message => {
+          switch(message) {
+            default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
+          }
+        });
+        Alert.alert('Error', error);
+      })
+  }
+}
+
+// Updates a post of the authenticated user on the API.
+export const updateTripReport = (token, id, author, title, content, countries) => {
+  return dispatch => {
+    dispatch(updateTripReportPending());
+    axios.patch(`${REACT_APP_API_URL}/api/v1/reports/${id}/`, 
+    { author, title, content, countries },
+      {
+        headers: 
+        {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRFToken': 'csrftoken',
+          'Authorization': `Token ${token}`
+        }
+    })
+      .then(response => {
+        dispatch(updateTripReportFulfilled(response.data));
+        Alert.alert('Success', 'Your post has been updated.');
+      })
+      .catch(err => {
+        dispatch(updateTripReportRejected());
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {

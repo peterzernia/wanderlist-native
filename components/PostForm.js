@@ -23,7 +23,6 @@ export default class PostForm extends Component {
         country.id
       ));
       countries = countries.map(String);
-      console.log(countries)
       this.setState({
         title: tripReport.title,
         content: tripReport.content,

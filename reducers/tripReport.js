@@ -1,5 +1,6 @@
 const initialState = {
   posting: false,
+  updating: false,
   fetchingTripReports: false,
   fetchedTripReports: false,
   fetchingNextTripReports: false,
@@ -202,6 +203,41 @@ export default function (state = initialState, action) {
           next: state.userTripReports.next,
           previous: state.userTripReports.previous
         },
+      }
+    }
+    case "UPDATE_TRIP_REPORT_PENDING": {
+      return {
+        ...state,
+        updating: true
+      }
+    }
+    case "UPDATE_TRIP_REPORT_FULFILLED": {
+      /*
+      The axios response is the updated post. The old, unupdated post must be
+      filtered out of both lists, the updated post must be added, then
+      the array must be sorted.
+      */
+      return {
+        ...state,
+        tripReports: {
+          results: [...state.tripReports.results].filter(tripReport => tripReport.id !== action.response.id).concat(action.response).sort((a, b) => a.id < b.id),
+          count: state.tripReports.count,
+          next: state.tripReports.next,
+          previous: state.tripReports.previous
+        },
+        userTripReports: {
+          results: [...state.userTripReports.results].filter(tripReport => tripReport.id !== action.response.id).concat(action.response).sort((a, b) => a.id < b.id),
+          count: state.userTripReports.count,
+          next: state.userTripReports.next,
+          previous: state.userTripReports.previous
+        },
+        updating: false
+      }
+    }
+    case "UPDATE_TRIP_REPORT_REJECTED": {
+      return {
+        ...state,
+        updating: false
       }
     }
     case "UPDATE_USER_FULFILLED": {
