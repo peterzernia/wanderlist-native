@@ -91,6 +91,9 @@ export const authRegister = (username, email, password1, password2, home) => {
             case 'non_field_errors': {
               return error += `${err.response.data[message]}\n`
             }
+            case 'home': {
+              return error += 'Home: This field may not be blank.\n'
+            }
             default: return error += `${message.charAt(0).toUpperCase()}${message.slice(1)}: ${err.response.data[message]}\n`
           }
         });
