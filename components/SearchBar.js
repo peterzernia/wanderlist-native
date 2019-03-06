@@ -82,13 +82,14 @@ SearchBar.propType = {
 
 const styles = StyleSheet.create({
   container: {
-    width: 300,
+    width: '95%',
     alignItems: 'center',
     margin: 10,
     marginTop: 30,
   },
   input: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    width: '100%'
   },
   closeButtonContainer: {
     height: 20,
