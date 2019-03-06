@@ -17,7 +17,7 @@ export default class UserMap extends Component {
   }
   
   render() {
-    const { user } = this.props;
+    const { user, navigation } = this.props;
     const { region } = this.state;
 
     // Adds Markers to the map at the coordinates of all of the countries on the users list.
@@ -26,6 +26,7 @@ export default class UserMap extends Component {
         key={country.id}
         coordinate={{latitude: country.latlng[0], longitude: country.latlng[1]}}
         title={country.name}
+        onCalloutPress={() => navigation.navigate('Country', { country: country })}
       />
     ));
 
@@ -33,7 +34,6 @@ export default class UserMap extends Component {
       <MapView
         style={styles.map}
         region={region}
-        onRegionChangeComplete={(region) => this.setState({ region })}
         mapType='none' //{Platform.OS == "android" ? "none" : "standard"}
         rotateEnabled={false}
         scrollEnabled={true}
