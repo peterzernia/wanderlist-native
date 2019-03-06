@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import TripReportFooter from '../components/TripReportFooter';
 import TripReportHeader from '../components/TripReportHeader';
-import TripReportTitle from '../components/TripReportTitle';
+import TripReportTitleHeader from '../components/TripReportTitleHeader';
 import { deleteTripReport } from '../actions/tripReportActions';
 
 // TripReportScreen displays the full text of the Trip Reports.
@@ -15,7 +15,13 @@ export class TripReportScreen extends Component {
   // Custom headerTitle component.
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
-    return { headerTitle: <TripReportTitle {...params} handleDelete={navigation.getParam('handleDelete')} /> }
+    return { 
+      headerTitle: 
+        <TripReportTitleHeader 
+          {...params} 
+          handleDelete={navigation.getParam('handleDelete')} 
+        /> 
+    }
   };
 
   // Set handleDelete() as a parameter to pass into TripReportTitle.

@@ -3,8 +3,8 @@ import { Alert, Modal, Text, TouchableOpacity, TouchableWithoutFeedback, StyleSh
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-// The TripReportTitle component is used in the navigation header on the TripReportScreen.
-export default class TripReportTitle extends Component {
+// The TripReportTitleHeader component is used in the navigation header on the TripReportScreen.
+export default class TripReportTitleHeader extends Component {
   constructor() {
     super();
     this.state = {
@@ -95,7 +95,7 @@ export default class TripReportTitle extends Component {
   }
 }
 
-TripReportTitle.propTypes = {
+TripReportTitleHeader.propTypes = {
   tripReport: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   handleDelete: PropTypes.func,
