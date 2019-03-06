@@ -5,10 +5,15 @@ import PropTypes from 'prop-types';
 
 // Reusable TripReportFooter Component used in TripReportCard and TripReportScreen.
 export default function TripReportFooter(props) {
-  const { tripReport, user, toggleFavorite } = props;
+  const { tripReport, user, toggleFavorite, navigation } = props;
 
   const listCountries = tripReport.countries.map(country => (
-    <Text style={styles.country} key={country.id}>{country.name}</Text>
+    <TouchableOpacity  
+      key={country.id}
+      onPress={() => navigation.navigate('Country', {country: country})}
+    >
+      <Text style={styles.country}>{country.name}</Text>
+    </TouchableOpacity>
   ));
 
   onShare = async (slug) => {
@@ -92,9 +97,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   country: {
-    marginRight: 5,
-    marginLeft: 5,
-    marginBottom: 5,
+    padding: 5
   },
   footer: {
     width: '100%',

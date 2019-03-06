@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Map from '../components/Map';
+import UserMap from '../components/UserMap';
 import { authLogout } from '../actions/authActions';
 import { fetchNextUserTripReports } from '../actions/tripReportActions';
 import { toggleFavorite } from '../actions/favoriteActions';
@@ -63,7 +63,7 @@ export class ProfileScreen extends Component {
         </View>
         <View style={styles.line}></View>
         <View style={styles.map}>
-          <Map {...this.props} />
+          <UserMap {...this.props} />
           {/* Open link to OSM copyright page when the text is clicked. */}
           <TouchableOpacity 
             style={styles.oSMLogo}

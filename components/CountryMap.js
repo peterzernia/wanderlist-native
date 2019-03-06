@@ -3,13 +3,13 @@ import MapView, { UrlTile, Marker } from 'react-native-maps';
 import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
-export default class Map extends Component {
-  constructor(){
-    super();
+export default class CountryMap extends Component {
+  constructor(props){
+    super(props);
     this.state = {
       region: {
-        latitude: 20,
-        longitude: 0,
+        latitude: props.country.latlng[0],
+        longitude: props.country.latlng[1],
         latitudeDelta: 100,
         longitudeDelta: 50,
       },
@@ -17,42 +17,35 @@ export default class Map extends Component {
   }
   
   render() {
-    const { user } = this.props;
+    const { country } = this.props;
     const { region } = this.state;
-
-      // Adds Markers to the map at the coordinates of all of the countries on the users list.
-      const listMarkers = user.countries.map(country =>(
-        <Marker
-          key={country.id}
-          coordinate={{latitude: country.latlng[0], longitude: country.latlng[1]}}
-          title={country.name}
-        />
-      ));
 
     return (
       <MapView
         style={styles.map}
         region={region}
-        onRegionChangeComplete={(region) => this.setState({ region })}
         mapType='none' //{Platform.OS == "android" ? "none" : "standard"}
         rotateEnabled={false}
         scrollEnabled={true}
         zoomEnabled={true}
-        showsUserLocation
       >
         <UrlTile
-            urlTemplate='http://c.tile.openstreetmap.org/{z}/{x}/{y}.png'
-            zIndex={0}
-            maximumZ={19}
+          urlTemplate='http://c.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          zIndex={0}
+          maximumZ={19}
         />
-        {listMarkers}
+        <Marker
+          key={country.id}
+          coordinate={{latitude: country.latlng[0], longitude: country.latlng[1]}}
+          title={country.name}
+        />
       </MapView> 
     );
   }
 }
 
-Map.propTypes = {
-  user: PropTypes.object.isRequired,
+CountryMap.propTypes = {
+  country: PropTypes.object.isRequired,
 }
 
 const styles = StyleSheet.create({

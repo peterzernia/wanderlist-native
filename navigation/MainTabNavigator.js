@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import EditProfileScreen from '../screens/EditProfileScreen';
+import CountryScreen from '../screens/CountryScreen';
 import FeedScreen from '../screens/FeedScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import PostScreen from '../screens/PostScreen';
@@ -14,6 +15,7 @@ const FeedStack = createStackNavigator({
   Feed: FeedScreen,
   TripReport: TripReportScreen,
   Post: PostScreen,
+  Country: CountryScreen,
 }); 
 
 FeedStack.navigationOptions = {
@@ -28,6 +30,7 @@ FeedStack.navigationOptions = {
 
 const SearchStack = createStackNavigator({
   Search: SearchScreen,
+  Country: CountryScreen,
 });
 
 SearchStack.navigationOptions = {
@@ -45,6 +48,7 @@ const ProfileStack = createStackNavigator({
   EditProfile: EditProfileScreen,
   TripReport: TripReportScreen,
   Post: PostScreen,
+  Country: CountryScreen,
 });
 
 ProfileStack.navigationOptions = {

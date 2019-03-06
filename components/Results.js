@@ -11,6 +11,7 @@ export default class Results extends Component {
     }
   }
 
+  // Get flag dimensions before loading image.
   componentDidMount() {
     var { country } = this.props;
 
@@ -22,13 +23,16 @@ export default class Results extends Component {
   }
 
   render() {
-    const { country, user, updatingUser, handleUpdate, pendingCountry } = this.props;
+    const { country, user, updatingUser, handleUpdate, pendingCountry, navigation } = this.props;
 
     // Map the userCountries into an array of just the countries' names.
     const userCountries = user.countries.map(country => country.name);
 
     return (
-      <View style={styles.card}>
+      <TouchableOpacity 
+        style={styles.card}
+        onPress={() => navigation.navigate('Country', {...this.props})}
+      >
         <View style={styles.header}>
           {/* This empty View is for offsetting the button on the opposite side of the header text */}
           <View style={styles.buttonContainer}></View>
@@ -62,7 +66,7 @@ export default class Results extends Component {
             source={{uri: country.flag}}
           />
         </View>
-      </View>
+      </TouchableOpacity>
     )
   } 
 }
