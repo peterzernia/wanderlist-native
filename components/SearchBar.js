@@ -32,6 +32,7 @@ export default class SearchBar extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.input}>
+          <View style={styles.closeButtonContainer}/>
           <Autocomplete
             autoCapitalize="none"
             autoCorrect={false}
@@ -52,8 +53,11 @@ export default class SearchBar extends Component {
               </TouchableOpacity>
             )}
           />
-          <TouchableOpacity onPress={() => this.setState({query: ''})}>
-            <Icon name='close' size={20} />
+          <TouchableOpacity 
+            style={styles.closeButtonContainer}
+            onPress={() => this.setState({query: ''})}
+          >
+            { this.state.query !== '' ? <Icon name='close' size={20} /> : null }
           </TouchableOpacity>
         </View>
         <TouchableOpacity
@@ -85,6 +89,10 @@ const styles = StyleSheet.create({
   },
   input: {
     flexDirection: 'row'
+  },
+  closeButtonContainer: {
+    height: 20,
+    width: 20
   },
   autocompleteInput: {
     width: 300,
