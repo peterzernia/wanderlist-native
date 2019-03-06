@@ -91,11 +91,16 @@ RegistrationForm.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    width: 300
+    width: 300,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    padding: 10,
+    elevation: 10,
   },
   textInput: {
     height: 50,
-    fontSize: 16
+    fontSize: 16,
+    paddingLeft: 7
   },
   picker: {
     height: 50,

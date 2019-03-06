@@ -63,7 +63,11 @@ ForgotPasswordForm.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    width: 300
+    width: 300,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    padding: 10,
+    elevation: 10,
   },
   infoText: {
     textAlign: 'center',
