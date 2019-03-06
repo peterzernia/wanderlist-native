@@ -7,12 +7,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { REACT_APP_API_URL } from 'react-native-dotenv';
 
 import TripReportCard from '../components/TripReportCard';
+import FeedTitleHeader from '../components/FeedTitleHeader';
 import { fetchTripReports, fetchNextTripReports } from '../actions/tripReportActions';
 import { toggleFavorite } from '../actions/favoriteActions';
 
 export class FeedScreen extends Component {
-  static navigationOptions = {
-    title: 'Feed',
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+    return { 
+      headerTitle: <FeedTitleHeader {...params} handleSearch={navigation.getParam('handleSearch')} /> 
+    }
   };
 
   constructor() {
@@ -21,6 +25,15 @@ export class FeedScreen extends Component {
       url: '',
       sortURL: '/api/v1/reports/?ordering=-pk'
     }
+  }
+
+  // Set handleSearch() as a parameter to pass into FeedTitleHeader.
+  componentDidMount() {
+    this.props.navigation.setParams({ handleSearch: this.handleSearch });
+  }
+
+  handleSearch = (query) => {
+    console.log(query);
   }
 
   renderHeader = () => {
