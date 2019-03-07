@@ -23,7 +23,7 @@ export default class RegistrationForm extends Component {
     ))
     pickerItems.splice(0, 0, <Picker.Item key={0} value={0} label="Select Your Home Country" />)
 
-    const { authenticating, handlePress, navigation } = this.props;
+    const { authenticating, handleSubmit, navigation } = this.props;
     const { username, email, password1, password2, home } = this.state;
 
     return (
@@ -64,7 +64,7 @@ export default class RegistrationForm extends Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.registerButton}
-            onPress={() => handlePress(username, email, password1, password2, home)}
+            onPress={() => handleSubmit(username, email, password1, password2, home)}
           >
             {
               authenticating
@@ -86,7 +86,7 @@ export default class RegistrationForm extends Component {
 
 RegistrationForm.propTypes = {
   authenticating: PropTypes.bool.isRequired,
-  handlePress: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({

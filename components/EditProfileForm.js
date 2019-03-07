@@ -28,7 +28,7 @@ export default class EditProfileForm extends Component {
       <Picker.Item key={country.pk} value={country.pk} label={country.name} />
     ))
 
-    const { updatingUser, handlePress, navigation } = this.props;
+    const { updatingUser, handleSubmit, navigation } = this.props;
     const { username, email, biography, home } = this.state;
 
     return (
@@ -60,7 +60,7 @@ export default class EditProfileForm extends Component {
           <TouchableOpacity
             style={styles.updateButton}
             onPress={() => {
-              handlePress(username, email, home, biography);
+              handleSubmit(username, email, home, biography);
               navigation.navigate('Profile')
             }}
           >
@@ -78,7 +78,7 @@ export default class EditProfileForm extends Component {
 
 EditProfileForm.propTypes = {
   updatingUser: PropTypes.bool.isRequired,
-  handlePress: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 

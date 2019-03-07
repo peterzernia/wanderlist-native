@@ -8,7 +8,7 @@ import ForgotPasswordForm from '../components/ForgotPasswordForm';
 import { requestPasswordReset } from '../actions/authActions';
 
 export class ForgotPasswordScreen extends Component {
-  handlePress = async(email) => {
+  handleSubmit = async(email) => {
     await this.props.requestPasswordReset(email);
   }
 
@@ -21,7 +21,7 @@ export class ForgotPasswordScreen extends Component {
   render() {
     return (
       <View style={styles.forgotPasswordForm}>
-        <ForgotPasswordForm handlePress={this.handlePress} {...this.props} />
+        <ForgotPasswordForm handleSubmit={this.handleSubmit} {...this.props} />
       </View>
     );
   }

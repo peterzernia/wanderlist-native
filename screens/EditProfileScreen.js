@@ -12,7 +12,7 @@ export class EditProfileScreen extends Component {
     title: 'Edit Profile',
   };
 
-  handlePress = async (username, email, home, biography) => {
+  handleSubmit = async (username, email, home, biography) => {
     const { user, updateUser } = this.props;
     const token = await AsyncStorage.getItem('token');
     
@@ -25,7 +25,7 @@ export class EditProfileScreen extends Component {
   render() {
     return (
       <View style={styles.editProfileForm}>
-        <EditProfileForm handlePress={this.handlePress} {...this.props} />
+        <EditProfileForm handleSubmit={this.handleSubmit} {...this.props} />
       </View>
     );
   }

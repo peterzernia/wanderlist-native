@@ -8,7 +8,7 @@ import RegistrationForm from '../components/RegistrationForm';
 import { authRegister } from '../actions/authActions';
 
 export class RegisterScreen extends Component {
-  handlePress = async(username, email, password1, password2, home) => {
+  handleSubmit = async(username, email, password1, password2, home) => {
     await this.props.authRegister(username, email, password1, password2, home);
   }
 
@@ -21,7 +21,7 @@ export class RegisterScreen extends Component {
   render() {
     return (
       <View style={styles.registrationForm}>
-        <RegistrationForm handlePress={this.handlePress} {...this.props} />
+        <RegistrationForm handleSubmit={this.handleSubmit} {...this.props} />
       </View>
     );
   }

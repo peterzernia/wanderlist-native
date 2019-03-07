@@ -22,7 +22,7 @@ export class ProfileScreen extends Component {
     }
   }
 
-  handleValueChange = (value) => {
+  handleSwitch = (value) => {
     this.setState({switchValue: value});
     this.props.authLogout();
     this.props.navigation.navigate('Login')
@@ -37,7 +37,7 @@ export class ProfileScreen extends Component {
         <Switch 
           style={styles.switch}
           value={switchValue}
-          onValueChange={(value) => this.handleValueChange(value)}
+          onValueChange={(value) => this.handleSwitch(value)}
         />
         <View style={styles.wrapper}>
           <View style={styles.flagContainer}>

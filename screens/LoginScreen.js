@@ -7,7 +7,7 @@ import LoginForm from '../components/LoginForm';
 import { authLogin } from '../actions/authActions';
 
 export class LoginScreen extends Component {
-  handlePress = async (username, password) => {
+  handleSubmit = async (username, password) => {
     await this.props.authLogin(username, password);
   }
 
@@ -20,7 +20,7 @@ export class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.loginForm}>
-        <LoginForm handlePress={this.handlePress} {...this.props} />
+        <LoginForm handleSubmit={this.handleSubmit} {...this.props} />
       </View>
     );
   }

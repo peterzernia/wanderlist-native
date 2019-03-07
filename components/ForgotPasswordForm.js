@@ -18,7 +18,7 @@ export default class ForgotPasswordForm extends Component {
   }
 
   render() {
-    const { authenticating, handlePress, navigation } = this.props;
+    const { authenticating, handleSubmit, navigation } = this.props;
     const { email } = this.state;
 
     return (
@@ -35,7 +35,7 @@ export default class ForgotPasswordForm extends Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.passwordButton}
-            onPress={() => handlePress(email)}
+            onPress={() => handleSubmit(email)}
           >
             {
               authenticating
@@ -57,7 +57,7 @@ export default class ForgotPasswordForm extends Component {
 
 ForgotPasswordForm.propTypes = {
   authenticating: PropTypes.bool.isRequired,
-  handlePress: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 

@@ -19,7 +19,7 @@ export default class LoginForm extends Component {
   }
 
   render() {
-    const { authenticating, handlePress, navigation } = this.props;
+    const { authenticating, handleSubmit, navigation } = this.props;
     const { username, password } = this.state;
     return (
       <View style={styles.container}>
@@ -39,7 +39,7 @@ export default class LoginForm extends Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.loginButton}
-            onPress={() => handlePress(username, password)}
+            onPress={() => handleSubmit(username, password)}
           >
           {
             authenticating
@@ -67,7 +67,7 @@ export default class LoginForm extends Component {
 
 LoginForm.propTypes = {
   authenticating: PropTypes.bool.isRequired,
-  handlePress: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 
