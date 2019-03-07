@@ -96,7 +96,7 @@ export class ProfileScreen extends Component {
         </View>
       );
     } else {
-      return null;
+      return <View style={{marginBottom: 10}}></View>;
     }
   };
 
@@ -194,7 +194,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   switch: {
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
+    marginRight: 5,
   },
   wrapper: {
     flexDirection: 'row',
@@ -261,12 +262,13 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '95%',
-    borderRadius: 2,
+    borderRadius: 4,
     backgroundColor: 'white',
     alignItems: 'center',
-    margin: 2,
+    margin: 4,
     padding: 5,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    elevation: 5
   },
   tripReportText: {
     fontSize: 20,
