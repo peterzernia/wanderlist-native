@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Text, TextInput, TouchableOpacity, View, ScrollView, StyleSheet } from 'react-native';
+import { TextInput, View, ScrollView, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import MultiSelect from 'react-native-multiple-select';
 import countries from '../countries.json';
 
+/** 
+ * Global setState function used to pass the data from PostForm
+ * to PostTitleHeader, where the actual post/update function call
+ * is made.
+**/
 export default class PostForm extends Component {
   constructor(){
     super();
@@ -17,7 +22,12 @@ export default class PostForm extends Component {
   componentDidMount() {
     // If the tripReport is not null (i.e. we're editing a post), setState with the
     // values from the tripReport to fill the forms.
-    const { tripReport } = this.props;
+    const { tripReport, setState } = this.props;
+    setState({ // Set the initial globalState.
+      title: '',
+      content:'',
+      selectedCountries: [],
+    });
     if (tripReport) {
       var countries = tripReport.countries.map(country => (
         country.id
@@ -28,7 +38,14 @@ export default class PostForm extends Component {
         content: tripReport.content,
         selectedCountries: countries
       });
+      setState(this.state);
     }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // Set local state and globalState whenever the component updates.
+    const { setState } = this.props;
+    setState(this.state);
   }
 
   render() {
@@ -38,7 +55,7 @@ export default class PostForm extends Component {
       {id: `${country.pk}`, name: country.name}
     ))
 
-    const { posting, handlePress, navigation } = this.props;
+    const { setState } = this.props;
     const { title, content, selectedCountries } = this.state;
 
     return (
@@ -52,7 +69,11 @@ export default class PostForm extends Component {
               style={styles.textInput}
               placeholder="Title"
               value={title}
-              onChangeText={(value) => this.setState({title: value})}
+              // Set local state and globalState.
+              onChangeText={(value) => {
+                this.setState({title: value});
+                setState(this.state);
+              }}
             />
           </View>
           <MultiSelect
@@ -60,7 +81,10 @@ export default class PostForm extends Component {
             items={items}
             uniqueKey="id"
             ref={(component) => { this.multiSelect = component }}
-            onSelectedItemsChange={(selectedCountries) => this.setState({selectedCountries})}
+            onSelectedItemsChange={(selectedCountries) => {
+              this.setState({selectedCountries});
+              setState(this.state);
+            }}
             selectedItems={selectedCountries}
             selectText="Select Countries"
             searchInputPlaceholderText="Search Countries"
@@ -79,23 +103,11 @@ export default class PostForm extends Component {
             placeholder="Content"
             value={content}
             multiline={true}
-            onChangeText={(value) => this.setState({content: value})}
+            onChangeText={(value) => {
+              this.setState({content: value});
+              setState(this.state);
+            }}
           />
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.postButton}
-              onPress={() => {
-                handlePress(title, content, selectedCountries);
-                navigation.goBack(null);
-              }}
-            >
-              {
-                posting
-                ? <ActivityIndicator size="small" color="white" />
-                : <Text style={styles.text}>Post</Text>
-              }
-            </TouchableOpacity>
-          </View>
         </View>
       </ScrollView>
     )
@@ -103,8 +115,8 @@ export default class PostForm extends Component {
 }
 
 PostForm.propTypes = {
-  posting: PropTypes.bool.isRequired,
-  handlePress: PropTypes.func.isRequired,
+  globalState: PropTypes.object.isRequired,
+  setState: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({
@@ -129,23 +141,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlignVertical: 'top'
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    marginTop: 10,
-    justifyContent: 'center'
-  },
-  postButton: {
-    maxWidth: 100,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: "#2196f3",
-    flex: 1,
-    marginRight: 5,
-    borderRadius: 10
-  },
-  text: {
-    color: 'white',
-    fontSize: 16
-  }
 });

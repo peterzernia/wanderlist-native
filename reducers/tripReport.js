@@ -11,6 +11,7 @@ const initialState = {
   fetchingNextUserTripReports: false,
   tripReports: { results: [], count: null, next: null, previous: null },
   userTripReports: { results: [], count: null, next: null, previous: null },
+  globalState: {},
 }
 
 export default function (state = initialState, action) {
