@@ -16,11 +16,11 @@ export default function TripReportFooter(props) {
     </TouchableOpacity>
   ));
 
-  onShare = async (slug) => {
+  handleShare = async (slug) => {
     try {
       const result = await Share.share({
         message: 
-          `Check out this Trip Report on Wanderlist:\nhttps://w4nderlist.herokuapp.com/p/${slug}/`,
+          `Check out this Trip Report on Wanderlist:\nhttps://www.wanderlist.dev/p/${slug}/`,
       })
 
       if (result.action === Share.sharedAction) {
@@ -35,7 +35,7 @@ export default function TripReportFooter(props) {
     }
   };
 
-  handlePress = async (id) => {
+  handleFavorite = async (id) => {
     const token = await AsyncStorage.getItem('token');
     toggleFavorite(id, token);
   }
@@ -55,7 +55,7 @@ export default function TripReportFooter(props) {
           }
           <TouchableOpacity 
             style={styles.favoriteButton}
-            onPress={() => handlePress(tripReport.id)}
+            onPress={() => handleFavorite(tripReport.id)}
           >
           {/* Display border icon if Trip Report is not favorited. */}
           {
@@ -67,7 +67,7 @@ export default function TripReportFooter(props) {
         </View>
         <TouchableOpacity 
           style={styles.shareButton}
-          onPress={() => onShare(tripReport.slug)}
+          onPress={() => handleShare(tripReport.slug)}
         >
           <Icon name='share' size={25} />
         </TouchableOpacity>
