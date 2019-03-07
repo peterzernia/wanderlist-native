@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage, ScrollView, StyleSheet } from 'react-native';
+import { AsyncStorage, FlatList, StyleSheet, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -50,30 +50,37 @@ export class SearchScreen extends Component {
     updateUser(token, user.username, user.email, newCountries, user.home.id, user.biography, success);
   }
 
+  renderHeader = () => {
+    return (
+      <SearchBar 
+        findCountry={this.findCountry}
+        handleSearch={this.handleSearch} 
+        {...this.props} 
+      />
+    );
+  }
+
   render() {
     const { pendingCountry } = this.state;
-    const { searchedCountries } = this.props;
-    
-    // Map the search countries array into individual Results components.
-    const listResults = searchedCountries.map(country =>(
-      <Results 
-        key={country.id} 
-        {...this.props} 
-        country={country} 
-        handleUpdate={this.handleUpdate}
-        pendingCountry={pendingCountry}
-      />
-    ));
+    const { countries } = this.props;
 
     return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <SearchBar 
-          findCountry={this.findCountry}
-          handleSearch={this.handleSearch} 
-          {...this.props} 
-        />
-        {listResults}
-      </ScrollView>
+      <FlatList
+        containerContentStyle={styles.container}
+        data={countries}
+        renderItem={({ item }) => (
+          <View style={styles.results}>
+            <Results 
+              {...this.props} 
+              country={item} 
+              handleUpdate={this.handleUpdate}
+              pendingCountry={pendingCountry}
+            />
+          </View>
+        )}
+        keyExtractor={item => item.alpha2code}
+        ListHeaderComponent={() => this.renderHeader()}
+      />
     );
   }
 }
@@ -81,7 +88,7 @@ export class SearchScreen extends Component {
 const mapState = state => {
   return {
     fetchingCountries: state.country.fetchingCountries,
-    searchedCountries: state.country.countries,
+    countries: state.country.countries,
     user: state.user.user,
     updatingUser: state.user.updatingUser,
   }
@@ -99,7 +106,7 @@ export default connect(mapState, mapDispatch)(SearchScreen);
 SearchScreen.propTypes = {
   fetchCountries: PropTypes.func.isRequired,
   fetchingCountries: PropTypes.bool.isRequired,
-  searchedCountries: PropTypes.array.isRequired,
+  countries: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
   updatingUser: PropTypes.bool.isRequired,
@@ -107,6 +114,11 @@ SearchScreen.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    width: '100%',
+  },
+  results: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center'
   }
 })
