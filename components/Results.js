@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { ActivityIndicator, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default class Results extends Component {
+export default class Results extends PureComponent {
   constructor() {
     super();
     this.state = {
@@ -15,11 +15,18 @@ export default class Results extends Component {
   componentDidMount() {
     var { country } = this.props;
 
-    Image.getSize(country.flag, (width, height) => {
-      this.setState({  
-        height: Dimensions.get('window').width*.95*height/width 
+    if (!this.isCancelled) {
+      Image.getSize(country.flag, (width, height) => {
+        this.setState({  
+          height: Dimensions.get('window').width*.95*height/width 
+        });
       });
-    });
+    }
+  }
+
+  componentWillUnmount() {
+    // Can't call setState on an unmounted component.
+    this.isCancelled = true;
   }
 
   render() {
