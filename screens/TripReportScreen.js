@@ -8,6 +8,7 @@ import TripReportFooter from '../components/TripReportFooter';
 import TripReportHeader from '../components/TripReportHeader';
 import TripReportTitleHeader from '../components/TripReportTitleHeader';
 import { deleteTripReport } from '../actions/tripReportActions';
+import { toggleFavorite } from '../actions/favoriteActions';
 
 // TripReportScreen displays the full text of the Trip Reports.
 export class TripReportScreen extends Component {
@@ -36,19 +37,27 @@ export class TripReportScreen extends Component {
   }
 
   render(){
-    // Pull tripReport prop out of navigation parameters.
-    const { tripReport } = this.props.navigation.state.params;
+    /**
+     * A Trip Report is passed in as a navigation prop, but this prop is
+     * not connected to the Redux state, so the Trip Report has to be mapped to
+     * props from state and passed into the Header and Footer components to 
+     * correctly rerender on state changes.
+     */
+    const { tripReports } = this.props;
+    const [tripReport] = tripReports.results.filter(tripReport => 
+      tripReport.id === this.props.navigation.state.params.tripReport.id
+    );
 
     return (
       <ScrollView style={{backgroundColor: 'white'}}>
         <View style={styles.container}>
-          <TripReportHeader {...this.props.navigation.state.params} />
+          <TripReportHeader tripReport={tripReport} {...this.props} />
           <View style={styles.body}>
             <Text>
               {tripReport.content}
             </Text>
           </View>
-          <TripReportFooter {...this.props.navigation.state.params} />
+          <TripReportFooter tripReport={tripReport} {...this.props} />
         </View>
       </ScrollView>
     )
@@ -57,12 +66,15 @@ export class TripReportScreen extends Component {
 
 const mapState = state => {
   return {
+    tripReports: state.tripReport.tripReports,
+    user: state.user.user,
   }
 }
 
 const mapDispatch = dispatch => {
   return bindActionCreators({
     deleteTripReport,
+    toggleFavorite,
   }, dispatch)
 }
 
@@ -70,6 +82,9 @@ export default connect(mapState, mapDispatch)(TripReportScreen);
 
 TripReportScreen.propTypes = {
   deleteTripReport: PropTypes.func.isRequired,
+  tripReports: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
