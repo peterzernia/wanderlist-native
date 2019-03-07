@@ -54,7 +54,6 @@ export default function TripReportFooter(props) {
           <Text style={styles.favoriteCount}>{tripReport.favoriters.length}</Text>
           }
           <TouchableOpacity 
-            style={styles.favoriteButton}
             onPress={() => handleFavorite(tripReport.id)}
           >
           {/* Display border icon if Trip Report is not favorited. */}
@@ -66,7 +65,6 @@ export default function TripReportFooter(props) {
           </TouchableOpacity>
         </View>
         <TouchableOpacity 
-          style={styles.shareButton}
           onPress={() => handleShare(tripReport.slug)}
         >
           <Icon name='share' size={25} />
@@ -112,8 +110,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginRight: 2
   },
-  favoriteButton: {
-  },
-  shareButton: {
-  }
 });

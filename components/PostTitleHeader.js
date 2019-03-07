@@ -90,10 +90,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   buttonContainer: {
-    marginRight: 30,
     alignSelf: 'center',
+    paddingLeft: 15, 
+    paddingRight: 30,
+    paddingTop: 6,
+    paddingBottom: 6,
   },
   buttonText: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center',
   }
 })
