@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "wanderlist-native",
-    "slug": "wanderlist-native",
+    "name": "wanderlist",
+    "slug": "wanderlist",
     "privacy": "public",
-    "sdkVersion": "31.0.0",
+    "sdkVersion": "32.0.0",
     "platforms": [
       "ios",
       "android"
@@ -23,7 +23,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "dev.wanderlist.wanderlist"
     }
   }
 }
