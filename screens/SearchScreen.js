@@ -80,6 +80,11 @@ export class SearchScreen extends Component {
         )}
         keyExtractor={item => item.alpha2code}
         ListHeaderComponent={() => this.renderHeader()}
+        removeClippedSubviews={true}
+        initialNumToRender={2}
+        maxToRenderPerBatch={1}
+        maxToRenderPerBatch={100}
+        windowSize={7}
       />
     );
   }
