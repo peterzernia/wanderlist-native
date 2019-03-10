@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Text, TextInput, TouchableOpacity, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 
+import Colors from '../constants/Colors';
+
 export default class FeedTitleHeader extends Component {
   constructor() {
     super();
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
     width: '25%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#2196f3",
+    backgroundColor: Colors.blue,
     flex: 1,
     marginLeft: 5,
     borderRadius: 10
