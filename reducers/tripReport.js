@@ -1,10 +1,7 @@
 const initialState = {
   fetchingTripReports: false,
-  fetchedTripReports: false,
   fetchingNextTripReports: false,
-  fetchedNextTripReports: false,
   fetchingUserTripReports: false,
-  fetchedUserTripReports: false,
   fetchingNextUserTripReports: false,
   fetchingNextUserTripReports: false,
   tripReports: { results: [], count: null, next: null, previous: null },
@@ -17,7 +14,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fetchingTripReports: true,
-        fetchedTripReports: false,
         tripReports: { results: [], count: null, next: null, previous: null },
       }
     }
@@ -25,7 +21,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fetchingTripReports: false,
-        fetchedTripReports: true,
         tripReports: action.tripReports,
       }
     }
@@ -33,7 +28,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fetchingTripReports: false,
-        fetchedTripReports: false,
       }
     }
     /*
@@ -44,14 +38,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fetchingNextTripReports: true,
-        fetchedNextTripReports: false
       }
     }
     case "FETCH_NEXT_TRIP_REPORTS_FULFILLED": {
       return {
         ...state,
         fetchingNextTripReport: false,
-        fetchedNextTripReport: true,
         tripReports: {
           count: action.tripReports.count,
           next: action.tripReports.next,
@@ -64,7 +56,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fetchingNextTripReport: false,
-        fetchedNextTripReport: false,
       }
     }
     // Basic axios request for fetching a user's Trip Reports
@@ -72,14 +63,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fetchingUserTripReports: true,
-        fetchedUserTripReports: false
       }
     }
     case "FETCH_USER_TRIP_REPORTS_FULFILLED": {
       return {
         ...state,
         fetchingUserTripReports: false,
-        fetchedUserTripReports: true,
         userTripReports: action.tripReports,
       }
     }
@@ -87,7 +76,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fetchingUserTripReports: false,
-        fetchedUserTripReports: false,
       }
     }
     /*
@@ -99,14 +87,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fetchingNextUserTripReports: true,
-        fetchedNextUserTripReports: false
       }
     }
     case "FETCH_NEXT_USER_TRIP_REPORTS_FULFILLED": {
       return {
         ...state,
         fetchingNextUserTripReports: false,
-        fetchedNextUserTripReports: true,
         userTripReports: {
           count: action.tripReports.count,
           next: action.tripReports.next,
