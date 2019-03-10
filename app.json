@@ -27,6 +27,8 @@
     },
     "android": {
       "package": "dev.wanderlist.wanderlist"
-    }
+    },
+    "description": "",
+    "githubUrl": "https://github.com/peterzernia/wanderlist-native"
   }
 }
