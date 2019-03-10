@@ -25,19 +25,13 @@ export const fetchNextUserTripReportsFulfilled = tripReports => ({type: "FETCH_N
 export const fetchNextUserTripReportsRejected = () => ({type: "FETCH_NEXT_USER_TRIP_REPORTS_REJECTED"})
 
 // For the authenticated user to POST request a new trip report
-export const postTripReportPending = () => ({type: "POST_TRIP_REPORT_PENDING"})
 export const postTripReportFulfilled = response => ({type: "POST_TRIP_REPORT_FULFILLED", response})
-export const postTripReportRejected = () => ({type: "POST_TRIP_REPORT_REJECTED"})
 
 // For the authenticated user to delete a Trip Report of theirs
-export const deleteTripReportPending = () => ({type: "DELETE_TRIP_REPORT_PENDING"})
 export const deleteTripReportFulfilled = response => ({type: "DELETE_TRIP_REPORT_FULFILLED", response})
-export const deleteTripReportRejected = () => ({type: "DELETE_TRIP_REPORT_REJECTED"})
 
 // For the authenticated user to update a Trip Report of theirs
-export const updateTripReportPending = () => ({type: "UPDATE_TRIP_REPORT_PENDING"})
 export const updateTripReportFulfilled = response => ({type: "UPDATE_TRIP_REPORT_FULFILLED", response})
-export const updateTripReportRejected = () => ({type: "UPDATE_TRIP_REPORT_REJECTED"})
 
 /*
 GET requests the Django REST API and returns the first page of a list of Trip
@@ -147,7 +141,6 @@ user.
 */
 export const postTripReport = (token, author, title, content, countries) => {
   return dispatch => {
-    dispatch(postTripReportPending());
     axios.post(
       `${REACT_APP_API_URL}/api/v1/reports/`, 
       { author, title, content, countries},
@@ -157,7 +150,6 @@ export const postTripReport = (token, author, title, content, countries) => {
         dispatch(postTripReportFulfilled(response.data));
       })
       .catch(err => {
-        dispatch(postTripReportRejected());
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {
@@ -172,7 +164,6 @@ export const postTripReport = (token, author, title, content, countries) => {
 // Deletes a post of the authenticated user on the API.
 export const deleteTripReport = (token, tripReport) => {
   return dispatch => {
-    dispatch(deleteTripReportPending());
     axios.delete(`${REACT_APP_API_URL}/api/v1/reports/${tripReport.id}/`, 
     {
       headers: {
@@ -186,7 +177,6 @@ export const deleteTripReport = (token, tripReport) => {
         Alert.alert('Success', 'Your post has been deleted.');
       })
       .catch(err => {
-        dispatch(deleteTripReportRejected());
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {
@@ -201,7 +191,6 @@ export const deleteTripReport = (token, tripReport) => {
 // Updates a post of the authenticated user on the API.
 export const updateTripReport = (token, id, author, title, content, countries) => {
   return dispatch => {
-    dispatch(updateTripReportPending());
     axios.patch(`${REACT_APP_API_URL}/api/v1/reports/${id}/`, 
     { author, title, content, countries },
       {
@@ -217,7 +206,6 @@ export const updateTripReport = (token, id, author, title, content, countries) =
         Alert.alert('Success', 'Your post has been updated.');
       })
       .catch(err => {
-        dispatch(updateTripReportRejected());
         let error = '';
         Object.keys(err.response.data).map(message => {
           switch(message) {

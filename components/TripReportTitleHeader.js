@@ -66,8 +66,8 @@ export default class TripReportTitleHeader extends Component {
                           [
                             {text: 'OK', onPress: () => {
                               this.setState({ modalVisible: false});
-                              handleDelete(tripReport);
                               navigation.goBack(null);
+                              handleDelete(tripReport);
                             }},
                             {text: 'Cancel'}
                           ]

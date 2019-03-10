@@ -1,6 +1,4 @@
 const initialState = {
-  posting: false,
-  updating: false,
   fetchingTripReports: false,
   fetchedTripReports: false,
   fetchingNextTripReports: false,
@@ -11,7 +9,6 @@ const initialState = {
   fetchingNextUserTripReports: false,
   tripReports: { results: [], count: null, next: null, previous: null },
   userTripReports: { results: [], count: null, next: null, previous: null },
-  globalState: {},
 }
 
 export default function (state = initialState, action) {
@@ -150,12 +147,6 @@ export default function (state = initialState, action) {
         }
       }
     }
-    case "POST_TRIP_REPORT_PENDING": {
-      return {
-        ...state,
-        posting: true
-        }
-    }
     case "POST_TRIP_REPORT_FULFILLED": {
       /*
       The axios response is a single trip report. The new trip report must be
@@ -176,14 +167,7 @@ export default function (state = initialState, action) {
           next: state.userTripReports.next,
           previous: state.userTripReports.previous
         },
-        posting: false
       }
-    }
-    case "POST_TRIP_REPORT_REJECTED": {
-      return {
-        ...state,
-        posting: false
-        }
     }
     case "DELETE_TRIP_REPORT_FULFILLED": {
       /*
@@ -206,12 +190,6 @@ export default function (state = initialState, action) {
         },
       }
     }
-    case "UPDATE_TRIP_REPORT_PENDING": {
-      return {
-        ...state,
-        updating: true
-      }
-    }
     case "UPDATE_TRIP_REPORT_FULFILLED": {
       /*
       The axios response is the updated post. The old, unupdated post must be
@@ -232,13 +210,6 @@ export default function (state = initialState, action) {
           next: state.userTripReports.next,
           previous: state.userTripReports.previous
         },
-        updating: false
-      }
-    }
-    case "UPDATE_TRIP_REPORT_REJECTED": {
-      return {
-        ...state,
-        updating: false
       }
     }
     case "UPDATE_USER_FULFILLED": {
