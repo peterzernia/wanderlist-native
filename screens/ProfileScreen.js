@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import Colors from '../constants/Colors';
 import UserMap from '../components/UserMap';
 import { authLogout } from '../actions/authActions';
 import { fetchNextUserTripReports } from '../actions/tripReportActions';
@@ -92,7 +93,7 @@ export class ProfileScreen extends Component {
     if (fetchingNextUserTripReports && userTripReports.next) {
       return (
         <View style={{marginBottom: 10}}>
-          <ActivityIndicator size="large" color="#2196f3"/>
+          <ActivityIndicator size="large" color={Colors.blue} />
         </View>
       );
     } else {
@@ -123,7 +124,7 @@ export class ProfileScreen extends Component {
     if (fetchingUser) {
       return (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#2196f3" />
+          <ActivityIndicator size="large" color={Colors.blue} />
         </View>
       );
     } else {

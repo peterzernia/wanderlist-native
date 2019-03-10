@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { REACT_APP_API_URL } from 'react-native-dotenv';
 
+import Colors from '../constants/Colors';
 import TripReportCard from '../components/TripReportCard';
 import FeedTitleHeader from '../components/FeedTitleHeader';
 import { fetchTripReports, fetchNextTripReports } from '../actions/tripReportActions';
@@ -71,7 +72,7 @@ export class FeedScreen extends Component {
     if (fetchingNextTripReports && tripReports.next) {
       return (
         <View style={{marginBottom: 10}}>
-          <ActivityIndicator size="large" color="#2196f3"/>
+          <ActivityIndicator size="large" color={Colors.blue}/>
         </View>
       );
     } else {

@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { 
-  ActivityIndicator,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { ActivityIndicator, TextInput, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
+
+import Colors from '../constants/Colors';
 
 export default class ForgotPasswordForm extends Component {
   constructor(props){
@@ -85,7 +80,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#2196f3",
+    backgroundColor: Colors.blue,
     flex: 1,
     marginRight: 5,
     borderRadius: 10
