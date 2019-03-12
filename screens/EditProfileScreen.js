@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { updateUser } from '../actions/userActions';
 import EditProfileForm from '../components/EditProfileForm';
+import { updateUser } from '../actions/userActions';
 
 export class EditProfileScreen extends Component {
   static navigationOptions = {

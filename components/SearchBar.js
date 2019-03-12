@@ -3,6 +3,7 @@ import { ActivityIndicator, Text, TouchableOpacity, StyleSheet, View } from 'rea
 import PropTypes from 'prop-types';
 import Autocomplete from 'react-native-autocomplete-input';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import countries from '../countries.json';
 
 export default class SearchBar extends Component {

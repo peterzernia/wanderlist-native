@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import LoginForm from '../components/LoginForm';
 import { authLogin } from '../actions/authActions';
 

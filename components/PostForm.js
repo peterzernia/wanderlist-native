@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TextInput, View, ScrollView, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import MultiSelect from 'react-native-multiple-select';
+
 import countries from '../countries.json';
 
 /** 

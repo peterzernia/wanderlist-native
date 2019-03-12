@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
+
 import TripReportFooter from './TripReportFooter';
 import TripReportHeader from './TripReportHeader';
 
