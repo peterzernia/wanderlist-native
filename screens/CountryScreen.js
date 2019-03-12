@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Dimensions, Linking, Image, Text, TouchableOpacity, ScrollView, StyleSheet, View } from 'react-native';
+import { Linking, Image, Text, TouchableOpacity, ScrollView, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 import CountryMap from '../components/CountryMap';
+import Layout from '../constants/Layout';
 
 export default class CountryScreen extends Component {
   static navigationOptions = ({ navigation}) => {
@@ -23,7 +24,7 @@ export default class CountryScreen extends Component {
 
     Image.getSize(country.flag, (width, height) => {
       this.setState({  
-        height: Dimensions.get('window').width*.95*height/width 
+        height: Layout.window.width * .95 * (height / width) 
       });
     });
   }
@@ -100,25 +101,25 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   flagContainer: {
-    width: Dimensions.get('window').width*.95, 
+    width: Layout.window.width * .95, 
     alignSelf: 'center',
     margin: 5,
     marginTop: 10,
     borderWidth: 1,
   },
   nepalContainer: {
-    width: Dimensions.get('window').width*.95, 
+    width: Layout.window.width * .95, 
     alignSelf: 'center',
     margin: 5,
     marginTop: 10,
   },
   flag: {
-    width: Dimensions.get('window').width*.95,  
+    width: Layout.window.width * .95,  
     resizeMode: 'cover'
   },
   map: {
     height: 200,
-    width: Dimensions.get('window').width*.95,
+    width: Layout.window.width * .95,
     borderWidth: .5,
     overflow: 'hidden',
     margin: 10,
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, .75)',
   },
   info: {
-    width: Dimensions.get('window').width*.95,
+    width: Layout.window.width * .95,
     borderRadius: 10,
     borderWidth: .5,
     padding: 10,

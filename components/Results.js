@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
-import { ActivityIndicator, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import Layout from '../constants/Layout';
 
 export default class Results extends PureComponent {
   constructor() {
@@ -18,7 +20,7 @@ export default class Results extends PureComponent {
     if (!this.isCancelled) {
       Image.getSize(country.flag, (width, height) => {
         this.setState({  
-          height: Dimensions.get('window').width*.95*height/width 
+          height: Layout.window.width * .95 * (height / width) 
         });
       });
     }
@@ -116,10 +118,10 @@ const styles = StyleSheet.create({
     height: 25,
   },
   flagContainer: {
-    width: Dimensions.get('window').width*.95, 
+    width: Layout.window.width * .95, 
   },
   flag: {
-    width: Dimensions.get('window').width*.95,  
+    width: Layout.window.width * .95,  
     resizeMode: 'cover'
   }
 });
