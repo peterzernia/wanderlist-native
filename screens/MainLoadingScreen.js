@@ -1,32 +1,39 @@
-import React, { Component } from 'react';
-import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { REACT_APP_API_URL } from 'react-native-dotenv';
+import React, { Component } from "react";
+import { ActivityIndicator, AsyncStorage, StatusBar, View } from "react-native";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { REACT_APP_API_URL } from "react-native-dotenv";
 
-import { fetchTripReports, fetchUserTripReports } from '../actions/tripReportActions';
-import { fetchUser } from '../actions/userActions';
+import {
+  fetchTripReports,
+  fetchUserTripReports
+} from "../actions/tripReportActions";
+import { fetchUser } from "../actions/userActions";
 
 export class MainLoadingScreen extends Component {
   constructor(props) {
     super(props);
-    this._bootstrapAsync()
-      .catch(err => {
-        console.log(err);
-});
+    this._bootstrapAsync().catch(err => {
+      console.log(err);
+    });
   }
 
   _bootstrapAsync = async () => {
     // Initial load for App data.
-    const { fetchUser, fetchTripReports, fetchUserTripReports, navigation } = this.props;
-    const token = await AsyncStorage.getItem('token');
-    const username = await AsyncStorage.getItem('username');
-    
+    const {
+      fetchUser,
+      fetchTripReports,
+      fetchUserTripReports,
+      navigation
+    } = this.props;
+    const token = await AsyncStorage.getItem("token");
+    const username = await AsyncStorage.getItem("username");
+
     await fetchUser(token);
     await fetchTripReports(`${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk`);
     await fetchUserTripReports(username);
-    navigation.navigate('Main');
+    navigation.navigate("Main");
   };
 
   render() {
@@ -40,22 +47,27 @@ export class MainLoadingScreen extends Component {
 }
 
 const mapState = state => {
-  return {
-  }
-}
+  return {};
+};
 
 const mapDispatch = dispatch => {
-  return bindActionCreators({
-    fetchUser,
-    fetchUserTripReports,
-    fetchTripReports,
-  }, dispatch)
-}
+  return bindActionCreators(
+    {
+      fetchUser,
+      fetchUserTripReports,
+      fetchTripReports
+    },
+    dispatch
+  );
+};
 
-export default connect(mapState, mapDispatch)(MainLoadingScreen);
+export default connect(
+  mapState,
+  mapDispatch
+)(MainLoadingScreen);
 
 MainLoadingScreen.propTypes = {
   fetchUser: PropTypes.func.isRequired,
   fetchUserTripReports: PropTypes.func.isRequired,
-  fetchTripReports: PropTypes.func.isRequired,
+  fetchTripReports: PropTypes.func.isRequired
 };

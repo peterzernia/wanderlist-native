@@ -1,31 +1,46 @@
-import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, Picker, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { REACT_APP_API_URL } from 'react-native-dotenv';
+import React, { Component } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  Picker,
+  StyleSheet,
+  TouchableOpacity,
+  View
+} from "react-native";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { REACT_APP_API_URL } from "react-native-dotenv";
 
-import Colors from '../constants/Colors';
-import TripReportCard from '../components/TripReportCard';
-import FeedTitleHeader from '../components/FeedTitleHeader';
-import { fetchTripReports, fetchNextTripReports } from '../actions/tripReportActions';
-import { toggleFavorite } from '../actions/favoriteActions';
+import Colors from "../constants/Colors";
+import TripReportCard from "../components/TripReportCard";
+import FeedTitleHeader from "../components/FeedTitleHeader";
+import {
+  fetchTripReports,
+  fetchNextTripReports
+} from "../actions/tripReportActions";
+import { toggleFavorite } from "../actions/favoriteActions";
 
 export class FeedScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
-    return { 
-      headerTitle: <FeedTitleHeader {...params} handleSearch={navigation.getParam('handleSearch')} /> 
-    }
+    return {
+      headerTitle: (
+        <FeedTitleHeader
+          {...params}
+          handleSearch={navigation.getParam("handleSearch")}
+        />
+      )
+    };
   };
 
   constructor() {
     super();
     this.state = {
-      url: '',
-      sortURL: '/api/v1/reports/?ordering=-pk'
-    }
+      url: "",
+      sortURL: "/api/v1/reports/?ordering=-pk"
+    };
   }
 
   // Set handleSearch() as a parameter to pass into FeedTitleHeader.
@@ -34,10 +49,10 @@ export class FeedScreen extends Component {
     setParams({ handleSearch: this.handleSearch });
   }
 
-  handleSearch = (query) => {
+  handleSearch = query => {
     const { fetchTripReports } = this.props;
     fetchTripReports(`${REACT_APP_API_URL}/api/v1/reports/?search=${query}`);
-  }
+  };
 
   renderHeader = () => {
     const { fetchTripReports, navigation } = this.props;
@@ -48,22 +63,27 @@ export class FeedScreen extends Component {
           <Picker
             style={styles.picker}
             selectedValue={sortURL}
-            onValueChange={(value) => {
-              this.setState({sortURL: value}); 
+            onValueChange={value => {
+              this.setState({ sortURL: value });
               fetchTripReports(`${REACT_APP_API_URL}${value}`);
-          }}>
-            <Picker.Item key={0} value='/api/v1/reports/?ordering=-pk' label='New Posts' />
-            <Picker.Item key={1} value='/api/v1/reports/' label='Best Posts' />
+            }}
+          >
+            <Picker.Item
+              key={0}
+              value="/api/v1/reports/?ordering=-pk"
+              label="New Posts"
+            />
+            <Picker.Item key={1} value="/api/v1/reports/" label="Best Posts" />
           </Picker>
         </View>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.newPostButton}
-          onPress={() => navigation.navigate('Post')}
+          onPress={() => navigation.navigate("Post")}
         >
-          <Icon style={styles.buttonIcon} name='edit' color='black' size={25} />
+          <Icon style={styles.buttonIcon} name="edit" color="black" size={25} />
         </TouchableOpacity>
       </View>
-    )
+    );
   };
 
   renderFooter = () => {
@@ -71,8 +91,8 @@ export class FeedScreen extends Component {
 
     if (fetchingNextTripReports && tripReports.next) {
       return (
-        <View style={{marginBottom: 10}}>
-          <ActivityIndicator size="large" color={Colors.blue}/>
+        <View style={{ marginBottom: 10 }}>
+          <ActivityIndicator size="large" color={Colors.blue} />
         </View>
       );
     } else {
@@ -91,9 +111,9 @@ export class FeedScreen extends Component {
 
     if (tripReports.next && url !== tripReports.next) {
       fetchNextTripReports(tripReports.next);
-      this.setState({url: tripReports.next});
+      this.setState({ url: tripReports.next });
     }
-  }
+  };
 
   render() {
     var { tripReports, fetchTripReports, fetchingTripReports } = this.props;
@@ -104,10 +124,7 @@ export class FeedScreen extends Component {
         <FlatList
           data={tripReports.results}
           renderItem={({ item }) => (
-            <TripReportCard
-              tripReport={item}
-              {...this.props}
-            />
+            <TripReportCard tripReport={item} {...this.props} />
           )}
           keyExtractor={item => item.slug}
           ListHeaderComponent={() => this.renderHeader()}
@@ -126,19 +143,25 @@ const mapState = state => {
     tripReports: state.tripReport.tripReports,
     fetchingTripReports: state.tripReport.fetchingTripReports,
     fetchingNextTripReports: state.tripReport.fetchingNextTripReports,
-    user: state.user.user,
-  }
-}
+    user: state.user.user
+  };
+};
 
 const mapDispatch = dispatch => {
-  return bindActionCreators({
-    fetchTripReports,
-    fetchNextTripReports,
-    toggleFavorite,
-  }, dispatch)
-}
+  return bindActionCreators(
+    {
+      fetchTripReports,
+      fetchNextTripReports,
+      toggleFavorite
+    },
+    dispatch
+  );
+};
 
-export default connect(mapState, mapDispatch)(FeedScreen);
+export default connect(
+  mapState,
+  mapDispatch
+)(FeedScreen);
 
 FeedScreen.propTypes = {
   tripReports: PropTypes.object.isRequired,
@@ -147,21 +170,21 @@ FeedScreen.propTypes = {
   fetchTripReports: PropTypes.func.isRequired,
   fetchNextTripReports: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  toggleFavorite: PropTypes.func.isRequired,
+  toggleFavorite: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    height: '100%'
+    justifyContent: "center",
+    height: "100%"
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   sort: {
     height: 60,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 5
   },
   newPostButton: {
@@ -170,13 +193,13 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 5,
     marginRight: 10,
-    justifyContent: 'center',
-    alignContent: 'center'
+    justifyContent: "center",
+    alignContent: "center"
   },
   buttonIcon: {
-    textAlign: 'center'
+    textAlign: "center"
   },
   picker: {
-    width: 145,
+    width: 145
   }
-})
+});

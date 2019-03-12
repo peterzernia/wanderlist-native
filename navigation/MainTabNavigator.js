@@ -1,46 +1,49 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import React from "react";
+import { Platform } from "react-native";
+import {
+  createStackNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
 
-import EditProfileScreen from '../screens/EditProfileScreen';
-import CountryScreen from '../screens/CountryScreen';
-import FeedScreen from '../screens/FeedScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import PostScreen from '../screens/PostScreen';
-import SearchScreen from '../screens/SearchScreen';
-import TabBarIcon from '../components/TabBarIcon';
-import TripReportScreen from '../screens/TripReportScreen';
+import EditProfileScreen from "../screens/EditProfileScreen";
+import CountryScreen from "../screens/CountryScreen";
+import FeedScreen from "../screens/FeedScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import PostScreen from "../screens/PostScreen";
+import SearchScreen from "../screens/SearchScreen";
+import TabBarIcon from "../components/TabBarIcon";
+import TripReportScreen from "../screens/TripReportScreen";
 
 const FeedStack = createStackNavigator({
   Feed: FeedScreen,
   TripReport: TripReportScreen,
   Post: PostScreen,
-  Country: CountryScreen,
-}); 
+  Country: CountryScreen
+});
 
 FeedStack.navigationOptions = {
-  tabBarLabel: 'Feed',
+  tabBarLabel: "Feed",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-menu' : 'md-menu'}
+      name={Platform.OS === "ios" ? "ios-menu" : "md-menu"}
     />
-  ),
+  )
 };
 
 const SearchStack = createStackNavigator({
   Search: SearchScreen,
-  Country: CountryScreen,
+  Country: CountryScreen
 });
 
 SearchStack.navigationOptions = {
-  tabBarLabel: 'Search',
+  tabBarLabel: "Search",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
+      name={Platform.OS === "ios" ? "ios-search" : "md-search"}
     />
-  ),
+  )
 };
 
 const ProfileStack = createStackNavigator({
@@ -48,21 +51,21 @@ const ProfileStack = createStackNavigator({
   EditProfile: EditProfileScreen,
   TripReport: TripReportScreen,
   Post: PostScreen,
-  Country: CountryScreen,
+  Country: CountryScreen
 });
 
 ProfileStack.navigationOptions = {
-  tabBarLabel: 'Profile',
+  tabBarLabel: "Profile",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'}
+      name={Platform.OS === "ios" ? "ios-settings" : "md-settings"}
     />
-  ),
+  )
 };
 
 export default createBottomTabNavigator({
   FeedStack,
   SearchStack,
-  ProfileStack,
+  ProfileStack
 });

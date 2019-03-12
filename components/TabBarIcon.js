@@ -1,7 +1,7 @@
-import React from 'react';
-import { Icon } from 'expo';
+import React from "react";
+import { Icon } from "expo";
 
-import Colors from '../constants/Colors';
+import Colors from "../constants/Colors";
 
 export default function TabBarIcon(props) {
   return (

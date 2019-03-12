@@ -1,52 +1,48 @@
-import React from 'react';
-import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
-import PropTypes from 'prop-types';
+import React from "react";
+import { Text, StyleSheet, TouchableOpacity, View } from "react-native";
+import PropTypes from "prop-types";
 
-import TripReportFooter from './TripReportFooter';
-import TripReportHeader from './TripReportHeader';
+import TripReportFooter from "./TripReportFooter";
+import TripReportHeader from "./TripReportHeader";
 
-// TripReportCard is shows a truncated text of the TripReport 
+// TripReportCard is shows a truncated text of the TripReport
 // on the FeedScreen, rendered in a FlatList.
 export default function TripReportCard(props) {
   const { tripReport, navigation } = props;
   var { alpha2code } = props.tripReport.author.home;
-  alpha2code = alpha2code.toLowerCase()
+  alpha2code = alpha2code.toLowerCase();
 
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       // Pass props into navigation to TripReportScreen.
-      onPress={() => navigation.navigate(
-        'TripReport', {...props}
-      )}
+      onPress={() => navigation.navigate("TripReport", { ...props })}
     >
       <View style={styles.card}>
         <TripReportHeader {...props} />
         <View style={styles.body}>
-          <Text numberOfLines={3}>
-            {tripReport.content}
-          </Text>
+          <Text numberOfLines={3}>{tripReport.content}</Text>
         </View>
         <TripReportFooter {...props} />
       </View>
     </TouchableOpacity>
-  )
+  );
 }
 
 TripReportCard.propTypes = {
-  tripReport: PropTypes.object.isRequired,
-}
+  tripReport: PropTypes.object.isRequired
+};
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'white',
-    borderRadius: 5, 
-    borderWidth: .1,
+    backgroundColor: "white",
+    borderRadius: 5,
+    borderWidth: 0.1,
     marginBottom: 10,
-    padding: 5,
+    padding: 5
   },
   body: {
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    padding: 10,
-  },
+    alignItems: "center",
+    justifyContent: "space-around",
+    padding: 10
+  }
 });

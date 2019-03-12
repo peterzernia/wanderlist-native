@@ -3,17 +3,17 @@ const initialState = {
   fetchedUser: false,
   updatingUser: false,
   updatedUser: false,
-  user: { countries: [] },
-}
+  user: { countries: [] }
+};
 
 /* Reducer Function*/
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case "FETCH_USER_PENDING": {
       return {
         ...state,
         fetchingUser: true
-      }
+      };
     }
     case "FETCH_USER_FULFILLED": {
       return {
@@ -21,20 +21,20 @@ export default function (state = initialState, action) {
         fetchingUser: false,
         fetchedUser: true,
         user: action.user
-      }
+      };
     }
     case "FETCH_USER_REJECTED": {
       return {
         ...state,
         fetchingUser: false,
-        fetchedUser: false,
-      }
+        fetchedUser: false
+      };
     }
     case "UPDATE_USER_PENDING": {
       return {
         ...state,
         updatingUser: true
-      }
+      };
     }
     case "UPDATE_USER_FULFILLED": {
       return {
@@ -42,23 +42,23 @@ export default function (state = initialState, action) {
         updatingUser: false,
         updatedUser: true,
         user: action.user
-      }
+      };
     }
     case "UPDATE_USER_REJECTED": {
       return {
         ...state,
         updatingUser: false,
-        updatedUser: false,
-      }
+        updatedUser: false
+      };
     }
     // Reset authenticated user object on logout.
     case "AUTH_LOGOUT": {
       return {
         ...state,
-        user: { countries: [] },
-      }
+        user: { countries: [] }
+      };
     }
     default:
-      return state
+      return state;
   }
 }
