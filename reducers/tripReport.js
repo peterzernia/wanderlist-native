@@ -43,7 +43,7 @@ export default function(state = initialState, action) {
     case "FETCH_NEXT_TRIP_REPORTS_FULFILLED": {
       return {
         ...state,
-        fetchingNextTripReport: false,
+        fetchingNextTripReports: false,
         tripReports: {
           count: action.tripReports.count,
           next: action.tripReports.next,
@@ -57,7 +57,7 @@ export default function(state = initialState, action) {
     case "FETCH_NEXT_TRIP_REPORTS_REJECTED": {
       return {
         ...state,
-        fetchingNextTripReport: false
+        fetchingNextTripReports: false
       };
     }
     // Basic axios request for fetching a user's Trip Reports
