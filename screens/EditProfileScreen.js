@@ -34,8 +34,7 @@ export class EditProfileScreen extends Component {
 const mapState = state => {
   return {
     user: state.user.user,
-    updatingUser: state.user.updatingUser,
-    updatedUser: state.user.updatedUser
+    updatingUser: state.user.updatingUser
   };
 };
 
@@ -56,7 +55,6 @@ export default connect(
 EditProfileScreen.propTypes = {
   user: PropTypes.object.isRequired,
   updatingUser: PropTypes.bool.isRequired,
-  updatedUser: PropTypes.bool.isRequired,
   updateUser: PropTypes.func.isRequired
 };
 

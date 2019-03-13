@@ -2,7 +2,6 @@ const initialState = {
   fetchingUser: false,
   fetchedUser: false,
   updatingUser: false,
-  updatedUser: false,
   user: { countries: [] }
 };
 
@@ -40,15 +39,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         updatingUser: false,
-        updatedUser: true,
         user: action.user
       };
     }
     case "UPDATE_USER_REJECTED": {
       return {
         ...state,
-        updatingUser: false,
-        updatedUser: false
+        updatingUser: false
       };
     }
     // Reset authenticated user object on logout.
