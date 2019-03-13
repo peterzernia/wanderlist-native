@@ -1,5 +1,5 @@
 import React from "react";
-import { createSwitchNavigator } from "react-navigation";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
 
 import AuthLoadingScreen from "../screens/AuthLoadingScreen";
 import LoginScreen from "../screens/LoginScreen";
@@ -8,7 +8,7 @@ import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import MainTabNavigator from "./MainTabNavigator";
 import MainLoadingScreen from "../screens/MainLoadingScreen";
 
-export default createSwitchNavigator(
+const AppNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
     Login: LoginScreen,
@@ -21,3 +21,7 @@ export default createSwitchNavigator(
     initialRouteName: "AuthLoading"
   }
 );
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default AppContainer;

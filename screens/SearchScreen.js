@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
+import Colors from "../constants/Colors";
 import Results from "../components/Results";
 import SearchBar from "../components/SearchBar";
 import { fetchCountries } from "../actions/countryActions";
@@ -60,11 +61,13 @@ export class SearchScreen extends Component {
 
   renderHeader = () => {
     return (
-      <SearchBar
-        findCountry={this.findCountry}
-        handleSearch={this.handleSearch}
-        {...this.props}
-      />
+      <View style={styles.searchBarContainer}>
+        <SearchBar
+          findCountry={this.findCountry}
+          handleSearch={this.handleSearch}
+          {...this.props}
+        />
+      </View>
     );
   };
 
@@ -73,27 +76,29 @@ export class SearchScreen extends Component {
     const { countries } = this.props;
 
     return (
-      <FlatList
-        containerContentStyle={styles.container}
-        data={countries}
-        renderItem={({ item }) => (
-          <View style={styles.results}>
-            <Results
-              {...this.props}
-              country={item}
-              handleUpdate={this.handleUpdate}
-              pendingCountry={pendingCountry}
-            />
-          </View>
-        )}
-        keyExtractor={item => item.alpha2code}
-        ListHeaderComponent={() => this.renderHeader()}
-        removeClippedSubviews={true}
-        initialNumToRender={2}
-        maxToRenderPerBatch={1}
-        maxToRenderPerBatch={100}
-        windowSize={7}
-      />
+      <View style={styles.listContainer}>
+        <FlatList
+          containerContentStyle={styles.container}
+          data={countries}
+          renderItem={({ item }) => (
+            <View style={styles.results}>
+              <Results
+                {...this.props}
+                country={item}
+                handleUpdate={this.handleUpdate}
+                pendingCountry={pendingCountry}
+              />
+            </View>
+          )}
+          keyExtractor={item => item.alpha2code}
+          ListHeaderComponent={() => this.renderHeader()}
+          removeClippedSubviews={true}
+          initialNumToRender={2}
+          maxToRenderPerBatch={1}
+          maxToRenderPerBatch={100}
+          windowSize={7}
+        />
+      </View>
     );
   }
 }
@@ -133,11 +138,20 @@ SearchScreen.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%"
+    width: "100%",
+    backgroundColor: Colors.gray
+  },
+  searchBarContainer: {
+    backgroundColor: Colors.gray
+  },
+  listContainer: {
+    backgroundColor: Colors.gray,
+    height: "100%"
   },
   results: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: Colors.gray
   }
 });

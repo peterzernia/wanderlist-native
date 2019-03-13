@@ -176,7 +176,8 @@ FeedScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
-    height: "100%"
+    height: "100%",
+    backgroundColor: Colors.gray
   },
   header: {
     flexDirection: "row",

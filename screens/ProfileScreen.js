@@ -141,7 +141,7 @@ export class ProfileScreen extends Component {
       );
     } else {
       return (
-        <View>
+        <View style={styles.listContainer}>
           <FlatList
             data={userTripReports.results}
             renderItem={({ item }) => (
@@ -207,11 +207,15 @@ ProfileScreen.propTypes = {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: Colors.gray
   },
   loadingContainer: {
     height: "100%",
     justifyContent: "center"
+  },
+  listContainer: {
+    backgroundColor: Colors.gray
   },
   switch: {
     alignSelf: "flex-end",
