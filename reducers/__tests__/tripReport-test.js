@@ -192,7 +192,8 @@ describe("tripReport Reducer", () => {
       tripReport(
         {
           ...defaultState,
-          tripReports: tripReports
+          tripReports: tripReports,
+          userTripReports: tripReports
         },
         {
           type: "TOGGLE_FAVORITE_FULFILLED",
@@ -202,6 +203,15 @@ describe("tripReport Reducer", () => {
     ).toEqual({
       ...defaultState,
       tripReports: {
+        results: [
+          { title: "Test1", id: 1, favoriters: [1] },
+          { title: "Test2", id: 2 }
+        ],
+        count: 2,
+        next: null,
+        previous: null
+      },
+      userTripReports: {
         results: [
           { title: "Test1", id: 1, favoriters: [1] },
           { title: "Test2", id: 2 }
