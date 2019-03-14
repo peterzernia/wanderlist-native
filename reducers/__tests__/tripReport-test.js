@@ -345,46 +345,90 @@ describe("tripReport Reducer", () => {
   //   });
   // });
 
-  // it("can handle UPDATE_USER_FULFILLED", () => {
-  //   const user = { username: "Test User Updated", pk: 1 };
-  //   expect(
-  //     tripReport(
-  //       {
-  //         ...defaultState,
-  //         tripReports: {
-  //           results: [
-  //             {
-  //               title: "Test1",
-  //               id: 1,
-  //               author: { username: "Test User", pk: 1 }
-  //             }
-  //           ],
-  //           count: 1,
-  //           next: null,
-  //           previous: null
-  //         }
-  //       },
-  //       {
-  //         type: "UPDATE_USER_FULLFILLED",
-  //         user: user
-  //       }
-  //     )
-  //   ).toEqual({
-  //     ...defaultState,
-  //     tripReports: {
-  //       results: [
-  //         {
-  //           title: "Test1",
-  //           id: 1,
-  //           author: { username: "Test User Updated", pk: 1 }
-  //         }
-  //       ],
-  //       count: 1,
-  //       next: null,
-  //       previous: null
-  //     }
-  //   });
-  // });
+  it("can handle UPDATE_USER_FULFILLED", () => {
+    const user = { username: "TestUser1 Updated", pk: 1 };
+    expect(
+      tripReport(
+        {
+          ...defaultState,
+          tripReports: {
+            results: [
+              {
+                title: "Test1",
+                id: 1,
+                author: { username: "TestUser1", pk: 1 }
+              },
+              {
+                title: "Test2",
+                id: 2,
+                author: { username: "TestUser2", pk: 2 }
+              }
+            ],
+            count: 2,
+            next: null,
+            previous: null
+          },
+          userTripReports: {
+            results: [
+              {
+                title: "Test1",
+                id: 1,
+                author: { username: "TestUser1", pk: 1 }
+              },
+              {
+                title: "Test2",
+                id: 2,
+                author: { username: "TestUser2", pk: 2 }
+              }
+            ],
+            count: 2,
+            next: null,
+            previous: null
+          }
+        },
+        {
+          type: "UPDATE_USER_FULFILLED",
+          user: user
+        }
+      )
+    ).toEqual({
+      ...defaultState,
+      tripReports: {
+        results: [
+          {
+            title: "Test1",
+            id: 1,
+            author: { username: "TestUser1 Updated", pk: 1 }
+          },
+          {
+            title: "Test2",
+            id: 2,
+            author: { username: "TestUser2", pk: 2 }
+          }
+        ],
+        count: 2,
+        next: null,
+        previous: null
+      },
+      userTripReports: {
+        results: [
+          {
+            title: "Test1",
+            id: 1,
+            author: { username: "TestUser1 Updated", pk: 1 }
+          },
+          {
+            title: "Test2",
+            id: 2,
+            author: { username: "TestUser2", pk: 2 }
+          }
+        ],
+        count: 2,
+        next: null,
+        previous: null
+      }
+    });
+  });
 
   it("can handle AUTH_LOGOUT", () => {
     expect(
