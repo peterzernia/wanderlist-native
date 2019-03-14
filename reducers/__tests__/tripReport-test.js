@@ -314,36 +314,36 @@ describe("tripReport Reducer", () => {
     });
   });
 
-  // it("can handle UPDATE_TRIP_REPORT_FULFILLED", () => {
-  //   const updatedTripReport = { title: "Test1 Updated", id: 1 };
-  //   expect(
-  //     tripReport(
-  //       {
-  //         ...defaultState,
-  //         userTripReports: tripReports,
-  //         tripReports: tripReports
-  //       },
-  //       {
-  //         type: "UPDATE_TRIP_REPORT_FULFILLED",
-  //         response: updatedTripReport
-  //       }
-  //     )
-  //   ).toEqual({
-  //     ...defaultState,
-  //     userTripReports: {
-  //       results: [{ title: "Test1 Updated", id: 1 }, { title: "Test2", id: 2 }],
-  //       count: 2,
-  //       next: null,
-  //       previous: null
-  //     },
-  //     tripReports: {
-  //       results: [{ title: "Test1 Updated", id: 1 }, { title: "Test2", id: 2 }],
-  //       count: 2,
-  //       next: null,
-  //       previous: null
-  //     }
-  //   });
-  // });
+  it("can handle UPDATE_TRIP_REPORT_FULFILLED", () => {
+    const updatedTripReport = { title: "Test1 Updated", id: 1 };
+    expect(
+      tripReport(
+        {
+          ...defaultState,
+          userTripReports: tripReports,
+          tripReports: tripReports
+        },
+        {
+          type: "UPDATE_TRIP_REPORT_FULFILLED",
+          response: updatedTripReport
+        }
+      )
+    ).toEqual({
+      ...defaultState,
+      userTripReports: {
+        results: [{ title: "Test1 Updated", id: 1 }, { title: "Test2", id: 2 }],
+        count: 2,
+        next: null,
+        previous: null
+      },
+      tripReports: {
+        results: [{ title: "Test1 Updated", id: 1 }, { title: "Test2", id: 2 }],
+        count: 2,
+        next: null,
+        previous: null
+      }
+    });
+  });
 
   it("can handle UPDATE_USER_FULFILLED", () => {
     const user = { username: "TestUser1 Updated", pk: 1 };

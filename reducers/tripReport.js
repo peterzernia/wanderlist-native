@@ -198,26 +198,27 @@ export default function(state = initialState, action) {
     }
     case "UPDATE_TRIP_REPORT_FULFILLED": {
       /*
-      The axios response is the updated post. The old, unupdated post must be
-      filtered out of both lists, the updated post must be added, then
-      the array must be sorted.
+      The axios response is the updated post. The old Trip Report must be replaced
+      with the updated Trip Report.
       */
       return {
         ...state,
         tripReports: {
-          results: [...state.tripReports.results]
-            .filter(tripReport => tripReport.id !== action.response.id)
-            .concat(action.response)
-            .sort((a, b) => a.id < b.id),
+          results: [...state.tripReports.results].map(tripReport =>
+            tripReport.id === action.response.id
+              ? { ...action.response }
+              : { ...tripReport }
+          ),
           count: state.tripReports.count,
           next: state.tripReports.next,
           previous: state.tripReports.previous
         },
         userTripReports: {
-          results: [...state.userTripReports.results]
-            .filter(tripReport => tripReport.id !== action.response.id)
-            .concat(action.response)
-            .sort((a, b) => a.id < b.id),
+          results: [...state.userTripReports.results].map(tripReport =>
+            tripReport.id === action.response.id
+              ? { ...action.response }
+              : { ...tripReport }
+          ),
           count: state.userTripReports.count,
           next: state.userTripReports.next,
           previous: state.userTripReports.previous
