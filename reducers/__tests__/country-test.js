@@ -41,4 +41,9 @@ describe("country Reducer", () => {
       fetchedCountries: false
     });
   });
+  it("can handle AUTH_LOGOUT", () => {
+    expect(country({ ...defaultState }, { type: "AUTH_LOGOUT" })).toEqual({
+      ...defaultState
+    });
+  });
 });
