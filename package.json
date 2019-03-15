@@ -8,7 +8,10 @@
     "test": "node ./node_modules/jest/bin/jest.js --coverage"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "setupFilesAfterEnv": [
+      "./setupTests.js"
+    ]
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
@@ -17,6 +20,7 @@
     "jest": "^24.1.0",
     "prop-types": "^15.7.2",
     "react": "16.5.0",
+    "react-dom": "^16.8.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-autocomplete-input": "^3.6.0",
     "react-native-maps": "^0.23.0",
@@ -31,6 +35,8 @@
   "devDependencies": {
     "babel-eslint": "^10.0.1",
     "babel-preset-expo": "^5.0.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
     "jest-expo": "^31.0.0",
     "metro-react-native-babel-preset": "^0.52.0",
     "prettier-eslint": "^8.8.2",

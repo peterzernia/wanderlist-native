@@ -9,8 +9,6 @@ import TripReportHeader from "./TripReportHeader";
 // on the FeedScreen, rendered in a FlatList.
 export default function TripReportCard(props) {
   const { tripReport, navigation } = props;
-  var { alpha2code } = props.tripReport.author.home;
-  alpha2code = alpha2code.toLowerCase();
 
   return (
     <TouchableOpacity
