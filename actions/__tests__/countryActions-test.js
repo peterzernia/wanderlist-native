@@ -1,6 +1,6 @@
 import * as countryActions from "../countryActions";
 
-const countries = [{ name: "Test" }];
+const countries = [{ name: "TestCountry" }];
 
 // Action creator tests.
 describe("Country Action Creators", () => {
