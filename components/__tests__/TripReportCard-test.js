@@ -3,7 +3,7 @@ import { shallow } from "enzyme";
 import TripReportCard from "../TripReportCard";
 
 describe("<TripReportCard />", () => {
-  it("navigaties", () => {
+  it("navigates", () => {
     // Setup props.
     const navigate = jest.fn();
     const navigation = { navigate };
