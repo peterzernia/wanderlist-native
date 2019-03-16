@@ -1,9 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
-import ForgotPasswordForm from "../ForgotPasswordForm";
+import RegistrationForm from "../RegistrationForm";
 import { ActivityIndicator } from "react-native";
 
-describe("<ForgotPasswordForm />", () => {
+describe("<RegistrationForm />", () => {
   const authenticating = false;
   const handleSubmit = jest.fn();
   const navigate = jest.fn();
@@ -12,7 +12,7 @@ describe("<ForgotPasswordForm />", () => {
 
   // Setup wrapper
   beforeEach(() => {
-    wrapper = shallow(<ForgotPasswordForm {...props} />);
+    wrapper = shallow(<RegistrationForm {...props} />);
   });
 
   it("shows ActivityIndicator while authenticating", () => {
@@ -31,8 +31,8 @@ describe("<ForgotPasswordForm />", () => {
   });
 
   /**
-   * There are two TouchableOpacity buttons, the first one
-   * calls the navigate() func.
+   * There are three TouchableOpacity buttons, the second two
+   * both call the navigate() func.
    */
   it("navigates", () => {
     wrapper
@@ -46,7 +46,24 @@ describe("<ForgotPasswordForm />", () => {
     wrapper
       .find("TextInput")
       .at(0)
+      .simulate("changeText", "TestUser");
+    expect(wrapper.state("username")).toEqual("TestUser");
+    wrapper
+      .find("TextInput")
+      .at(1)
       .simulate("changeText", "test@test.com");
     expect(wrapper.state("email")).toEqual("test@test.com");
+    wrapper
+      .find("TextInput")
+      .at(2)
+      .simulate("changeText", "Password1");
+    expect(wrapper.state("password1")).toEqual("Password1");
+    wrapper
+      .find("TextInput")
+      .at(3)
+      .simulate("changeText", "Password2");
+    expect(wrapper.state("password2")).toEqual("Password2");
+    wrapper.find("Picker").simulate("valueChange", 1);
+    expect(wrapper.state("home")).toEqual(1);
   });
 });
