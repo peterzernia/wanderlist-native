@@ -1,6 +1,5 @@
 import React from "react";
 import { shallow } from "enzyme";
-import sinon from "sinon";
 import TripReportFooter from "../TripReportFooter";
 
 describe("<TripReportFooter />", () => {
@@ -49,12 +48,13 @@ describe("<TripReportFooter />", () => {
     expect(wrapper.find("TouchableOpacity").length).toEqual(4);
   });
 
-  // it("calls handleFavorite onPress", () => {
+  // it("calls toggleFavorite onPress", () => {
   //   wrapper
   //     .find("TouchableOpacity")
-  //     .at(1)
+  //     .at(2)
   //     .simulate("press");
-  //   expect(wrapper.instance().props().toggleFavorite).toHaveBeenCalled();
+
+  //   expect(toggleFavorite.mock.calls.length).toBe(1);
   // });
 
   /**
