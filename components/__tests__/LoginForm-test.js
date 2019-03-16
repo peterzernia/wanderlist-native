@@ -4,6 +4,7 @@ import LoginForm from "../LoginForm";
 import { ActivityIndicator } from "react-native";
 
 describe("<LoginForm />", () => {
+  let wrapper;
   const authenticating = false;
   const handleSubmit = jest.fn();
   const navigate = jest.fn();

@@ -4,6 +4,7 @@ import ForgotPasswordForm from "../ForgotPasswordForm";
 import { ActivityIndicator } from "react-native";
 
 describe("<ForgotPasswordForm />", () => {
+  let wrapper;
   const authenticating = false;
   const handleSubmit = jest.fn();
   const navigate = jest.fn();

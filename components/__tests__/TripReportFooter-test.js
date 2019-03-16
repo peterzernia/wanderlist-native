@@ -4,6 +4,7 @@ import TripReportFooter from "../TripReportFooter";
 
 describe("<TripReportFooter />", () => {
   // Setup props
+  let wrapper;
   const navigate = jest.fn();
   const navigation = { navigate };
   const tripReport = {
