@@ -11,7 +11,9 @@ describe("<UserMap />", () => {
       { name: "Test2", id: 2, latlng: [180, 180] }
     ]
   };
-  let props = { user };
+  const navigate = jest.fn();
+  const navigation = { navigate };
+  let props = { user, navigation };
 
   // Setup wrapper
   beforeEach(() => {
@@ -20,9 +22,24 @@ describe("<UserMap />", () => {
 
   it("renders Marker for each country", () => {
     expect(wrapper.find(Marker).length).toEqual(2);
-    user = { countries: [] };
-    props = { user };
-    wrapper = shallow(<UserMap {...props} />);
+
+    // Remove countries and test there are no Markers.
+    const user = { countries: [] };
+    wrapper.setProps({ ...props, user });
     expect(wrapper.find(Marker).length).toEqual(0);
+  });
+
+  it("each marker navigates onPress", () => {
+    expect(navigate).toHaveBeenCalledTimes(0);
+    wrapper
+      .find(Marker)
+      .at(0)
+      .simulate("calloutPress");
+    expect(navigate).toHaveBeenCalledTimes(1);
+    wrapper
+      .find(Marker)
+      .at(1)
+      .simulate("calloutPress");
+    expect(navigate).toHaveBeenCalledTimes(2);
   });
 });
