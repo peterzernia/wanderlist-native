@@ -121,7 +121,6 @@ export default class PostForm extends Component {
 }
 
 PostForm.propTypes = {
-  globalState: PropTypes.object.isRequired,
   setState: PropTypes.func.isRequired
 };
 

@@ -4,6 +4,7 @@ import TripReportHeader from "../TripReportHeader";
 import { Alert } from "react-native";
 
 describe("<TripReportHeader />", () => {
+  let wrapper;
   const author = {
     username: "Test",
     pk: 1,
