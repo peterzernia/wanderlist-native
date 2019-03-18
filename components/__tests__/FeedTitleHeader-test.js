@@ -12,7 +12,13 @@ describe("<FeedTitleHeader />", () => {
     wrapper = shallow(<FeedTitleHeader {...props} />);
   });
 
-  it("renders", () => {
-    expect(wrapper.find("TouchableOpacity").length).toEqual(1);
+  it("sets text onChangeText", () => {
+    wrapper.find("TextInput").simulate("changeText", "test");
+    expect(wrapper.state("query")).toEqual("test");
+  });
+
+  it("handles Search", () => {
+    wrapper.find("TouchableOpacity").simulate("press");
+    expect(handleSearch).toHaveBeenCalledTimes(1);
   });
 });
