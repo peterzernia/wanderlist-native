@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import CountryScreen from "../CountryScreen";
-import { ScrollView } from "react-native";
+import { Image, Linking, View } from "react-native";
 
 describe("<CountryScreen />", () => {
   let wrapper;
@@ -42,13 +42,13 @@ describe("<CountryScreen />", () => {
     latlng: [60.116667, 19.9],
     demonym: "Ålandish",
     area: 1580.0,
-    gini: null,
+    gini: 1,
     timezones: ["UTC+02:00"],
     borders: [],
     native_name: "Åland",
     numeric_code: "248",
     flag: "https://raw.githubusercontent.com/peterzernia/flags/master/ax.png",
-    cioc: null
+    cioc: "Test"
   };
   const params = { country };
   const state = { params };
@@ -60,7 +60,52 @@ describe("<CountryScreen />", () => {
     wrapper = shallow(<CountryScreen {...props} />);
   });
 
-  it("renders", () => {
-    expect(wrapper.find(ScrollView).length).toEqual(1);
+  it("navigationOptions", () => {
+    const navigationOptions = CountryScreen.navigationOptions(props);
+    //expect(navigationOptions).toMatchSnapshot();
+    expect(navigationOptions).toEqual({ title: "Aland Islands" });
+  });
+
+  it("gets image dimensions", () => {
+    spy = jest.spyOn(Image, "getSize");
+    wrapper.instance().componentDidMount();
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it("opens Link", () => {
+    spy = jest.spyOn(Linking, "openURL");
+    wrapper.find("TouchableOpacity").simulate("press");
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  // When the country is Nepal, no border is displayed around the flag
+  it("displays different style for Nepal", () => {
+    expect(
+      wrapper
+        .find(View)
+        .at(1)
+        .prop("style")
+    ).toEqual({
+      alignSelf: "center",
+      borderWidth: 1,
+      margin: 5,
+      marginTop: 10,
+      width: 712.5
+    });
+
+    const navigation = { state: { params: { country: { name: "Nepal" } } } };
+    wrapper.setProps({ navigation });
+
+    expect(
+      wrapper
+        .find(View)
+        .at(1)
+        .prop("style")
+    ).toEqual({
+      alignSelf: "center",
+      margin: 5,
+      marginTop: 10,
+      width: 712.5
+    });
   });
 });
