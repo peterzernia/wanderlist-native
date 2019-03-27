@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import RegisterScreen from "../RegisterScreen";
+import { RegisterScreen } from "../RegisterScreen";
 
 describe("<RegisterScreen />", () => {
   let wrapper;
@@ -16,7 +16,18 @@ describe("<RegisterScreen />", () => {
     wrapper = shallow(<RegisterScreen {...props} />);
   });
 
-  it("renders", () => {
-    expect(wrapper.find("View").length).toEqual(0);
+  it("navigates when authenticated", () => {
+    wrapper.instance().componentDidUpdate();
+    expect(navigate).toHaveBeenCalledTimes(0);
+
+    wrapper.setProps({ ...props, authenticated: true });
+    expect(navigate).toHaveBeenCalledTimes(1);
+    wrapper.instance().componentDidUpdate();
+    expect(navigate).toHaveBeenCalledTimes(2);
+  });
+
+  it("handles Submit", () => {
+    wrapper.instance().handleSubmit();
+    expect(authRegister).toHaveBeenCalledTimes(1);
   });
 });
