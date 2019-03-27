@@ -11,9 +11,9 @@ describe("<ForgotPasswordScreen />", () => {
   const navigation = { navigate };
   let props = {
     requestPasswordReset,
-    navigation,
     authenticated,
-    authenticating
+    authenticating,
+    navigation
   };
 
   // Setup wrapper
@@ -21,7 +21,7 @@ describe("<ForgotPasswordScreen />", () => {
     wrapper = shallow(<ForgotPasswordScreen {...props} />);
   });
 
-  it("component Mounts & navigates", () => {
+  it("navigates when authenticated", () => {
     wrapper.instance().componentDidUpdate();
     expect(navigate).toHaveBeenCalledTimes(0);
 
