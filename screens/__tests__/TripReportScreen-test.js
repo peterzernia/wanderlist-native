@@ -5,15 +5,23 @@ import TripReportTitleHeader from "../../components/TripReportTitleHeader";
 
 describe("<TripReportScreen />", () => {
   let wrapper;
+  const user = { username: "TestUser" };
+  const toggleFavorite = jest.fn();
   const deleteTripReport = jest.fn();
   const tripReports = { results: [{ title: "Test", id: 1 }] };
   const tripReport = { title: "Test", id: 1 };
   const setParams = jest.fn();
   const getParam = jest.fn();
-  const params = { tripReport };
+  const params = { tripReport, user };
   const state = { params };
   const navigation = { state, setParams, getParam };
-  let props = { deleteTripReport, tripReports, navigation };
+  let props = {
+    user,
+    toggleFavorite,
+    deleteTripReport,
+    tripReports,
+    navigation
+  };
 
   // Setup wrapper
   beforeEach(() => {
