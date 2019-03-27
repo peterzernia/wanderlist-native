@@ -1,7 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { EditProfileScreen } from "../EditProfileScreen";
-import { AsyncStorage, View } from "react-native";
 
 describe("<EditProfileScreen />", () => {
   let wrapper;
@@ -18,14 +17,8 @@ describe("<EditProfileScreen />", () => {
     wrapper = shallow(<EditProfileScreen {...props} />);
   });
 
-  it("renders", () => {
-    expect(wrapper.find(View).length).toEqual(1);
-  });
-
-  it("handleSubmit", () => {
-    spy = jest.spyOn(AsyncStorage, "getItem");
-    wrapper.instance().handleSubmit();
-    expect(spy).toHaveBeenCalledTimes(1);
-    //expect(updateUser).toHaveBeenCalledTimes(1);
+  it("handleSubmit", async () => {
+    await wrapper.instance().handleSubmit();
+    expect(updateUser).toHaveBeenCalledTimes(1);
   });
 });
