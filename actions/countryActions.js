@@ -1,5 +1,6 @@
 import axios from "axios";
 import { REACT_APP_API_URL } from "react-native-dotenv";
+import { Alert } from "react-native";
 
 // Action creators
 export const fetchCountriesPending = () => ({
@@ -25,11 +26,9 @@ export const fetchCountries = query => {
       .catch(err => {
         dispatch(fetchCountriesRejected());
         let error = "";
+        console.log(err);
         Object.keys(err.response.data).map(message => {
           switch (message) {
-            case "non_field_errors": {
-              return (error += `${err.response.data[message]}\n`);
-            }
             default:
               return (error += `${message
                 .charAt(0)
