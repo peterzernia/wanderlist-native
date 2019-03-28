@@ -26,7 +26,6 @@ export const fetchCountries = query => {
       .catch(err => {
         dispatch(fetchCountriesRejected());
         let error = "";
-        console.log(err);
         Object.keys(err.response.data).map(message => {
           switch (message) {
             default:

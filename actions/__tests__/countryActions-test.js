@@ -18,7 +18,7 @@ describe("country async actions", () => {
   beforeEach(() => {
     mock = new MockAdapter(axios);
     store = mockStore({
-      country: [],
+      countries: [],
       fetchingCountries: false,
       fetchedCountries: false
     });

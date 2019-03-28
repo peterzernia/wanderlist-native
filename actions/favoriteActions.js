@@ -2,6 +2,9 @@ import axios from "axios";
 import { REACT_APP_API_URL } from "react-native-dotenv";
 
 // Action creators
+// export const toggleFavoritePending = () => ({
+//   type: "TOGGLE_FAVORITE_PENDING"
+// });
 export const toggleFavoriteFulfilled = response => ({
   type: "TOGGLE_FAVORITE_FULFILLED",
   response
@@ -12,7 +15,7 @@ export const toggleFavoriteRejected = () => ({
 
 export const toggleFavorite = (id, token) => {
   return dispatch => {
-    axios
+    return axios
       .get(`${REACT_APP_API_URL}/api/v1/reports/${id}/favorite/`, {
         headers: { Authorization: `Token ${token}` }
       })
