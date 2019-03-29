@@ -22,7 +22,7 @@ export const updateUserRejected = () => ({ type: "UPDATE_USER_REJECTED" });
 export const fetchUser = token => {
   return dispatch => {
     dispatch(fetchUserPending());
-    axios
+    return axios
       .get(`${REACT_APP_API_URL}/api/v1/rest-auth/user/`, {
         headers: { Authorization: `Token ${token}` }
       })
