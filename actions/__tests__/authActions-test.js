@@ -25,6 +25,7 @@ describe("async action creators", () => {
   afterEach(() => {
     mock.restore();
     store.clearActions();
+    jest.restoreAllMocks();
   });
 
   /**
@@ -67,6 +68,48 @@ describe("async action creators", () => {
       .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/login/`)
       .replyOnce(500, data);
     await store.dispatch(authActions.authLogin(username, password));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(authActions.authStart());
+    expect(actions[1]).toEqual(authActions.authFail());
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it("dispatches AUTH_SUCCESS after axios request to register", async () => {
+    const username = "TestUser";
+    const email = "test@test.com";
+    const password1 = "password";
+    const password2 = "password";
+    const home = 1;
+    const data = { key: "testtoken" };
+    mock
+      .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/registration/`)
+      .replyOnce(200, data);
+    await store.dispatch(
+      authActions.authRegister(username, email, password1, password2, home)
+    );
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(authActions.authStart());
+    expect(actions[1]).toEqual(authActions.authSuccess(data.key));
+  });
+
+  it("dispatches AUTH_FAIL if internal server error on authRegister & alerts", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const username = "TestUser";
+    const email = "test@test.com";
+    const password1 = "password";
+    const password2 = "password";
+    const home = 1;
+    const data = {
+      "internal server error": "",
+      non_field_errors: "",
+      home: "This field is required."
+    };
+    mock
+      .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/registration/`)
+      .replyOnce(500, data);
+    await store.dispatch(
+      authActions.authRegister(username, email, password1, password2, home)
+    );
     const actions = store.getActions();
     expect(actions[0]).toEqual(authActions.authStart());
     expect(actions[1]).toEqual(authActions.authFail());
