@@ -77,7 +77,7 @@ Reports. The passed in url can have filter parameters added.
 export const fetchTripReports = url => {
   return dispatch => {
     dispatch(fetchTripReportsPending());
-    axios
+    return axios
       .get(url)
       .then(response => {
         const tripReports = response.data;
@@ -105,7 +105,7 @@ passed into this function to GET the next Trip Reports.
 export const fetchNextTripReports = url => {
   return dispatch => {
     dispatch(fetchNextTripReportsPending());
-    axios
+    return axios
       .get(url)
       .then(response => {
         const tripReports = response.data;
@@ -136,7 +136,7 @@ first page of the list of the Users TripReports.
 export const fetchUserTripReports = username => {
   return dispatch => {
     dispatch(fetchUserTripReportsPending());
-    axios
+    return axios
       .get(
         `${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk&search=${username}`
       )
@@ -170,7 +170,7 @@ Trip Reports.
 export const fetchNextUserTripReports = url => {
   return dispatch => {
     dispatch(fetchNextUserTripReportsPending());
-    axios
+    return axios
       .get(url)
       .then(response => {
         const tripReports = response.data;
@@ -200,7 +200,7 @@ user.
 */
 export const postTripReport = (token, author, title, content, countries) => {
   return dispatch => {
-    axios
+    return axios
       .post(
         `${REACT_APP_API_URL}/api/v1/reports/`,
         { author, title, content, countries },
@@ -229,7 +229,7 @@ export const postTripReport = (token, author, title, content, countries) => {
 // Deletes a post of the authenticated user on the API.
 export const deleteTripReport = (token, tripReport) => {
   return dispatch => {
-    axios
+    return axios
       .delete(`${REACT_APP_API_URL}/api/v1/reports/${tripReport.id}/`, {
         headers: {
           "X-Requested-With": "XMLHttpRequest",
@@ -268,7 +268,7 @@ export const updateTripReport = (
   countries
 ) => {
   return dispatch => {
-    axios
+    return axios
       .patch(
         `${REACT_APP_API_URL}/api/v1/reports/${id}/`,
         { author, title, content, countries },

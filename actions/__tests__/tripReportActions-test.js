@@ -1,7 +1,159 @@
 import * as tripReportActions from "../tripReportActions";
+import { REACT_APP_API_URL } from "react-native-dotenv";
+import { Alert } from "react-native";
+import configureMockStore from "redux-mock-store";
+import thunk from "redux-thunk";
+import MockAdapter from "axios-mock-adapter";
+import axios from "axios";
 
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 const tripReports = { results: [{ title: "TestTripReport" }] };
 const response = tripReports;
+
+// Async action tests
+describe("country async actions", () => {
+  let store;
+  let mock;
+  let spy;
+
+  beforeEach(() => {
+    mock = new MockAdapter(axios);
+    store = mockStore({
+      fetchingTripReports: false,
+      fetchingNextTripReports: false,
+      fetchingUserTripReports: false,
+      fetchingNextUserTripReports: false,
+      fetchingNextUserTripReports: false,
+      tripReports: { results: [], count: null, next: null, previous: null },
+      userTripReports: { results: [], count: null, next: null, previous: null }
+    });
+  });
+
+  afterEach(() => {
+    mock.restore();
+    store.clearActions();
+    jest.restoreAllMocks();
+  });
+
+  /**
+   * Trip Reports shown on FeedScreen.
+   */
+  it("dispatches FETCH_TRIP_REPORTS_PENDING after axios request", async () => {
+    const url = `${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk`;
+    mock.onGet(url).replyOnce(200, tripReports);
+    await store.dispatch(tripReportActions.fetchTripReports(url));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(tripReportActions.fetchTripReportsPending());
+    expect(actions[1]).toEqual(
+      tripReportActions.fetchTripReportsFulfilled(tripReports)
+    );
+  });
+
+  it("dispatches FETCH_TRIP_REPORTS_REJECTED if internal server error & alerts", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const url = `${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk`;
+    const data = { "internal server error": "" };
+    mock.onGet(url).replyOnce(500, data);
+    await store.dispatch(tripReportActions.fetchTripReports(url));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(tripReportActions.fetchTripReportsPending());
+    expect(actions[1]).toEqual(tripReportActions.fetchTripReportsRejected());
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it("dispatches FETCH_NEXT_TRIP_REPORTS_PENDING after axios request", async () => {
+    const url = `${REACT_APP_API_URL}/api/v1/reports/?ordering=pk&page=2`;
+    mock.onGet(url).replyOnce(200, tripReports);
+    await store.dispatch(tripReportActions.fetchNextTripReports(url));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(tripReportActions.fetchNextTripReportsPending());
+    expect(actions[1]).toEqual(
+      tripReportActions.fetchNextTripReportsFulfilled(tripReports)
+    );
+  });
+
+  it("dispatches FETCH_NEXT_TRIP_REPORTS_REJECTED if internal server error & alerts", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const url = `${REACT_APP_API_URL}/api/v1/reports/?ordering=pk&page=2`;
+    const data = { "internal server error": "" };
+    mock.onGet(url).replyOnce(500, data);
+    await store.dispatch(tripReportActions.fetchNextTripReports(url));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(tripReportActions.fetchNextTripReportsPending());
+    expect(actions[1]).toEqual(
+      tripReportActions.fetchNextTripReportsRejected()
+    );
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  /**
+   * User Trip Reports shown on ProfileScreen.
+   */
+  it("dispatches FETCH_USER_TRIP_REPORTS_PENDING after axios request", async () => {
+    const username = "TestUser";
+    mock
+      .onGet(
+        `${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk&search=${username}`
+      )
+      .replyOnce(200, tripReports);
+    await store.dispatch(tripReportActions.fetchUserTripReports(username));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(tripReportActions.fetchUserTripReportsPending());
+    expect(actions[1]).toEqual(
+      tripReportActions.fetchUserTripReportsFulfilled(tripReports)
+    );
+  });
+
+  it("dispatches FETCH_USER_TRIP_REPORTS_REJECTED if internal server error & alerts", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const username = "TestUser";
+    const data = { "internal server error": "" };
+    mock
+      .onGet(
+        `${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk&search=${username}`
+      )
+      .replyOnce(500, data);
+    await store.dispatch(tripReportActions.fetchUserTripReports(username));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(tripReportActions.fetchUserTripReportsPending());
+    expect(actions[1]).toEqual(
+      tripReportActions.fetchUserTripReportsRejected()
+    );
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it("dispatches FETCH_NEXT_USER_TRIP_REPORTS_PENDING after axios request", async () => {
+    const username = "TestUser";
+    const url = `${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk&page=2&search=${username}`;
+    mock.onGet(url).replyOnce(200, tripReports);
+    await store.dispatch(tripReportActions.fetchNextUserTripReports(url));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(
+      tripReportActions.fetchNextUserTripReportsPending()
+    );
+    expect(actions[1]).toEqual(
+      tripReportActions.fetchNextUserTripReportsFulfilled(tripReports)
+    );
+  });
+
+  it("dispatches FETCH_NEXT_USER_TRIP_REPORTS_REJECTED if internal server error & alerts", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const username = "TestUser";
+    const url = `${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk&page=2&search=${username}`;
+    const data = { "internal server error": "" };
+    mock.onGet(url).replyOnce(500, data);
+    await store.dispatch(tripReportActions.fetchNextUserTripReports(url));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(
+      tripReportActions.fetchNextUserTripReportsPending()
+    );
+    expect(actions[1]).toEqual(
+      tripReportActions.fetchNextUserTripReportsRejected()
+    );
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+});
 
 describe("Trip Report Action Creators", () => {
   it("should create a FETCH_TRIP_REPORTS_PENDING action", () => {
