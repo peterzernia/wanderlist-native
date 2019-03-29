@@ -115,6 +115,41 @@ describe("async action creators", () => {
     expect(actions[1]).toEqual(authActions.authFail());
     expect(spy).toHaveBeenCalledTimes(1);
   });
+
+  /**
+   * AUTH_FAIL is called on both success and failure of password reset
+   * simply to reset the redux store to the initialState, since no data
+   * is set in the redux state on success.
+   */
+  it("dispatches AUTH_FAIL after axios request success to reset password", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const email = "test@test.com";
+    mock
+      .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/password/reset/`)
+      .replyOnce(200);
+    await store.dispatch(authActions.requestPasswordReset(email));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(authActions.authStart());
+    expect(actions[1]).toEqual(authActions.authFail());
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it("dispatches AUTH_FAIL if internal server error on requestPasswordReset", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const email = "test@test.com";
+    const data = {
+      "internal server error": "",
+      non_field_errors: ""
+    };
+    mock
+      .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/password/reset/`)
+      .replyOnce(500, data);
+    await store.dispatch(authActions.requestPasswordReset(email));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(authActions.authStart());
+    expect(actions[1]).toEqual(authActions.authFail());
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe("Auth Action Creators", () => {

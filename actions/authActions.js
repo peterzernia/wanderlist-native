@@ -86,12 +86,14 @@ export const authRegister = (username, email, password1, password2, home) => {
       })
       .catch(err => {
         dispatch(authFail());
-        /* 
-        Create the error message based on the response from the server. The err.response.data variable will be an object
-        with keys corresponding to which field had errors, e.g. password. The error will be an array with a 
-        string message. The keys strings need to be formated to uppercase. If there are multiple errors, they will be added 
-        into the error variable, ending with a newline. 
-        */
+        /**
+         * Create the error message based on the response from the server. The
+         * err.response.data variable will be an object with keys corresponding
+         * to which field had errors, e.g. password. The error will be an array
+         * with a string message. The keys strings need to be formated to uppercase.
+         * If there are multiple errors, they will be added into the error variable,
+         * ending with a newline.
+         */
         let error = "";
         Object.keys(err.response.data).map(message => {
           switch (message) {
@@ -126,14 +128,20 @@ export const authCheckState = token => {
 
 export const requestPasswordReset = email => {
   return dispatch => {
-    // authStart() is dispatched to change authenticating from false to true for ActivityIndicator in ForgotPasswordForm.js.
+    /**
+     * authStart() is dispatched to change authenticating from false to
+     * true for ActivityIndicator in ForgotPasswordForm.js.
+     */
     dispatch(authStart());
-    axios
+    return axios
       .post(`${REACT_APP_API_URL}/api/v1/rest-auth/password/reset/`, {
         email: email
       })
       .then(response => {
-        // authFail() is dispatched to change authenticating from true to false for ActivityIndicator in ForgotPasswordForm.js
+        /**
+         * authFail() is dispatched to change authenticating from true to
+         * false for ActivityIndicator in ForgotPasswordForm.js
+         */
         dispatch(authFail());
         Alert.alert(
           "Success",
