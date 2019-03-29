@@ -28,6 +28,7 @@ describe("user async actions", () => {
   afterEach(() => {
     mock.restore();
     store.clearActions();
+    jest.restoreAllMocks();
   });
 
   it("dispatches FETCH_USER_FULFILLED after axios request", async () => {
@@ -44,7 +45,7 @@ describe("user async actions", () => {
   it("dispatches FETCH_USER_REJECTED if internal server error & alerts", async () => {
     spy = jest.spyOn(Alert, "alert");
     const token = "testtoken";
-    const data = { "internal server error": "" };
+    const data = { "internal server error": "", detail: "invalid token" };
     mock
       .onGet(`${REACT_APP_API_URL}/api/v1/rest-auth/user/`)
       .replyOnce(500, data);
@@ -52,6 +53,65 @@ describe("user async actions", () => {
     const actions = store.getActions();
     expect(actions[0]).toEqual(userActions.fetchUserPending());
     expect(actions[1]).toEqual(userActions.fetchUserRejected());
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it("dispatches UPDATE_USER_FULFILLED after axios request & alerts", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const token = "testtoken";
+    const username = "TestUser";
+    const email = "test@test.com";
+    const countries = [1, 2];
+    const home = 1;
+    const biography = "TestBio";
+    const success = "Your profile has been updated.";
+    mock
+      .onPut(`${REACT_APP_API_URL}/api/v1/rest-auth/user/`)
+      .replyOnce(200, user);
+    await store.dispatch(
+      userActions.updateUser(
+        token,
+        username,
+        email,
+        countries,
+        home,
+        biography,
+        success
+      )
+    );
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(userActions.updateUserPending());
+    expect(actions[1]).toEqual(userActions.updateUserFulfilled(user));
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it("dispatches UPDATE_USER_REJECTED if internal server error & alerts", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const token = "testtoken";
+    const username = "TestUser";
+    const email = "test@test.com";
+    const countries = [1, 2];
+    const home = 1;
+    const biography = "TestBio";
+    const success = "Your profile has been updated.";
+    const data = { "internal server error": "", detail: "invalid token" };
+    mock
+      .onPut(`${REACT_APP_API_URL}/api/v1/rest-auth/user/`)
+      .replyOnce(500, data);
+    await store.dispatch(
+      userActions.updateUser(
+        token,
+        username,
+        email,
+        countries,
+        home,
+        biography,
+        success
+      )
+    );
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(userActions.updateUserPending());
+    expect(actions[1]).toEqual(userActions.updateUserRejected());
     expect(spy).toHaveBeenCalledTimes(1);
   });
 });

@@ -64,7 +64,7 @@ export const updateUser = (
 ) => {
   return dispatch => {
     dispatch(updateUserPending());
-    axios
+    return axios
       .put(
         `${REACT_APP_API_URL}/api/v1/rest-auth/user/`,
         {
