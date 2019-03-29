@@ -20,7 +20,7 @@ export const authLogout = () => {
 export const authLogin = (username, password) => {
   return dispatch => {
     dispatch(authStart());
-    axios
+    return axios
       .post(`${REACT_APP_API_URL}/api/v1/rest-auth/login/`, {
         username: username,
         password: password

@@ -1,14 +1,20 @@
 import * as authActions from "../authActions";
+import { REACT_APP_API_URL } from "react-native-dotenv";
+import { Alert } from "react-native";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
+import MockAdapter from "axios-mock-adapter";
+import axios from "axios";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe("async action creators", () => {
   let store;
+  let mock;
 
   beforeEach(() => {
+    mock = new MockAdapter(axios);
     store = mockStore({
       token: null,
       authenticating: false,
@@ -17,6 +23,7 @@ describe("async action creators", () => {
   });
 
   afterEach(() => {
+    mock.restore();
     store.clearActions();
   });
 
@@ -36,6 +43,34 @@ describe("async action creators", () => {
     store.dispatch(authActions.authCheckState(token));
     actions = store.getActions();
     expect(actions[0]).toEqual(authActions.authSuccess(token));
+  });
+
+  it("dispatches AUTH_SUCCESS after axios request to login", async () => {
+    const username = "TestUser";
+    const password = "password";
+    const data = { key: "testtoken" };
+    mock
+      .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/login/`)
+      .replyOnce(200, data);
+    await store.dispatch(authActions.authLogin(username, password));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(authActions.authStart());
+    expect(actions[1]).toEqual(authActions.authSuccess(data.key));
+  });
+
+  it("dispatches AUTH_FAIL if internal server error on authLogin & alerts", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const username = "TestUser";
+    const password = "password";
+    const data = { "internal server error": "", non_field_errors: "" };
+    mock
+      .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/login/`)
+      .replyOnce(500, data);
+    await store.dispatch(authActions.authLogin(username, password));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(authActions.authStart());
+    expect(actions[1]).toEqual(authActions.authFail());
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 });
 
