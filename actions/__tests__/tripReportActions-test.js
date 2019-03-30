@@ -153,6 +153,72 @@ describe("country async actions", () => {
     );
     expect(spy).toHaveBeenCalledTimes(1);
   });
+
+  it("dispatches POST_TRIP_REPORT_FULFILLED after axios request & alerts", async () => {
+    const token = "testtoken";
+    const author = 1;
+    const title = "TestTtile";
+    const content = "TestContent";
+    const countries = [1, 2];
+    const tripReport = { title, content, countries, author };
+    mock
+      .onPost(`${REACT_APP_API_URL}/api/v1/reports/`)
+      .replyOnce(200, tripReport);
+    await store.dispatch(
+      tripReportActions.postTripReport(token, author, title, content, countries)
+    );
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(
+      tripReportActions.postTripReportFulfilled(tripReport)
+    );
+  });
+
+  /**
+   * There is currently no POST_TRIP_REPORT_REJECTED action.
+   */
+  it("alerts if internal server error on postTripReport", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const token = "testtoken";
+    const author = 1;
+    const title = "TestTtile";
+    const content = "TestContent";
+    const countries = [1, 2];
+    const tripReport = { title, content, countries, author };
+    const data = { "internal server error": "" };
+    mock.onPost(`${REACT_APP_API_URL}/api/v1/reports/`).replyOnce(500, data);
+    await store.dispatch(
+      tripReportActions.postTripReport(token, author, title, content, countries)
+    );
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it("dispatches DELETE_TRIP_REPORT_FULFILLED after axios request & alerts", async () => {
+    const token = "testtoken";
+    const tripReport = { id: 1, title: "Test", content: "Test" };
+    mock
+      .onDelete(`${REACT_APP_API_URL}/api/v1/reports/${tripReport.id}/`)
+      .replyOnce(200, tripReport);
+    await store.dispatch(tripReportActions.deleteTripReport(token, tripReport));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(
+      tripReportActions.deleteTripReportFulfilled(tripReport)
+    );
+  });
+
+  /**
+   * There is currently no DELETE_TRIP_REPORT_REJECTED action.
+   */
+  it("alerts if internal server error on postTripReport", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const token = "testtoken";
+    const tripReport = { id: 1, title: "Test", content: "Test" };
+    const data = { "internal server error": "" };
+    mock
+      .onPost(`${REACT_APP_API_URL}/api/v1/reports/${tripReport.id}/`)
+      .replyOnce(500, data);
+    await store.dispatch(tripReportActions.deleteTripReport(token, tripReport));
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe("Trip Report Action Creators", () => {
