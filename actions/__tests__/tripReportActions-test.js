@@ -214,7 +214,7 @@ describe("country async actions", () => {
     const tripReport = { id: 1, title: "Test", content: "Test" };
     const data = { "internal server error": "" };
     mock
-      .onPost(`${REACT_APP_API_URL}/api/v1/reports/${tripReport.id}/`)
+      .onDelete(`${REACT_APP_API_URL}/api/v1/reports/${tripReport.id}/`)
       .replyOnce(500, data);
     await store.dispatch(tripReportActions.deleteTripReport(token, tripReport));
     expect(spy).toHaveBeenCalledTimes(1);
