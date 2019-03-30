@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 
 // Reusable TripReportFooter Component used in TripReportCard and TripReportScreen.
 export default function TripReportFooter(props) {
-  const { tripReport, user, toggleFavorite, navigation } = props;
+  const { tripReport, user, toggleFavorite, navigation, handleShare } = props;
 
   const listCountries = tripReport.countries.map(country => (
     <TouchableOpacity
@@ -22,24 +22,6 @@ export default function TripReportFooter(props) {
       <Text style={styles.country}>{country.name}</Text>
     </TouchableOpacity>
   ));
-
-  handleShare = async slug => {
-    try {
-      const result = await Share.share({
-        message: `Check out this Trip Report on Wanderlist:\nhttps://www.wanderlist.dev/p/${slug}/`
-      });
-
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-      }
-    } catch (error) {
-      alert(error.message);
-    }
-  };
 
   handleFavorite = async id => {
     const token = await AsyncStorage.getItem("token");
