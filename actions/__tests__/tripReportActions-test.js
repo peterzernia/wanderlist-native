@@ -12,7 +12,7 @@ const tripReports = { results: [{ title: "TestTripReport" }] };
 const response = tripReports;
 
 // Async action tests
-describe("country async actions", () => {
+describe("tripReport async actions", () => {
   let store;
   let mock;
   let spy;
@@ -37,7 +37,7 @@ describe("country async actions", () => {
   });
 
   /**
-   * Trip Reports shown on FeedScreen.
+   * All Trip Reports shown on FeedScreen.
    */
   it("dispatches FETCH_TRIP_REPORTS_PENDING after axios request", async () => {
     const url = `${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk`;
@@ -183,7 +183,6 @@ describe("country async actions", () => {
     const title = "TestTtile";
     const content = "TestContent";
     const countries = [1, 2];
-    const tripReport = { title, content, countries, author };
     const data = { "internal server error": "" };
     mock.onPost(`${REACT_APP_API_URL}/api/v1/reports/`).replyOnce(500, data);
     await store.dispatch(
@@ -208,7 +207,7 @@ describe("country async actions", () => {
   /**
    * There is currently no DELETE_TRIP_REPORT_REJECTED action.
    */
-  it("alerts if internal server error on postTripReport", async () => {
+  it("alerts if internal server error on deleteTripReport", async () => {
     spy = jest.spyOn(Alert, "alert");
     const token = "testtoken";
     const tripReport = { id: 1, title: "Test", content: "Test" };
@@ -217,6 +216,61 @@ describe("country async actions", () => {
       .onDelete(`${REACT_APP_API_URL}/api/v1/reports/${tripReport.id}/`)
       .replyOnce(500, data);
     await store.dispatch(tripReportActions.deleteTripReport(token, tripReport));
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it("dispatches UPDATE_TRIP_REPORT_FULFILLED after axios request & alerts", async () => {
+    const token = "testtoken";
+    const id = 1;
+    const author = { username: "TestUser", pk: 1 };
+    const title = "TestTitle";
+    const content = "TestContent";
+    const countries = [1, 2];
+    const tripReport = { id, author, title, content, countries };
+    mock
+      .onPatch(`${REACT_APP_API_URL}/api/v1/reports/${id}/`)
+      .replyOnce(200, tripReport);
+    await store.dispatch(
+      tripReportActions.updateTripReport(
+        token,
+        id,
+        author,
+        title,
+        content,
+        countries
+      )
+    );
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(
+      tripReportActions.updateTripReportFulfilled(tripReport)
+    );
+  });
+
+  /**
+   * There is currently no UPDATE_TRIP_REPORT_REJECTED action.
+   */
+  it("alerts if internal server error on updateTripReport", async () => {
+    spy = jest.spyOn(Alert, "alert");
+    const token = "testtoken";
+    const id = 1;
+    const author = { username: "TestUser", pk: 1 };
+    const title = "TestTitle";
+    const content = "TestContent";
+    const countries = [1, 2];
+    const data = { "internal server error": "" };
+    mock
+      .onPatch(`${REACT_APP_API_URL}/api/v1/reports/${id}/`)
+      .replyOnce(500, data);
+    await store.dispatch(
+      tripReportActions.updateTripReport(
+        token,
+        id,
+        author,
+        title,
+        content,
+        countries
+      )
+    );
     expect(spy).toHaveBeenCalledTimes(1);
   });
 });
