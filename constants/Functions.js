@@ -6,18 +6,10 @@ import { Share } from "react-native";
  */
 export const handleShare = async slug => {
   try {
-    const result = await Share.share({
+    await Share.share({
       message: `Check out this Trip Report on Wanderlist:\nhttps://www.wanderlist.dev/p/${slug}/`
     });
-
-    if (result.action === Share.sharedAction) {
-      if (result.activityType) {
-      } else {
-        // shared
-      }
-    } else if (result.action === Share.dismissedAction) {
-    }
   } catch (error) {
-    alert(error.message);
+    console.log(error.message);
   }
 };
