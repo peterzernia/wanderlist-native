@@ -14,7 +14,8 @@ describe("<TripReportFooter />", () => {
   };
   const user = { username: "Test", pk: 1 };
   const toggleFavorite = jest.fn();
-  const props = { navigation, tripReport, user, toggleFavorite };
+  const handleShare = jest.fn();
+  const props = { navigation, tripReport, user, toggleFavorite, handleShare };
 
   // Setup wrapper
   beforeEach(() => {
@@ -33,6 +34,14 @@ describe("<TripReportFooter />", () => {
     expect(navigate).toHaveBeenCalledTimes(1);
   });
 
+  it("calls handleShare onPress", () => {
+    wrapper
+      .find("TouchableOpacity")
+      .at(2)
+      .simulate("press");
+    expect(handleShare).toHaveBeenCalledTimes(1);
+  });
+
   /**
    * Two TouchableOpacities are always rendered, and the component
    * should update with more TouchableOpacities for each country
@@ -48,15 +57,6 @@ describe("<TripReportFooter />", () => {
     wrapper.setProps({ ...props, tripReport });
     expect(wrapper.find("TouchableOpacity").length).toEqual(4);
   });
-
-  // it("calls toggleFavorite onPress", () => {
-  //   wrapper
-  //     .find("TouchableOpacity")
-  //     .at(2)
-  //     .simulate("press");
-
-  //   expect(toggleFavorite.mock.calls.length).toBe(1);
-  // });
 
   /**
    * The first time around the user with pk=1 is not in the Trip Report

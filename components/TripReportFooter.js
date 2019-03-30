@@ -60,7 +60,8 @@ export default function TripReportFooter(props) {
 TripReportFooter.propTypes = {
   tripReport: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  toggleFavorite: PropTypes.func.isRequired
+  toggleFavorite: PropTypes.func.isRequired,
+  handleShare: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({
