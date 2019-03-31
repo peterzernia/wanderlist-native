@@ -70,7 +70,7 @@ export class TripReportScreen extends Component {
         <View style={styles.container}>
           <TripReportHeader tripReport={tripReport} {...this.props} />
           <View style={styles.body}>
-            {tripReport && <Text>{tripReport.content}</Text>}
+            <Text>{tripReport.content}</Text>
           </View>
           <TripReportFooter
             tripReport={tripReport}
@@ -109,6 +109,7 @@ export default connect(
 TripReportScreen.propTypes = {
   deleteTripReport: PropTypes.func.isRequired,
   tripReports: PropTypes.object.isRequired,
+  userTripReports: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   toggleFavorite: PropTypes.func.isRequired
 };
