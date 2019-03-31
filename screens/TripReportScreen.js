@@ -44,18 +44,33 @@ export class TripReportScreen extends Component {
      * props from state and passed into the Header and Footer components to
      * correctly rerender on state changes.
      */
-    const { tripReports } = this.props;
-    const [tripReport] = tripReports.results.filter(
-      tripReport =>
-        tripReport.id === this.props.navigation.state.params.tripReport.id
-    );
+    const { tripReports, userTripReports, navigation } = this.props;
+    let tripReport;
+
+    /**
+     * Check where navigation is from - if from Feed page, tripReport is from
+     * tripReports prop, if from Profile page, tripReport is from userTripReports
+     * prop to prevent crash when tripReports reload, but Profile page has
+     * TripReportScreen open.
+     */
+    if (navigation.state.params.navigation.state.routeName === "Feed") {
+      [tripReport] = tripReports.results.filter(
+        tripReport => tripReport.id === navigation.state.params.tripReport.id
+      );
+    } else if (
+      navigation.state.params.navigation.state.routeName === "Profile"
+    ) {
+      [tripReport] = userTripReports.results.filter(
+        tripReport => tripReport.id === navigation.state.params.tripReport.id
+      );
+    }
 
     return (
       <ScrollView style={{ backgroundColor: "white" }}>
         <View style={styles.container}>
           <TripReportHeader tripReport={tripReport} {...this.props} />
           <View style={styles.body}>
-            <Text>{tripReport.content}</Text>
+            {tripReport && <Text>{tripReport.content}</Text>}
           </View>
           <TripReportFooter
             tripReport={tripReport}
@@ -71,6 +86,7 @@ export class TripReportScreen extends Component {
 const mapState = state => {
   return {
     tripReports: state.tripReport.tripReports,
+    userTripReports: state.tripReport.userTripReports,
     user: state.user.user
   };
 };
