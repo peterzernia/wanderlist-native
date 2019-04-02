@@ -12,7 +12,14 @@ import PropTypes from "prop-types";
 
 // Reusable TripReportFooter Component used in TripReportCard and TripReportScreen.
 export default function TripReportFooter(props) {
-  const { tripReport, user, toggleFavorite, navigation, handleShare } = props;
+  const {
+    tripReport,
+    user,
+    toggleFavorite,
+    navigation,
+    handleShare,
+    handleFavorite
+  } = props;
 
   const listCountries = tripReport.countries.map(country => (
     <TouchableOpacity
@@ -22,11 +29,6 @@ export default function TripReportFooter(props) {
       <Text style={styles.country}>{country.name}</Text>
     </TouchableOpacity>
   ));
-
-  handleFavorite = async id => {
-    const token = await AsyncStorage.getItem("token");
-    toggleFavorite(id, token);
-  };
 
   return (
     <View style={{ alignItems: "center" }}>
@@ -40,7 +42,9 @@ export default function TripReportFooter(props) {
               {tripReport.favoriters.length}
             </Text>
           )}
-          <TouchableOpacity onPress={() => handleFavorite(tripReport.id)}>
+          <TouchableOpacity
+            onPress={() => handleFavorite(tripReport.id, toggleFavorite)}
+          >
             {/* Display border icon if Trip Report is not favorited. */}
             {tripReport.favoriters.includes(user.pk) ? (
               <Icon name="favorite" size={25} />
@@ -61,7 +65,8 @@ TripReportFooter.propTypes = {
   tripReport: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
-  handleShare: PropTypes.func.isRequired
+  handleShare: PropTypes.func.isRequired,
+  handleFavorite: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({

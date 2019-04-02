@@ -1,4 +1,5 @@
-import { Share } from "react-native";
+import { AsyncStorage, Share } from "react-native";
+//import { toggleFavorite } from "../actions/favoriteActions";
 
 /**
  * handleShare is used in the TripReportFooter which is created by
@@ -12,4 +13,13 @@ export const handleShare = async slug => {
   } catch (error) {
     console.log(error.message);
   }
+};
+
+/**
+ * handleFavorite is used in the TripReportFooter which is created by
+ * both the TripReportCard component and TripReportScreen.
+ */
+export const handleFavorite = async (id, toggleFavorite) => {
+  const token = await AsyncStorage.getItem("token");
+  toggleFavorite(id, token);
 };

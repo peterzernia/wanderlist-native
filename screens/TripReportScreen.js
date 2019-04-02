@@ -9,7 +9,7 @@ import TripReportHeader from "../components/TripReportHeader";
 import TripReportTitleHeader from "../components/TripReportTitleHeader";
 import { deleteTripReport } from "../actions/tripReportActions";
 import { toggleFavorite } from "../actions/favoriteActions";
-import { handleShare } from "../constants/Functions";
+import { handleShare, handleFavorite } from "../constants/Functions";
 
 // TripReportScreen displays the full text of the Trip Reports.
 export class TripReportScreen extends Component {
@@ -75,6 +75,7 @@ export class TripReportScreen extends Component {
           <TripReportFooter
             tripReport={tripReport}
             handleShare={handleShare}
+            handleFavorite={handleFavorite}
             {...this.props}
           />
         </View>

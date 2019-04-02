@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import TripReportFooter from "./TripReportFooter";
 import TripReportHeader from "./TripReportHeader";
-import { handleShare } from "../constants/Functions";
+import { handleShare, handleFavorite } from "../constants/Functions";
 
 // TripReportCard is shows a truncated text of the TripReport
 // on the FeedScreen, rendered in a FlatList.
@@ -21,7 +21,11 @@ export default function TripReportCard(props) {
         <View style={styles.body}>
           <Text numberOfLines={3}>{tripReport.content}</Text>
         </View>
-        <TripReportFooter {...props} handleShare={handleShare} />
+        <TripReportFooter
+          {...props}
+          handleShare={handleShare}
+          handleFavorite={handleFavorite}
+        />
       </View>
     </TouchableOpacity>
   );
