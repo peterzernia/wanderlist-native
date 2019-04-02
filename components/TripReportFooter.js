@@ -12,14 +12,7 @@ import PropTypes from "prop-types";
 
 // Reusable TripReportFooter Component used in TripReportCard and TripReportScreen.
 export default function TripReportFooter(props) {
-  const {
-    tripReport,
-    user,
-    toggleFavorite,
-    navigation,
-    handleShare,
-    handleFavorite
-  } = props;
+  const { tripReport, user, navigation, handleShare, handleFavorite } = props;
 
   const listCountries = tripReport.countries.map(country => (
     <TouchableOpacity
@@ -42,9 +35,7 @@ export default function TripReportFooter(props) {
               {tripReport.favoriters.length}
             </Text>
           )}
-          <TouchableOpacity
-            onPress={() => handleFavorite(tripReport.id, toggleFavorite)}
-          >
+          <TouchableOpacity onPress={() => handleFavorite(tripReport.id)}>
             {/* Display border icon if Trip Report is not favorited. */}
             {tripReport.favoriters.includes(user.pk) ? (
               <Icon name="favorite" size={25} />
@@ -64,7 +55,6 @@ export default function TripReportFooter(props) {
 TripReportFooter.propTypes = {
   tripReport: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  toggleFavorite: PropTypes.func.isRequired,
   handleShare: PropTypes.func.isRequired,
   handleFavorite: PropTypes.func.isRequired
 };

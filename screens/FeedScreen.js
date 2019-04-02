@@ -20,7 +20,6 @@ import {
   fetchTripReports,
   fetchNextTripReports
 } from "../actions/tripReportActions";
-import { toggleFavorite } from "../actions/favoriteActions";
 
 export class FeedScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -151,8 +150,7 @@ const mapDispatch = dispatch => {
   return bindActionCreators(
     {
       fetchTripReports,
-      fetchNextTripReports,
-      toggleFavorite
+      fetchNextTripReports
     },
     dispatch
   );
@@ -169,8 +167,7 @@ FeedScreen.propTypes = {
   fetchingNextTripReports: PropTypes.bool.isRequired,
   fetchTripReports: PropTypes.func.isRequired,
   fetchNextTripReports: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  toggleFavorite: PropTypes.func.isRequired
+  user: PropTypes.object.isRequired
 };
 
 const styles = StyleSheet.create({

@@ -8,7 +8,6 @@ import TripReportFooter from "../components/TripReportFooter";
 import TripReportHeader from "../components/TripReportHeader";
 import TripReportTitleHeader from "../components/TripReportTitleHeader";
 import { deleteTripReport } from "../actions/tripReportActions";
-import { toggleFavorite } from "../actions/favoriteActions";
 import { handleShare, handleFavorite } from "../constants/Functions";
 
 // TripReportScreen displays the full text of the Trip Reports.
@@ -95,8 +94,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return bindActionCreators(
     {
-      deleteTripReport,
-      toggleFavorite
+      deleteTripReport
     },
     dispatch
   );
@@ -111,8 +109,7 @@ TripReportScreen.propTypes = {
   deleteTripReport: PropTypes.func.isRequired,
   tripReports: PropTypes.object.isRequired,
   userTripReports: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  toggleFavorite: PropTypes.func.isRequired
+  user: PropTypes.object.isRequired
 };
 
 const styles = StyleSheet.create({

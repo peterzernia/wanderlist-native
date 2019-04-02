@@ -1,5 +1,6 @@
+import store from "../reducers/index";
 import { AsyncStorage, Share } from "react-native";
-//import { toggleFavorite } from "../actions/favoriteActions";
+import { toggleFavorite } from "../actions/favoriteActions";
 
 /**
  * handleShare is used in the TripReportFooter which is created by
@@ -19,7 +20,7 @@ export const handleShare = async slug => {
  * handleFavorite is used in the TripReportFooter which is created by
  * both the TripReportCard component and TripReportScreen.
  */
-export const handleFavorite = async (id, toggleFavorite) => {
+export const handleFavorite = async id => {
   const token = await AsyncStorage.getItem("token");
-  toggleFavorite(id, token);
+  store.dispatch(toggleFavorite(id, token));
 };
