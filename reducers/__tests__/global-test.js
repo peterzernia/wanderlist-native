@@ -1,22 +1,18 @@
-import global from "../global";
-
-const defaultState = {
-  globalState: {}
-};
+import global, { initialState } from "../global";
 
 const globalState = { test: "Test" };
 
 describe("global reducer", () => {
   it("has default reducer state", () => {
     expect(global(undefined, { type: "unexpected" })).toEqual({
-      ...defaultState
+      ...initialState
     });
   });
   it("can handle SET_STATE", () => {
     expect(
       global(undefined, { type: "SET_STATE", globalState: globalState })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       globalState: globalState
     });
   });

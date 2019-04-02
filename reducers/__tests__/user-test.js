@@ -1,23 +1,16 @@
-import user from "../user";
-
-const defaultState = {
-  fetchingUser: false,
-  fetchedUser: false,
-  updatingUser: false,
-  user: { countries: [] }
-};
+import user, { initialState } from "../user";
 
 const testUser = { username: "TestUser" };
 
 describe("user Reducer", () => {
   it("has a default state", () => {
     expect(user(undefined, { type: "unexpected" })).toEqual({
-      ...defaultState
+      ...initialState
     });
   });
   it("can handle FETCH_USER_PENDING", () => {
     expect(user(undefined, { type: "FETCH_USER_PENDING" })).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingUser: true
     });
   });
@@ -28,7 +21,7 @@ describe("user Reducer", () => {
         user: testUser
       })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingUser: false,
       fetchedUser: true,
       user: testUser
@@ -36,14 +29,14 @@ describe("user Reducer", () => {
   });
   it("can handle FETCH_USER_REJECTED", () => {
     expect(user(undefined, { type: "FETCH_USER_REJECTED" })).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingUser: false,
       fetchedUser: false
     });
   });
   it("can handle UPDATE_USER_PENDING", () => {
     expect(user(undefined, { type: "UPDATE_USER_PENDING" })).toEqual({
-      ...defaultState,
+      ...initialState,
       updatingUser: true
     });
   });
@@ -54,13 +47,13 @@ describe("user Reducer", () => {
         user: testUser
       })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       user: testUser
     });
   });
   it("can handle UPDATE_USER_REJECTED", () => {
     expect(user(undefined, { type: "UPDATE_USER_REJECTED" })).toEqual({
-      ...defaultState,
+      ...initialState,
       updatingUser: false
     });
   });
@@ -70,7 +63,7 @@ describe("user Reducer", () => {
         type: "AUTH_LOGOUT"
       })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       user: { countries: [] }
     });
   });

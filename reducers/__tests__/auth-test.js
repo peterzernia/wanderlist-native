@@ -1,20 +1,14 @@
-import auth from "../auth";
-
-const defaultState = {
-  token: null,
-  authenticating: false,
-  authenticated: false
-};
+import auth, { initialState } from "../auth";
 
 describe("auth Reducer", () => {
   it("has a default state", () => {
     expect(auth(undefined, { type: "unexpected" })).toEqual({
-      ...defaultState
+      ...initialState
     });
   });
   it("can handle AUTH_START", () => {
     expect(auth(undefined, { type: "AUTH_START" })).toEqual({
-      ...defaultState,
+      ...initialState,
       authenticating: true
     });
   });
@@ -25,7 +19,7 @@ describe("auth Reducer", () => {
         token: "a9f3709aaa085cb74a764006b3ba432505ebaffe"
       })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       authenticating: false,
       authenticated: true,
       token: "a9f3709aaa085cb74a764006b3ba432505ebaffe"
@@ -37,7 +31,7 @@ describe("auth Reducer", () => {
         type: "AUTH_FAIL"
       })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       authenticating: false,
       authenticated: false
     });
@@ -48,7 +42,7 @@ describe("auth Reducer", () => {
         type: "AUTH_LOGOUT"
       })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       authenticating: false,
       authenticated: false,
       token: null

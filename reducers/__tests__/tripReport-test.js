@@ -1,14 +1,4 @@
-import tripReport from "../tripReport";
-
-const defaultState = {
-  fetchingTripReports: false,
-  fetchingNextTripReports: false,
-  fetchingUserTripReports: false,
-  fetchingNextUserTripReports: false,
-  fetchingNextUserTripReports: false,
-  tripReports: { results: [], count: null, next: null, previous: null },
-  userTripReports: { results: [], count: null, next: null, previous: null }
-};
+import tripReport, { initialState } from "../tripReport";
 
 const tripReports = {
   results: [{ title: "Test1", id: 1 }, { title: "Test2", id: 2 }],
@@ -20,7 +10,7 @@ const tripReports = {
 describe("tripReport Reducer", () => {
   it("has a default state", () => {
     expect(tripReport(undefined, { type: "unexpected" })).toEqual({
-      ...defaultState
+      ...initialState
     });
   });
 
@@ -28,7 +18,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(undefined, { type: "FETCH_TRIP_REPORTS_PENDING" })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingTripReports: true
     });
   });
@@ -40,7 +30,7 @@ describe("tripReport Reducer", () => {
         tripReports: tripReports
       })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingTripReports: false,
       tripReports: tripReports
     });
@@ -50,7 +40,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(undefined, { type: "FETCH_TRIP_REPORTS_REJECTED" })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingTripReports: false
     });
   });
@@ -59,7 +49,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(undefined, { type: "FETCH_NEXT_TRIP_REPORTS_PENDING" })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingNextTripReports: true
     });
   });
@@ -68,7 +58,7 @@ describe("tripReport Reducer", () => {
   it("can handle FETCH_NEXT_TRIP_REPORTS_FULFILLED", () => {
     expect(
       tripReport(
-        { ...defaultState, tripReports: tripReports },
+        { ...initialState, tripReports: tripReports },
         {
           type: "FETCH_NEXT_TRIP_REPORTS_FULFILLED",
           tripReports: {
@@ -80,7 +70,7 @@ describe("tripReport Reducer", () => {
         }
       )
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingNextTripReports: false,
       tripReports: {
         results: [
@@ -100,7 +90,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(undefined, { type: "FETCH_NEXT_TRIP_REPORTS_REJECTED" })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingNextTripReports: false
     });
   });
@@ -109,7 +99,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(undefined, { type: "FETCH_USER_TRIP_REPORTS_PENDING" })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingUserTripReports: true
     });
   });
@@ -121,7 +111,7 @@ describe("tripReport Reducer", () => {
         tripReports: tripReports
       })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingUserTripReports: false,
       userTripReports: tripReports
     });
@@ -131,7 +121,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(undefined, { type: "FETCH_USER_TRIP_REPORTS_REJECTED" })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingUserTripReports: false
     });
   });
@@ -140,7 +130,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(undefined, { type: "FETCH_NEXT_USER_TRIP_REPORTS_PENDING" })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingNextUserTripReports: true
     });
   });
@@ -149,7 +139,7 @@ describe("tripReport Reducer", () => {
   it("can handle FETCH_NEXT_USER_TRIP_REPORTS_FULFILLED", () => {
     expect(
       tripReport(
-        { ...defaultState, userTripReports: tripReports },
+        { ...initialState, userTripReports: tripReports },
         {
           type: "FETCH_NEXT_USER_TRIP_REPORTS_FULFILLED",
           tripReports: {
@@ -161,7 +151,7 @@ describe("tripReport Reducer", () => {
         }
       )
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingNextUserTripReports: false,
       userTripReports: {
         results: [
@@ -181,7 +171,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(undefined, { type: "FETCH_NEXT_USER_TRIP_REPORTS_REJECTED" })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingNextUserTripReports: false
     });
   });
@@ -191,7 +181,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(
         {
-          ...defaultState,
+          ...initialState,
           tripReports: tripReports,
           userTripReports: tripReports
         },
@@ -201,7 +191,7 @@ describe("tripReport Reducer", () => {
         }
       )
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       tripReports: {
         results: [
           { title: "Test1", id: 1, favoriters: [1] },
@@ -231,7 +221,7 @@ describe("tripReport Reducer", () => {
         response: { title: "Test1", id: 1 }
       })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       userTripReports: {
         results: [{ title: "Test1", id: 1 }],
         count: null,
@@ -249,7 +239,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(
         {
-          ...defaultState,
+          ...initialState,
           userTripReports: tripReports,
           tripReports: tripReports
         },
@@ -259,7 +249,7 @@ describe("tripReport Reducer", () => {
         }
       )
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       userTripReports: {
         results: [
           { title: "Test1", id: 1 },
@@ -287,7 +277,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(
         {
-          ...defaultState,
+          ...initialState,
           userTripReports: tripReports,
           tripReports: tripReports
         },
@@ -297,7 +287,7 @@ describe("tripReport Reducer", () => {
         }
       )
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       // The deleted trip report is removed from the results array.
       userTripReports: {
         results: [{ title: "Test2", id: 2 }],
@@ -319,7 +309,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(
         {
-          ...defaultState,
+          ...initialState,
           userTripReports: tripReports,
           tripReports: tripReports
         },
@@ -329,7 +319,7 @@ describe("tripReport Reducer", () => {
         }
       )
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       userTripReports: {
         results: [{ title: "Test1 Updated", id: 1 }, { title: "Test2", id: 2 }],
         count: 2,
@@ -350,7 +340,7 @@ describe("tripReport Reducer", () => {
     expect(
       tripReport(
         {
-          ...defaultState,
+          ...initialState,
           tripReports: {
             results: [
               {
@@ -392,7 +382,7 @@ describe("tripReport Reducer", () => {
         }
       )
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       tripReports: {
         results: [
           {
@@ -433,11 +423,11 @@ describe("tripReport Reducer", () => {
   it("can handle AUTH_LOGOUT", () => {
     expect(
       tripReport(
-        { ...defaultState, fetchingTripReports: true },
+        { ...initialState, fetchingTripReports: true },
         { type: "AUTH_LOGOUT" }
       )
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingTripReports: false
     });
   });

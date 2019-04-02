@@ -1,22 +1,16 @@
-import country from "../country";
+import country, { initialState } from "../country";
 
 const countries = [{ name: "Test1" }, { name: "Test2" }];
-
-const defaultState = {
-  fetchingCountries: false,
-  fetchedCountries: false,
-  countries: []
-};
 
 describe("country Reducer", () => {
   it("has a default state", () => {
     expect(country(undefined, { type: "unexpected" })).toEqual({
-      ...defaultState
+      ...initialState
     });
   });
   it("can handle FETCH_COUNTRIES_PENDING", () => {
     expect(country(undefined, { type: "FETCH_COUNTRIES_PENDING" })).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingCountries: true,
       fetchedCountries: false
     });
@@ -28,7 +22,7 @@ describe("country Reducer", () => {
         countries: countries
       })
     ).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingCountries: false,
       fetchedCountries: true,
       countries: countries
@@ -36,14 +30,14 @@ describe("country Reducer", () => {
   });
   it("can handle FETCH_COUNTRIES_REJECTED", () => {
     expect(country(undefined, { type: "FETCH_COUNTRIES_REJECTED" })).toEqual({
-      ...defaultState,
+      ...initialState,
       fetchingCountries: false,
       fetchedCountries: false
     });
   });
   it("can handle AUTH_LOGOUT", () => {
-    expect(country({ ...defaultState }, { type: "AUTH_LOGOUT" })).toEqual({
-      ...defaultState
+    expect(country({ ...initialState }, { type: "AUTH_LOGOUT" })).toEqual({
+      ...initialState
     });
   });
 });
