@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
   fetchingCountries: false,
   fetchedCountries: false,
   countries: []

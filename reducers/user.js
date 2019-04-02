@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
   fetchingUser: false,
   fetchedUser: false,
   updatingUser: false,

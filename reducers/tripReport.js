@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
   fetchingTripReports: false,
   fetchingNextTripReports: false,
   fetchingUserTripReports: false,

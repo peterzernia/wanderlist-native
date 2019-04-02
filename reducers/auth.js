@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
   token: null,
   authenticating: false,
   authenticated: false
