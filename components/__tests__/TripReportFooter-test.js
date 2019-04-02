@@ -34,6 +34,14 @@ describe("<TripReportFooter />", () => {
     expect(navigate).toHaveBeenCalledTimes(1);
   });
 
+  it("calls handleFavorite onPress", () => {
+    wrapper
+      .find("TouchableOpacity")
+      .at(1)
+      .simulate("press");
+    expect(handleFavorite).toHaveBeenCalledTimes(1);
+  });
+
   it("calls handleShare onPress", () => {
     wrapper
       .find("TouchableOpacity")
