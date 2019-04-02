@@ -5,6 +5,7 @@ import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import { initialState } from "../../reducers/tripReport";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -19,15 +20,7 @@ describe("tripReport async actions", () => {
 
   beforeEach(() => {
     mock = new MockAdapter(axios);
-    store = mockStore({
-      fetchingTripReports: false,
-      fetchingNextTripReports: false,
-      fetchingUserTripReports: false,
-      fetchingNextUserTripReports: false,
-      fetchingNextUserTripReports: false,
-      tripReports: { results: [], count: null, next: null, previous: null },
-      userTripReports: { results: [], count: null, next: null, previous: null }
-    });
+    store = mockStore({ ...initialState });
   });
 
   afterEach(() => {

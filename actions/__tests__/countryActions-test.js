@@ -5,6 +5,7 @@ import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import { initialState } from "../../reducers/country";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -17,11 +18,7 @@ describe("country async actions", () => {
 
   beforeEach(() => {
     mock = new MockAdapter(axios);
-    store = mockStore({
-      countries: [],
-      fetchingCountries: false,
-      fetchedCountries: false
-    });
+    store = mockStore({ ...initialState });
   });
 
   afterEach(() => {

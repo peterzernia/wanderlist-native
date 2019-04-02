@@ -5,6 +5,7 @@ import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import { initialState } from "../../reducers/auth";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -15,11 +16,7 @@ describe("async action creators", () => {
 
   beforeEach(() => {
     mock = new MockAdapter(axios);
-    store = mockStore({
-      token: null,
-      authenticating: false,
-      authenticated: false
-    });
+    store = mockStore({ ...initialState });
   });
 
   afterEach(() => {
