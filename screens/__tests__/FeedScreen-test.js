@@ -11,7 +11,6 @@ describe("<FeedScreen />", () => {
   const fetchNextTripReports = jest.fn();
   let fetchingTripReports = false;
   let fetchingNextTripReports = false;
-  const toggleFavorite = jest.fn();
   const params = { param: "Test" };
   const state = { params };
   const navigate = jest.fn();
@@ -25,7 +24,6 @@ describe("<FeedScreen />", () => {
     fetchNextTripReports,
     fetchingTripReports,
     fetchingNextTripReports,
-    toggleFavorite,
     navigation
   };
 

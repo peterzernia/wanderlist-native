@@ -9,8 +9,7 @@ describe("<TripReportCard />", () => {
     const navigation = { navigate };
     const tripReport = { title: "Test", content: "Test" };
     const user = { username: "Test" };
-    const toggleFavorite = jest.fn();
-    const props = { navigation, tripReport, user, toggleFavorite };
+    const props = { navigation, tripReport, user };
 
     // Test navigate func is called onPress.
     const wrapper = shallow(<TripReportCard {...props} />);

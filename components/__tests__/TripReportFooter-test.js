@@ -13,9 +13,9 @@ describe("<TripReportFooter />", () => {
     favoriters: []
   };
   const user = { username: "Test", pk: 1 };
-  const toggleFavorite = jest.fn();
   const handleShare = jest.fn();
-  const props = { navigation, tripReport, user, toggleFavorite, handleShare };
+  const handleFavorite = jest.fn();
+  const props = { navigation, tripReport, user, handleShare, handleFavorite };
 
   // Setup wrapper
   beforeEach(() => {

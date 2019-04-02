@@ -7,7 +7,6 @@ import { Text } from "react-native";
 describe("<TripReportScreen />", () => {
   let wrapper;
   const user = { username: "TestUser" };
-  const toggleFavorite = jest.fn();
   const deleteTripReport = jest.fn();
   const tripReports = {
     results: [{ title: "Test", content: "tripReports", id: 1 }]
@@ -27,7 +26,6 @@ describe("<TripReportScreen />", () => {
   const navigation = { state, setParams, getParam };
   let props = {
     user,
-    toggleFavorite,
     deleteTripReport,
     tripReports,
     userTripReports,
