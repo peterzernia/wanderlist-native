@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Colors.appBlue,
+    backgroundColor: Colors.blue,
     flex: 1,
     marginRight: 5,
     borderRadius: 10
