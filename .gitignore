@@ -9,3 +9,5 @@ npm-debug.*
 .DS_Store
 .env.development
 .env.production
+.expo
+.expo-shared
