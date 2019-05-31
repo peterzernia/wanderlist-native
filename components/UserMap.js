@@ -43,7 +43,6 @@ export default class UserMap extends Component {
         rotateEnabled={false}
         scrollEnabled={true}
         zoomEnabled={true}
-        showsUserLocation
       >
         <UrlTile
           urlTemplate="http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"

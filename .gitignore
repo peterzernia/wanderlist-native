@@ -11,3 +11,4 @@ npm-debug.*
 .env.production
 .expo
 .expo-shared
+api*
