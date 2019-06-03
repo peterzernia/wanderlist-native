@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "wanderlist",
+    "name": "Wanderlist",
     "slug": "wanderlist",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.1",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -22,7 +22,7 @@
     },
     "android": {
       "package": "dev.wanderlist.wanderlist",
-      "versionCode": 2
+      "versionCode": 4
     },
     "description": "",
     "githubUrl": "https://github.com/peterzernia/wanderlist-native"
