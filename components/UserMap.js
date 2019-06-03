@@ -29,9 +29,7 @@ export default class UserMap extends Component {
           longitude: country.latlng[1]
         }}
         title={country.name}
-        onCalloutPress={() =>
-          navigation.navigate("Country", { country: country })
-        }
+        onCalloutPress={() => navigation.navigate("Country", { country: country })}
       />
     ));
 
@@ -39,13 +37,13 @@ export default class UserMap extends Component {
       <MapView
         style={styles.map}
         region={region}
-        mapType="none" //{Platform.OS == "android" ? "none" : "standard"}
+        mapType={"none"} // "standard"
         rotateEnabled={false}
         scrollEnabled={true}
         zoomEnabled={true}
       >
         <UrlTile
-          urlTemplate="http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          urlTemplate="http://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
           zIndex={0}
           maximumZ={19}
         />

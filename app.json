@@ -4,11 +4,8 @@
     "slug": "wanderlist",
     "privacy": "public",
     "sdkVersion": "32.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "version": "1.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -19,14 +16,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false
     },
     "android": {
-      "package": "dev.wanderlist.wanderlist"
+      "package": "dev.wanderlist.wanderlist",
+      "versionCode": 2
     },
     "description": "",
     "githubUrl": "https://github.com/peterzernia/wanderlist-native"
