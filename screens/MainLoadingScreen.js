@@ -5,10 +5,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { REACT_APP_API_URL } from "react-native-dotenv";
 
-import {
-  fetchTripReports,
-  fetchUserTripReports
-} from "../actions/tripReportActions";
+import { fetchTripReports, fetchUserTripReports } from "../actions/tripReportActions";
 import { fetchUser } from "../actions/userActions";
 
 export class MainLoadingScreen extends Component {
@@ -21,18 +18,13 @@ export class MainLoadingScreen extends Component {
 
   _bootstrapAsync = async () => {
     // Initial load for App data.
-    const {
-      fetchUser,
-      fetchTripReports,
-      fetchUserTripReports,
-      navigation
-    } = this.props;
+    const { fetchUser, fetchTripReports, fetchUserTripReports, navigation } = this.props;
     const token = await AsyncStorage.getItem("token");
     const username = await AsyncStorage.getItem("username");
 
-    await fetchUser(token);
-    await fetchTripReports(`${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk`);
-    await fetchUserTripReports(username);
+    fetchUser(token);
+    fetchTripReports(`${REACT_APP_API_URL}/api/v1/reports/?ordering=-pk`);
+    fetchUserTripReports(username);
     navigation.navigate("Main");
   };
 
