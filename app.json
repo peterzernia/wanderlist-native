@@ -24,7 +24,7 @@
       "package": "dev.wanderlist.wanderlist",
       "adaptiveIcon": {
         "backgroundColor": "#448AFF",
-        "foregroundImage": "./assets/icon.png"
+        "foregroundImage": "./assets/icon-fg.png"
       },
       "versionCode": 7
     },
