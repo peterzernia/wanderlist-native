@@ -5,7 +5,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "test": "node ./node_modules/jest/bin/jest.js --coverage"
+    "test": "node_modules/.bin/jest --coverage"
   },
   "jest": {
     "preset": "jest-expo",
@@ -18,7 +18,7 @@
     "axios": "^0.19.0",
     "axios-mock-adapter": "^1.16.0",
     "expo": "^33.0.0",
-    "jest": "^24.1.0",
+    "expo-react-native-adapter": "^3.0.1",
     "prop-types": "^15.7.2",
     "react": "16.8.3",
     "react-dom": "^16.8.4",
@@ -39,7 +39,8 @@
     "babel-preset-expo": "^5.0.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
-    "jest-expo": "^31.0.0",
+    "jest": "^24.8.0",
+    "jest-expo": "^33.0.2",
     "metro-react-native-babel-preset": "^0.52.0",
     "prettier-eslint": "^8.8.2",
     "react-native-dotenv": "^0.2.0"
