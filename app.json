@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.6",
+    "version": "1.0.7",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -24,9 +24,9 @@
       "package": "dev.wanderlist.wanderlist",
       "adaptiveIcon": {
         "backgroundColor": "#448AFF",
-        "foregroundImage": "./assets/images/icon-fg.png"
+        "foregroundImage": "./assets/images/icon.png"
       },
-      "versionCode": 7
+      "versionCode": 8
     },
     "description": "",
     "githubUrl": "https://github.com/peterzernia/wanderlist-native"
