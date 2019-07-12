@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "33.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.9",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -18,16 +18,17 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "dev.wanderlist.wanderlist"
     },
     "android": {
       "package": "dev.wanderlist.wanderlist",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
-        "backgroundColor": "#448AFF"
+        "backgroundColor": "#2196f3"
       },
       "icon": "./assets/images/icon.png",
-      "versionCode": 10,
+      "versionCode": 12,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=dev.wanderlist.wanderlist"
     },
     "description": "",
