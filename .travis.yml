@@ -2,9 +2,9 @@ language: node_js
 node_js:
   - "11.7.0"
 install:
-  - npm install
+  - yarn install
 cache:
   directories:
-  - node_modules
+    - node_modules
 script:
-  - npm test
+  - yarn test
