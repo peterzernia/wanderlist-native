@@ -1,7 +1,6 @@
-import React from "react";
-import { Icon } from "expo";
-
-import Colors from "../constants/Colors";
+import React from "react"
+import * as Icon from '@expo/vector-icons'
+import Colors from "../constants/Colors"
 
 export default function TabBarIcon(props) {
   return (
@@ -11,5 +10,5 @@ export default function TabBarIcon(props) {
       style={{ marginBottom: -3 }}
       color={props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
     />
-  );
+  )
 }
