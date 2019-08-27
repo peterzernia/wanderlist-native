@@ -1,12 +1,12 @@
-import * as globalActions from "../globalActions";
+import * as globalActions from '../globalActions'
 
-describe("globalAction Creator", () => {
-  it("should create a SET_STATE action", () => {
-    const globalState = { test: "Test" };
+describe('globalAction Creator', () => {
+  it('should create a SET_STATE action', () => {
+    const globalState = { test: 'Test' }
     const expectedAction = {
-      type: "SET_STATE",
-      globalState
-    };
-    expect(globalActions.setState(globalState)).toEqual(expectedAction);
-  });
-});
+      type: 'SET_STATE',
+      globalState,
+    }
+    expect(globalActions.setState(globalState)).toEqual(expectedAction)
+  })
+})

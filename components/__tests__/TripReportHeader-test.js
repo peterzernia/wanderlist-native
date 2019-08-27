@@ -1,34 +1,34 @@
-import React from "react";
-import { shallow } from "enzyme";
-import TripReportHeader from "../TripReportHeader";
-import { Alert } from "react-native";
+import React from 'react'
+import { shallow } from 'enzyme'
+import { Alert } from 'react-native'
+import TripReportHeader from '../TripReportHeader'
 
-describe("<TripReportHeader />", () => {
-  let wrapper;
+describe('<TripReportHeader />', () => {
+  let wrapper
   const author = {
-    username: "Test",
+    username: 'Test',
     pk: 1,
-    home: { name: "test", flag: "https://test.com" }
-  };
+    home: { name: 'test', flag: 'https://test.com' },
+  }
   const tripReport = {
-    title: "Test",
-    countries: [{ name: "Test", id: 1 }],
+    title: 'Test',
+    countries: [{ name: 'Test', id: 1 }],
     favoriters: [],
-    author
-  };
-  const props = { tripReport };
+    author,
+  }
+  const props = { tripReport }
 
   // Setup wrapper
   beforeEach(() => {
-    wrapper = shallow(<TripReportHeader {...props} />);
-  });
+    wrapper = shallow(<TripReportHeader {...props} />)
+  })
 
-  it("alerts", () => {
-    spy = jest.spyOn(Alert, "alert");
+  it('alerts', () => {
+    spy = jest.spyOn(Alert, 'alert')
     wrapper
-      .find("TouchableOpacity")
+      .find('TouchableOpacity')
       .at(0)
-      .simulate("press");
-    expect(spy).toHaveBeenCalledTimes(1);
-  });
-});
+      .simulate('press')
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+})

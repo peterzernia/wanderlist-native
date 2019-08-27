@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react'
 import * as Icon from '@expo/vector-icons'
-import Colors from "../constants/Colors"
+import Colors from '../constants/Colors'
 
 export default function TabBarIcon(props) {
   return (

@@ -1,40 +1,40 @@
 export const initialState = {
   token: null,
   authenticating: false,
-  authenticated: false
-};
+  authenticated: false,
+}
 
-/* Reducer Function*/
+/* Reducer Function */
 export default function(state = initialState, action) {
   switch (action.type) {
-    case "AUTH_START": {
+    case 'AUTH_START': {
       return {
         ...state,
-        authenticating: true
-      };
+        authenticating: true,
+      }
     }
-    case "AUTH_SUCCESS": {
+    case 'AUTH_SUCCESS': {
       return {
         ...state,
         authenticating: false,
         authenticated: true,
-        token: action.token
-      };
+        token: action.token,
+      }
     }
-    case "AUTH_FAIL": {
+    case 'AUTH_FAIL': {
       return {
         ...state,
         authenticating: false,
-        authenticated: false
-      };
+        authenticated: false,
+      }
     }
     // Return to initialState on logout.
-    case "AUTH_LOGOUT": {
+    case 'AUTH_LOGOUT': {
       return {
-        ...initialState
-      };
+        ...initialState,
+      }
     }
     default:
-      return state;
+      return state
   }
 }

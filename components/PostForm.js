@@ -1,51 +1,53 @@
-import React, { Component } from "react";
-import { TextInput, View, ScrollView, StyleSheet } from "react-native";
-import PropTypes from "prop-types";
-import MultiSelect from "react-native-multiple-select";
+import React, { Component } from 'react'
+import {
+  TextInput, View, ScrollView, StyleSheet,
+} from 'react-native'
+import PropTypes from 'prop-types'
+import MultiSelect from 'react-native-multiple-select'
 
-import countries from "../countries.json";
+import countries from '../countries.json'
 
 /**
  * Global setState function used to pass the data from PostForm
  * to PostTitleHeader, where the actual post/update function call
  * is made.
- **/
+ * */
 export default class PostForm extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
-      title: "",
-      content: "",
-      selectedCountries: []
-    };
+      title: '',
+      content: '',
+      selectedCountries: [],
+    }
   }
 
   componentDidMount() {
     // If the tripReport is not null (i.e. we're editing a post), setState with the
     // values from the tripReport to fill the forms.
-    const { tripReport, setState } = this.props;
+    const { tripReport, setState } = this.props
     setState({
       // Set the initial globalState.
-      title: "",
-      content: "",
-      selectedCountries: []
-    });
+      title: '',
+      content: '',
+      selectedCountries: [],
+    })
     if (tripReport) {
-      var countries = tripReport.countries.map(country => country.id);
-      countries = countries.map(String);
+      let countries = tripReport.countries.map((country) => country.id)
+      countries = countries.map(String)
       this.setState({
         title: tripReport.title,
         content: tripReport.content,
-        selectedCountries: countries
-      });
-      setState(this.state);
+        selectedCountries: countries,
+      })
+      setState(this.state)
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     // Set local state and globalState whenever the component updates.
-    const { setState } = this.props;
-    setState(this.state);
+    const { setState } = this.props
+    setState(this.state)
   }
 
   render() {
@@ -53,17 +55,17 @@ export default class PostForm extends Component {
     // to the first position of the array.
     const items = [...countries]
       .sort((a, b) => a.name > b.name)
-      .map(country => ({ id: `${country.pk}`, name: country.name }));
+      .map((country) => ({ id: `${country.pk}`, name: country.name }))
 
-    const { setState } = this.props;
-    const { title, content, selectedCountries } = this.state;
+    const { setState } = this.props
+    const { title, content, selectedCountries } = this.state
 
     return (
       <ScrollView
-        style={{ backgroundColor: "white", width: "100%" }}
+        style={{ backgroundColor: 'white', width: '100%' }}
         contentContainerStyle={{
-          alignItems: "center",
-          justifyContent: "center"
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <View style={styles.container}>
@@ -73,9 +75,9 @@ export default class PostForm extends Component {
               placeholder="Title"
               value={title}
               // Set local state and globalState.
-              onChangeText={value => {
-                this.setState({ title: value });
-                setState(this.state);
+              onChangeText={(value) => {
+                this.setState({ title: value })
+                setState(this.state)
               }}
             />
           </View>
@@ -83,12 +85,12 @@ export default class PostForm extends Component {
             hideTags
             items={items}
             uniqueKey="id"
-            ref={component => {
-              this.multiSelect = component;
+            ref={(component) => {
+              this.multiSelect = component
             }}
-            onSelectedItemsChange={selectedCountries => {
-              this.setState({ selectedCountries });
-              setState(this.state);
+            onSelectedItemsChange={(selectedCountries) => {
+              this.setState({ selectedCountries })
+              setState(this.state)
             }}
             selectedItems={selectedCountries}
             selectText="Select Countries"
@@ -101,49 +103,49 @@ export default class PostForm extends Component {
             hideSubmitButton
           />
           <View>
-            {this.multiSelect &&
-              this.multiSelect.getSelectedItemsExt(selectedCountries)}
+            {this.multiSelect
+              && this.multiSelect.getSelectedItemsExt(selectedCountries)}
           </View>
           <TextInput
             style={styles.textField}
             placeholder="Content"
             value={content}
-            multiline={true}
-            onChangeText={value => {
-              this.setState({ content: value });
-              setState(this.state);
+            multiline
+            onChangeText={(value) => {
+              this.setState({ content: value })
+              setState(this.state)
             }}
           />
         </View>
       </ScrollView>
-    );
+    )
   }
 }
 
 PostForm.propTypes = {
-  setState: PropTypes.func.isRequired
-};
+  setState: PropTypes.func.isRequired,
+}
 
 const styles = StyleSheet.create({
   container: {
     width: 300,
-    height: "100%"
+    height: '100%',
   },
   titleContainer: {
     borderBottomWidth: 0.5,
-    borderColor: "#CCC",
+    borderColor: '#CCC',
     marginBottom: 10,
-    marginTop: 10
+    marginTop: 10,
   },
   textInput: {
     height: 50,
-    fontSize: 16
+    fontSize: 16,
   },
   textField: {
     marginTop: 5,
-    height: "auto",
+    height: 'auto',
     minHeight: 250,
     fontSize: 16,
-    textAlignVertical: "top"
-  }
-});
+    textAlignVertical: 'top',
+  },
+})

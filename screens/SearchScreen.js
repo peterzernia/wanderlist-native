@@ -1,51 +1,54 @@
-import React, { Component } from "react";
-import { AsyncStorage, FlatList, StyleSheet, View } from "react-native";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Component } from 'react'
+import {
+  AsyncStorage, FlatList, StyleSheet, View,
+} from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import Colors from "../constants/Colors";
-import Results from "../components/Results";
-import SearchBar from "../components/SearchBar";
-import { fetchCountries } from "../actions/countryActions";
-import { updateUser } from "../actions/userActions";
+import Colors from '../constants/Colors'
+import Results from '../components/Results'
+import SearchBar from '../components/SearchBar'
+import { fetchCountries } from '../actions/countryActions'
+import { updateUser } from '../actions/userActions'
 
 export class SearchScreen extends Component {
   static navigationOptions = {
-    title: "Search"
+    title: 'Search',
   };
+
   constructor() {
-    super();
+    super()
     this.state = {
-      pendingCountry: { name: null }
-    };
+      pendingCountry: { name: null },
+    }
   }
 
-  handleSearch = async query => {
-    await this.props.fetchCountries(query);
+  handleSearch = async (query) => {
+    await this.props.fetchCountries(query)
   };
 
-  handleUpdate = async country => {
-    const { user, updateUser } = this.props;
-    const token = await AsyncStorage.getItem("token");
-    let newCountries;
-    let success;
-    this.setState({ pendingCountry: country });
+  handleUpdate = async (country) => {
+    const { user, updateUser } = this.props
+    const token = await AsyncStorage.getItem('token')
+    let newCountries
+    let success
+    this.setState({ pendingCountry: country })
 
     if (user.countries.length === 0) {
-      newCountries = [country.id];
-      success = `${country.name} has been added to your map.`;
+      newCountries = [country.id]
+      success = `${country.name} has been added to your map.`
     } else {
-      newCountries = user.countries.map(country => country.id);
+      newCountries = user.countries.map((country) => country.id)
       if (newCountries.includes(country.id)) {
-        let i = newCountries.indexOf(country.id);
+        const i = newCountries.indexOf(country.id)
         if (i !== -1) {
-          newCountries.splice(i, 1);
+          newCountries.splice(i, 1)
         }
-        success = `${country.name} has been removed to your map.`;
+        success = `${country.name} has been removed to your map.`
       } else {
-        newCountries.push(country.id);
-        success = `${country.name} has been added to your map.`;
+        newCountries.push(country.id)
+        success = `${country.name} has been added to your map.`
       }
     }
     updateUser(
@@ -55,25 +58,23 @@ export class SearchScreen extends Component {
       newCountries,
       user.home.id,
       user.biography,
-      success
-    );
+      success,
+    )
   };
 
-  renderHeader = () => {
-    return (
-      <View style={styles.searchBarContainer}>
-        <SearchBar
-          findCountry={this.findCountry}
-          handleSearch={this.handleSearch}
-          {...this.props}
-        />
-      </View>
-    );
-  };
+  renderHeader = () => (
+    <View style={styles.searchBarContainer}>
+      <SearchBar
+        findCountry={this.findCountry}
+        handleSearch={this.handleSearch}
+        {...this.props}
+      />
+    </View>
+  );
 
   render() {
-    const { pendingCountry } = this.state;
-    const { countries } = this.props;
+    const { pendingCountry } = this.state
+    const { countries } = this.props
 
     return (
       <View style={styles.listContainer}>
@@ -90,42 +91,38 @@ export class SearchScreen extends Component {
               />
             </View>
           )}
-          keyExtractor={item => item.alpha2code}
+          keyExtractor={(item) => item.alpha2code}
           ListHeaderComponent={() => this.renderHeader()}
-          removeClippedSubviews={true}
+          removeClippedSubviews
           initialNumToRender={2}
           maxToRenderPerBatch={1}
           maxToRenderPerBatch={100}
           windowSize={7}
         />
       </View>
-    );
+    )
   }
 }
 
-const mapState = state => {
-  return {
-    fetchingCountries: state.country.fetchingCountries,
-    countries: state.country.countries,
-    user: state.user.user,
-    updatingUser: state.user.updatingUser
-  };
-};
+const mapState = (state) => ({
+  fetchingCountries: state.country.fetchingCountries,
+  countries: state.country.countries,
+  user: state.user.user,
+  updatingUser: state.user.updatingUser,
+})
 
-const mapDispatch = dispatch => {
-  return bindActionCreators(
-    {
-      fetchCountries,
-      updateUser
-    },
-    dispatch
-  );
-};
+const mapDispatch = (dispatch) => bindActionCreators(
+  {
+    fetchCountries,
+    updateUser,
+  },
+  dispatch,
+)
 
 export default connect(
   mapState,
-  mapDispatch
-)(SearchScreen);
+  mapDispatch,
+)(SearchScreen)
 
 SearchScreen.propTypes = {
   fetchCountries: PropTypes.func.isRequired,
@@ -133,25 +130,25 @@ SearchScreen.propTypes = {
   countries: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
-  updatingUser: PropTypes.bool.isRequired
-};
+  updatingUser: PropTypes.bool.isRequired,
+}
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    backgroundColor: Colors.gray
+    width: '100%',
+    backgroundColor: Colors.gray,
   },
   searchBarContainer: {
-    backgroundColor: Colors.gray
+    backgroundColor: Colors.gray,
   },
   listContainer: {
     backgroundColor: Colors.gray,
-    height: "100%"
+    height: '100%',
   },
   results: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "center",
-    backgroundColor: Colors.gray
-  }
-});
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: Colors.gray,
+  },
+})

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   Alert,
   Modal,
@@ -6,22 +6,24 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   StyleSheet,
-  View
-} from "react-native";
-import PropTypes from "prop-types";
-import Icon from "react-native-vector-icons/MaterialIcons";
+  View,
+} from 'react-native'
+import PropTypes from 'prop-types'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 // The TripReportTitleHeader component is used in the navigation header on the TripReportScreen.
 export default class TripReportTitleHeader extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
-      modalVisible: false
-    };
+      modalVisible: false,
+    }
   }
 
   render() {
-    const { tripReport, user, handleDelete, navigation } = this.props;
+    const {
+      tripReport, user, handleDelete, navigation,
+    } = this.props
 
     // If the author of the post is the authenticated user, render the modal for deleting and editing the post.
     if (tripReport.author.pk === user.pk) {
@@ -39,15 +41,15 @@ export default class TripReportTitleHeader extends Component {
           {/* Modal */}
           <Modal
             animationType="fade"
-            transparent={true}
+            transparent
             visible={this.state.modalVisible}
             onRequestClose={() => {
-              this.setState({ modalVisible: false });
+              this.setState({ modalVisible: false })
             }}
           >
             {/* A TouchableOpacity that is transparent fills the entire screen to close the modal. */}
             <TouchableOpacity
-              style={{ width: "100%", height: "100%" }}
+              style={{ width: '100%', height: '100%' }}
               activeOpacity={1}
               onPressOut={() => this.setState({ modalVisible: false })}
             >
@@ -58,8 +60,8 @@ export default class TripReportTitleHeader extends Component {
                     {/* Modal renders a button to edit and a button to delete the Trip Report. */}
                     <TouchableOpacity
                       onPress={() => {
-                        this.setState({ modalVisible: false });
-                        navigation.navigate("Post", { ...this.props });
+                        this.setState({ modalVisible: false })
+                        navigation.navigate('Post', { ...this.props })
                       }}
                     >
                       <View style={styles.modalButtonContainer}>
@@ -71,20 +73,20 @@ export default class TripReportTitleHeader extends Component {
                     <TouchableOpacity
                       onPress={() => {
                         Alert.alert(
-                          "Confirm Delete",
-                          "Are you sure you want to delete this post?",
+                          'Confirm Delete',
+                          'Are you sure you want to delete this post?',
                           [
                             {
-                              text: "OK",
+                              text: 'OK',
                               onPress: () => {
-                                this.setState({ modalVisible: false });
-                                navigation.goBack(null);
-                                handleDelete(tripReport);
-                              }
+                                this.setState({ modalVisible: false })
+                                navigation.goBack(null)
+                                handleDelete(tripReport)
+                              },
                             },
-                            { text: "Cancel" }
-                          ]
-                        );
+                            { text: 'Cancel' },
+                          ],
+                        )
                       }}
                     >
                       <View style={styles.modalButtonContainer}>
@@ -98,50 +100,49 @@ export default class TripReportTitleHeader extends Component {
             </TouchableOpacity>
           </Modal>
         </View>
-      );
-    } else {
-      // If the author of the post is not the authenticated user, render null.
-      return null;
+      )
     }
+    // If the author of the post is not the authenticated user, render null.
+    return null
   }
 }
 
 TripReportTitleHeader.propTypes = {
   tripReport: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  handleDelete: PropTypes.func
-};
+  handleDelete: PropTypes.func,
+}
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%"
+    width: '100%',
   },
   buttonContainer: {
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-    textAlign: "right"
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    textAlign: 'right',
   },
   button: {
-    marginRight: 10
+    marginRight: 10,
   },
   modal: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 5,
-    position: "absolute",
+    position: 'absolute',
     right: 0,
     top: 0,
     width: 150,
     height: 100,
     margin: 5,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    elevation: 10
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    elevation: 10,
   },
   modalButtonContainer: {
-    flexDirection: "row",
-    margin: 5
+    flexDirection: 'row',
+    margin: 5,
   },
   modalText: {
-    fontSize: 16
-  }
-});
+    fontSize: 16,
+  },
+})

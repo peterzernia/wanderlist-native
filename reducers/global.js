@@ -1,17 +1,17 @@
 export const initialState = {
-  globalState: {}
-};
+  globalState: {},
+}
 
-/* Reducer Function*/
+/* Reducer Function */
 export default function(state = initialState, action) {
   switch (action.type) {
-    case "SET_STATE": {
+    case 'SET_STATE': {
       return {
         ...state,
-        globalState: action.globalState
-      };
+        globalState: action.globalState,
+      }
     }
     default:
-      return state;
+      return state
   }
 }

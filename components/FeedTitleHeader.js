@@ -1,33 +1,33 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   Text,
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  View
-} from "react-native";
-import PropTypes from "prop-types";
+  View,
+} from 'react-native'
+import PropTypes from 'prop-types'
 
-import Colors from "../constants/Colors";
+import Colors from '../constants/Colors'
 
 export default class FeedTitleHeader extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
-      query: ""
-    };
+      query: '',
+    }
   }
 
   render() {
-    const { handleSearch } = this.props;
-    const { query } = this.state;
+    const { handleSearch } = this.props
+    const { query } = this.state
     return (
       <View style={styles.container}>
         <View style={styles.textInputContainer}>
           <TextInput
             style={styles.textInput}
             value={query}
-            onChangeText={value => this.setState({ query: value })}
+            onChangeText={(value) => this.setState({ query: value })}
             placeholder="Search for a Country or User"
           />
           <TouchableOpacity
@@ -38,41 +38,41 @@ export default class FeedTitleHeader extends Component {
           </TouchableOpacity>
         </View>
       </View>
-    );
+    )
   }
 }
 
 FeedTitleHeader.propType = {
-  handleSearch: PropTypes.func.isRequired
-};
+  handleSearch: PropTypes.func.isRequired,
+}
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center"
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textInputContainer: {
-    flexDirection: "row",
-    width: "75%",
-    height: 30
+    flexDirection: 'row',
+    width: '75%',
+    height: 30,
   },
   textInput: {
-    backgroundColor: "#F5F5F5",
-    width: "75%",
+    backgroundColor: '#F5F5F5',
+    width: '75%',
     borderRadius: 5,
-    padding: 5
+    padding: 5,
   },
   buttonContainer: {
-    width: "25%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '25%',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: Colors.blue,
     flex: 1,
     marginLeft: 5,
-    borderRadius: 10
+    borderRadius: 10,
   },
   buttonText: {
-    color: "white"
-  }
-});
+    color: 'white',
+  },
+})

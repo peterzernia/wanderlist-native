@@ -1,173 +1,173 @@
-import * as authActions from "../authActions";
-import { REACT_APP_API_URL } from "react-native-dotenv";
-import { Alert } from "react-native";
-import configureMockStore from "redux-mock-store";
-import thunk from "redux-thunk";
-import MockAdapter from "axios-mock-adapter";
-import axios from "axios";
-import { initialState } from "../../reducers/auth";
+import { REACT_APP_API_URL } from 'react-native-dotenv'
+import { Alert } from 'react-native'
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import MockAdapter from 'axios-mock-adapter'
+import axios from 'axios'
+import * as authActions from '../authActions'
+import { initialState } from '../../reducers/auth'
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
 
-describe("async action creators", () => {
-  let store;
-  let mock;
+describe('async action creators', () => {
+  let store
+  let mock
 
   beforeEach(() => {
-    mock = new MockAdapter(axios);
-    store = mockStore({ ...initialState });
-  });
+    mock = new MockAdapter(axios)
+    store = mockStore({ ...initialState })
+  })
 
   afterEach(() => {
-    mock.restore();
-    store.clearActions();
-    jest.restoreAllMocks();
-  });
+    mock.restore()
+    store.clearActions()
+    jest.restoreAllMocks()
+  })
 
   /**
    * If token is null, AUTH_LOGOUT is dispatched, if there is a
    * token, AUTH_SUCCESS is dispatched.
    */
-  it("should check auth state", () => {
-    let token = null;
-    store.dispatch(authActions.authCheckState(token));
-    let actions = store.getActions();
-    expect(actions[0]).toEqual(authActions.authLogout());
+  it('should check auth state', () => {
+    let token = null
+    store.dispatch(authActions.authCheckState(token))
+    let actions = store.getActions()
+    expect(actions[0]).toEqual(authActions.authLogout())
 
-    store.clearActions();
+    store.clearActions()
 
-    token = "testtoken";
-    store.dispatch(authActions.authCheckState(token));
-    actions = store.getActions();
-    expect(actions[0]).toEqual(authActions.authSuccess(token));
-  });
+    token = 'testtoken'
+    store.dispatch(authActions.authCheckState(token))
+    actions = store.getActions()
+    expect(actions[0]).toEqual(authActions.authSuccess(token))
+  })
 
-  it("dispatches AUTH_SUCCESS after axios request to login", async () => {
-    const username = "TestUser";
-    const password = "password";
-    const data = { key: "testtoken" };
+  it('dispatches AUTH_SUCCESS after axios request to login', async () => {
+    const username = 'TestUser'
+    const password = 'password'
+    const data = { key: 'testtoken' }
     mock
       .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/login/`)
-      .replyOnce(200, data);
-    await store.dispatch(authActions.authLogin(username, password));
-    const actions = store.getActions();
-    expect(actions[0]).toEqual(authActions.authStart());
-    expect(actions[1]).toEqual(authActions.authSuccess(data.key));
-  });
+      .replyOnce(200, data)
+    await store.dispatch(authActions.authLogin(username, password))
+    const actions = store.getActions()
+    expect(actions[0]).toEqual(authActions.authStart())
+    expect(actions[1]).toEqual(authActions.authSuccess(data.key))
+  })
 
-  it("dispatches AUTH_FAIL if internal server error on authLogin & alerts", async () => {
-    spy = jest.spyOn(Alert, "alert");
-    const username = "TestUser";
-    const password = "password";
-    const data = { "internal server error": "", non_field_errors: "" };
+  it('dispatches AUTH_FAIL if internal server error on authLogin & alerts', async () => {
+    spy = jest.spyOn(Alert, 'alert')
+    const username = 'TestUser'
+    const password = 'password'
+    const data = { 'internal server error': '', non_field_errors: '' }
     mock
       .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/login/`)
-      .replyOnce(500, data);
-    await store.dispatch(authActions.authLogin(username, password));
-    const actions = store.getActions();
-    expect(actions[0]).toEqual(authActions.authStart());
-    expect(actions[1]).toEqual(authActions.authFail());
-    expect(spy).toHaveBeenCalledTimes(1);
-  });
+      .replyOnce(500, data)
+    await store.dispatch(authActions.authLogin(username, password))
+    const actions = store.getActions()
+    expect(actions[0]).toEqual(authActions.authStart())
+    expect(actions[1]).toEqual(authActions.authFail())
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
 
-  it("dispatches AUTH_SUCCESS after axios request to register", async () => {
-    const username = "TestUser";
-    const email = "test@test.com";
-    const password1 = "password";
-    const password2 = "password";
-    const home = 1;
-    const data = { key: "testtoken" };
+  it('dispatches AUTH_SUCCESS after axios request to register', async () => {
+    const username = 'TestUser'
+    const email = 'test@test.com'
+    const password1 = 'password'
+    const password2 = 'password'
+    const home = 1
+    const data = { key: 'testtoken' }
     mock
       .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/registration/`)
-      .replyOnce(200, data);
+      .replyOnce(200, data)
     await store.dispatch(
-      authActions.authRegister(username, email, password1, password2, home)
-    );
-    const actions = store.getActions();
-    expect(actions[0]).toEqual(authActions.authStart());
-    expect(actions[1]).toEqual(authActions.authSuccess(data.key));
-  });
+      authActions.authRegister(username, email, password1, password2, home),
+    )
+    const actions = store.getActions()
+    expect(actions[0]).toEqual(authActions.authStart())
+    expect(actions[1]).toEqual(authActions.authSuccess(data.key))
+  })
 
-  it("dispatches AUTH_FAIL if internal server error on authRegister & alerts", async () => {
-    spy = jest.spyOn(Alert, "alert");
-    const username = "TestUser";
-    const email = "test@test.com";
-    const password1 = "password";
-    const password2 = "password";
-    const home = 1;
+  it('dispatches AUTH_FAIL if internal server error on authRegister & alerts', async () => {
+    spy = jest.spyOn(Alert, 'alert')
+    const username = 'TestUser'
+    const email = 'test@test.com'
+    const password1 = 'password'
+    const password2 = 'password'
+    const home = 1
     const data = {
-      "internal server error": "",
-      non_field_errors: "",
-      home: "This field is required."
-    };
+      'internal server error': '',
+      non_field_errors: '',
+      home: 'This field is required.',
+    }
     mock
       .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/registration/`)
-      .replyOnce(500, data);
+      .replyOnce(500, data)
     await store.dispatch(
-      authActions.authRegister(username, email, password1, password2, home)
-    );
-    const actions = store.getActions();
-    expect(actions[0]).toEqual(authActions.authStart());
-    expect(actions[1]).toEqual(authActions.authFail());
-    expect(spy).toHaveBeenCalledTimes(1);
-  });
+      authActions.authRegister(username, email, password1, password2, home),
+    )
+    const actions = store.getActions()
+    expect(actions[0]).toEqual(authActions.authStart())
+    expect(actions[1]).toEqual(authActions.authFail())
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
 
   /**
    * AUTH_FAIL is called on both success and failure of password reset
    * simply to reset the redux store to the initialState, since no data
    * is set in the redux state on success.
    */
-  it("dispatches AUTH_FAIL after axios request success to reset password", async () => {
-    spy = jest.spyOn(Alert, "alert");
-    const email = "test@test.com";
+  it('dispatches AUTH_FAIL after axios request success to reset password', async () => {
+    spy = jest.spyOn(Alert, 'alert')
+    const email = 'test@test.com'
     mock
       .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/password/reset/`)
-      .replyOnce(200);
-    await store.dispatch(authActions.requestPasswordReset(email));
-    const actions = store.getActions();
-    expect(actions[0]).toEqual(authActions.authStart());
-    expect(actions[1]).toEqual(authActions.authFail());
-    expect(spy).toHaveBeenCalledTimes(1);
-  });
+      .replyOnce(200)
+    await store.dispatch(authActions.requestPasswordReset(email))
+    const actions = store.getActions()
+    expect(actions[0]).toEqual(authActions.authStart())
+    expect(actions[1]).toEqual(authActions.authFail())
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
 
-  it("dispatches AUTH_FAIL if internal server error on requestPasswordReset", async () => {
-    spy = jest.spyOn(Alert, "alert");
-    const email = "test@test.com";
+  it('dispatches AUTH_FAIL if internal server error on requestPasswordReset', async () => {
+    spy = jest.spyOn(Alert, 'alert')
+    const email = 'test@test.com'
     const data = {
-      "internal server error": "",
-      non_field_errors: ""
-    };
+      'internal server error': '',
+      non_field_errors: '',
+    }
     mock
       .onPost(`${REACT_APP_API_URL}/api/v1/rest-auth/password/reset/`)
-      .replyOnce(500, data);
-    await store.dispatch(authActions.requestPasswordReset(email));
-    const actions = store.getActions();
-    expect(actions[0]).toEqual(authActions.authStart());
-    expect(actions[1]).toEqual(authActions.authFail());
-    expect(spy).toHaveBeenCalledTimes(1);
-  });
-});
+      .replyOnce(500, data)
+    await store.dispatch(authActions.requestPasswordReset(email))
+    const actions = store.getActions()
+    expect(actions[0]).toEqual(authActions.authStart())
+    expect(actions[1]).toEqual(authActions.authFail())
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+})
 
-describe("Auth Action Creators", () => {
-  it("should create a AUTH_START action", () => {
-    const expectedAction = { type: "AUTH_START" };
-    expect(authActions.authStart()).toEqual(expectedAction);
-  });
-  it("should create a AUTH_SUCCESS action", () => {
-    const token = "23tnhasu893tnau";
+describe('Auth Action Creators', () => {
+  it('should create a AUTH_START action', () => {
+    const expectedAction = { type: 'AUTH_START' }
+    expect(authActions.authStart()).toEqual(expectedAction)
+  })
+  it('should create a AUTH_SUCCESS action', () => {
+    const token = '23tnhasu893tnau'
     const expectedAction = {
-      type: "AUTH_SUCCESS",
-      token
-    };
-    expect(authActions.authSuccess(token)).toEqual(expectedAction);
-  });
-  it("should create a AUTH_FAIL action", () => {
-    const expectedAction = { type: "AUTH_FAIL" };
-    expect(authActions.authFail()).toEqual(expectedAction);
-  });
-  it("should create a AUTH_LOGOUT action", () => {
-    const expectedAction = { type: "AUTH_LOGOUT" };
-    expect(authActions.authLogout()).toEqual(expectedAction);
-  });
-});
+      type: 'AUTH_SUCCESS',
+      token,
+    }
+    expect(authActions.authSuccess(token)).toEqual(expectedAction)
+  })
+  it('should create a AUTH_FAIL action', () => {
+    const expectedAction = { type: 'AUTH_FAIL' }
+    expect(authActions.authFail()).toEqual(expectedAction)
+  })
+  it('should create a AUTH_LOGOUT action', () => {
+    const expectedAction = { type: 'AUTH_LOGOUT' }
+    expect(authActions.authLogout()).toEqual(expectedAction)
+  })
+})

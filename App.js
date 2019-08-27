@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { AppLoading } from 'expo';
+import React, { Component } from 'react'
+import {
+  Platform, StatusBar, StyleSheet, View,
+} from 'react-native'
+import { AppLoading } from 'expo'
 import * as Icon from '@expo/vector-icons'
 import * as Font from 'expo-font'
-import AppNavigator from './navigation/AppNavigator';
-import { Provider } from 'react-redux';
-import store from './reducers/index';
+import { Provider } from 'react-redux'
+import AppNavigator from './navigation/AppNavigator'
+import store from './reducers/index'
 
 export default class App extends Component {
   state = {
@@ -22,36 +24,33 @@ export default class App extends Component {
             onFinish={this._handleFinishLoading}
           />
         </Provider>
-      );
-    } else {
-      return (
-        <Provider store={store}>
-          <View style={styles.container}>
-            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <AppNavigator />
-          </View>
-        </Provider>  
-      );
+      )
     }
+    return (
+      <Provider store={store}>
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <AppNavigator />
+        </View>
+      </Provider>
+    )
   }
 
-  _loadResourcesAsync = async () => {
-    return Promise.all([
-      Font.loadAsync({
-        ...Icon.Ionicons.font,
-        'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-      }),
-    ]);
-  };
+  _loadResourcesAsync = async () => Promise.all([
+    Font.loadAsync({
+      ...Icon.Ionicons.font,
+      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+    }),
+  ]);
 
-  _handleLoadingError = error => {
+  _handleLoadingError = (error) => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
-    console.warn(error);
+    console.warn(error)
   };
 
   _handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true });
+    this.setState({ isLoadingComplete: true })
   };
 }
 
@@ -60,4 +59,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-});
+})

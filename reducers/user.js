@@ -2,60 +2,60 @@ export const initialState = {
   fetchingUser: false,
   fetchedUser: false,
   updatingUser: false,
-  user: { countries: [] }
-};
+  user: { countries: [] },
+}
 
-/* Reducer Function*/
+/* Reducer Function */
 export default function(state = initialState, action) {
   switch (action.type) {
-    case "FETCH_USER_PENDING": {
+    case 'FETCH_USER_PENDING': {
       return {
         ...state,
-        fetchingUser: true
-      };
+        fetchingUser: true,
+      }
     }
-    case "FETCH_USER_FULFILLED": {
+    case 'FETCH_USER_FULFILLED': {
       return {
         ...state,
         fetchingUser: false,
         fetchedUser: true,
-        user: action.user
-      };
+        user: action.user,
+      }
     }
-    case "FETCH_USER_REJECTED": {
+    case 'FETCH_USER_REJECTED': {
       return {
         ...state,
         fetchingUser: false,
-        fetchedUser: false
-      };
+        fetchedUser: false,
+      }
     }
-    case "UPDATE_USER_PENDING": {
+    case 'UPDATE_USER_PENDING': {
       return {
         ...state,
-        updatingUser: true
-      };
+        updatingUser: true,
+      }
     }
-    case "UPDATE_USER_FULFILLED": {
+    case 'UPDATE_USER_FULFILLED': {
       return {
         ...state,
         updatingUser: false,
-        user: action.user
-      };
+        user: action.user,
+      }
     }
-    case "UPDATE_USER_REJECTED": {
+    case 'UPDATE_USER_REJECTED': {
       return {
         ...state,
-        updatingUser: false
-      };
+        updatingUser: false,
+      }
     }
     // Reset authenticated user object on logout.
-    case "AUTH_LOGOUT": {
+    case 'AUTH_LOGOUT': {
       return {
         ...state,
-        user: { countries: [] }
-      };
+        user: { countries: [] },
+      }
     }
     default:
-      return state;
+      return state
   }
 }

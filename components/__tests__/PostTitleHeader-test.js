@@ -1,32 +1,32 @@
-import React from "react";
-import { shallow } from "enzyme";
-import { PostTitleHeader } from "../PostTitleHeader";
-import { Alert, Text } from "react-native";
+import React from 'react'
+import { shallow } from 'enzyme'
+import { Alert, Text } from 'react-native'
+import { PostTitleHeader } from '../PostTitleHeader'
 
-describe("<PostTitleHeader />", () => {
-  let wrapper;
-  let user = {
-    pk: 1
-  };
-  let tripReport = null;
-  const globalState = { title: "", content: "", selectedCountries: [] };
-  const postTripReport = jest.fn();
-  const updateTripReport = jest.fn();
-  const goBack = jest.fn();
-  const navigation = { goBack };
-  let props = {
+describe('<PostTitleHeader />', () => {
+  let wrapper
+  const user = {
+    pk: 1,
+  }
+  const tripReport = null
+  const globalState = { title: '', content: '', selectedCountries: [] }
+  const postTripReport = jest.fn()
+  const updateTripReport = jest.fn()
+  const goBack = jest.fn()
+  const navigation = { goBack }
+  const props = {
     user,
     tripReport,
     globalState,
     postTripReport,
     updateTripReport,
-    navigation
-  };
+    navigation,
+  }
 
   // Setup wrapper
   beforeEach(() => {
-    wrapper = shallow(<PostTitleHeader {...props} />);
-  });
+    wrapper = shallow(<PostTitleHeader {...props} />)
+  })
 
   /**
    * First handlePress is called with an empty array, which throws an error
@@ -35,60 +35,60 @@ describe("<PostTitleHeader />", () => {
    * is called with an array and tripReport is not null, so updateTripReport is
    * called.
    */
-  it("handles Press", async () => {
-    spy = jest.spyOn(Alert, "alert");
-    await wrapper.instance().handlePress("TestTitle", "TestContent", []);
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(postTripReport).toHaveBeenCalledTimes(0);
-    expect(updateTripReport).toHaveBeenCalledTimes(0);
+  it('handles Press', async () => {
+    spy = jest.spyOn(Alert, 'alert')
+    await wrapper.instance().handlePress('TestTitle', 'TestContent', [])
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(postTripReport).toHaveBeenCalledTimes(0)
+    expect(updateTripReport).toHaveBeenCalledTimes(0)
 
-    await wrapper.instance().handlePress("TestTitle", "TestContent", ["1"]);
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(postTripReport).toHaveBeenCalledTimes(1);
-    expect(updateTripReport).toHaveBeenCalledTimes(0);
+    await wrapper.instance().handlePress('TestTitle', 'TestContent', ['1'])
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(postTripReport).toHaveBeenCalledTimes(1)
+    expect(updateTripReport).toHaveBeenCalledTimes(0)
 
-    wrapper.setProps({ ...props, tripReport: { title: "Test" } });
-    await wrapper.instance().handlePress("TestTitle", "TestContent", ["1"]);
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(postTripReport).toHaveBeenCalledTimes(1);
-    expect(updateTripReport).toHaveBeenCalledTimes(1);
-  });
+    wrapper.setProps({ ...props, tripReport: { title: 'Test' } })
+    await wrapper.instance().handlePress('TestTitle', 'TestContent', ['1'])
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(postTripReport).toHaveBeenCalledTimes(1)
+    expect(updateTripReport).toHaveBeenCalledTimes(1)
+  })
 
-  it("navigates onPress", () => {
-    wrapper.find("TouchableOpacity").simulate("press");
-    expect(goBack).toHaveBeenCalledTimes(1);
-  });
+  it('navigates onPress', () => {
+    wrapper.find('TouchableOpacity').simulate('press')
+    expect(goBack).toHaveBeenCalledTimes(1)
+  })
 
   /**
    * Initially, there is no Trip Report, so New Trip Report and Post
    * are rendered. After, Edit Trip Report and Update are rendered.
    */
-  it("post/update & new/update text", () => {
+  it('post/update & new/update text', () => {
     expect(
       wrapper
         .find(Text)
         .at(0)
-        .prop("children")
-    ).toEqual("New Trip Report");
+        .prop('children'),
+    ).toEqual('New Trip Report')
     expect(
       wrapper
         .find(Text)
         .at(1)
-        .prop("children")
-    ).toEqual("Post");
+        .prop('children'),
+    ).toEqual('Post')
 
-    wrapper.setProps({ ...props, tripReport: { title: "Test" } });
+    wrapper.setProps({ ...props, tripReport: { title: 'Test' } })
     expect(
       wrapper
         .find(Text)
         .at(0)
-        .prop("children")
-    ).toEqual("Edit Trip Report");
+        .prop('children'),
+    ).toEqual('Edit Trip Report')
     expect(
       wrapper
         .find(Text)
         .at(1)
-        .prop("children")
-    ).toEqual("Update");
-  });
-});
+        .prop('children'),
+    ).toEqual('Update')
+  })
+})

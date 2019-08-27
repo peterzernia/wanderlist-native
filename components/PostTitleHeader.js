@@ -1,24 +1,26 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   Alert,
   AsyncStorage,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
-} from "react-native";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+  View,
+} from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import { postTripReport, updateTripReport } from "../actions/tripReportActions";
+import { postTripReport, updateTripReport } from '../actions/tripReportActions'
 
 export class PostTitleHeader extends Component {
   // handlePress updates or posts a Trip Report depending on if there is a Trip Report in params.
   handlePress = async (title, content, selectedCountries) => {
-    const { user, tripReport, postTripReport, updateTripReport } = this.props;
-    const token = await AsyncStorage.getItem("token");
-    const countries = selectedCountries.map(id => Math.trunc(id));
+    const {
+      user, tripReport, postTripReport, updateTripReport,
+    } = this.props
+    const token = await AsyncStorage.getItem('token')
+    const countries = selectedCountries.map((id) => Math.trunc(id))
 
     if (countries.length) {
       if (tripReport) {
@@ -28,18 +30,18 @@ export class PostTitleHeader extends Component {
           user.pk,
           title,
           content,
-          countries
-        );
+          countries,
+        )
       } else {
-        postTripReport(token, user.pk, title, content, countries);
+        postTripReport(token, user.pk, title, content, countries)
       }
     } else {
-      Alert.alert("Error", "Countries: This field is required.");
+      Alert.alert('Error', 'Countries: This field is required.')
     }
   };
 
   render() {
-    const { tripReport, globalState, navigation } = this.props;
+    const { tripReport, globalState, navigation } = this.props
     return (
       <View style={styles.container}>
         <View>
@@ -55,9 +57,9 @@ export class PostTitleHeader extends Component {
             this.handlePress(
               globalState.title,
               globalState.content,
-              globalState.selectedCountries
-            );
-            navigation.goBack(null);
+              globalState.selectedCountries,
+            )
+            navigation.goBack(null)
           }}
         >
           {tripReport ? (
@@ -67,59 +69,55 @@ export class PostTitleHeader extends Component {
           )}
         </TouchableOpacity>
       </View>
-    );
+    )
   }
 }
 
-const mapState = state => {
-  return {
-    globalState: state.global.globalState,
-    user: state.user.user
-  };
-};
+const mapState = (state) => ({
+  globalState: state.global.globalState,
+  user: state.user.user,
+})
 
-const mapDispatch = dispatch => {
-  return bindActionCreators(
-    {
-      postTripReport,
-      updateTripReport
-    },
-    dispatch
-  );
-};
+const mapDispatch = (dispatch) => bindActionCreators(
+  {
+    postTripReport,
+    updateTripReport,
+  },
+  dispatch,
+)
 
 export default connect(
   mapState,
-  mapDispatch
-)(PostTitleHeader);
+  mapDispatch,
+)(PostTitleHeader)
 
 PostTitleHeader.propTypes = {
   tripReport: PropTypes.object,
   globalState: PropTypes.object,
   postTripReport: PropTypes.func.isRequired,
   updateTripReport: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
-};
+  user: PropTypes.object.isRequired,
+}
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between"
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   titleText: {
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: 'bold',
   },
   buttonContainer: {
-    alignSelf: "center",
+    alignSelf: 'center',
     paddingLeft: 15,
     paddingRight: 30,
     paddingTop: 6,
-    paddingBottom: 6
+    paddingBottom: 6,
   },
   buttonText: {
-    fontWeight: "bold",
-    textAlign: "center"
-  }
-});
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+})

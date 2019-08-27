@@ -1,39 +1,41 @@
-import React, { Component } from "react";
-import { AsyncStorage, ScrollView, StyleSheet, Text, View } from "react-native";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Component } from 'react'
+import {
+  AsyncStorage, ScrollView, StyleSheet, Text, View,
+} from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import TripReportFooter from "../components/TripReportFooter";
-import TripReportHeader from "../components/TripReportHeader";
-import TripReportTitleHeader from "../components/TripReportTitleHeader";
-import { deleteTripReport } from "../actions/tripReportActions";
-import { handleShare, handleFavorite } from "../constants/Functions";
+import TripReportFooter from '../components/TripReportFooter'
+import TripReportHeader from '../components/TripReportHeader'
+import TripReportTitleHeader from '../components/TripReportTitleHeader'
+import { deleteTripReport } from '../actions/tripReportActions'
+import { handleShare, handleFavorite } from '../constants/Functions'
 
 // TripReportScreen displays the full text of the Trip Reports.
 export class TripReportScreen extends Component {
   // Custom headerTitle component.
   static navigationOptions = ({ navigation }) => {
-    const { params } = navigation.state;
+    const { params } = navigation.state
     return {
       headerTitle: (
         <TripReportTitleHeader
           {...params}
-          handleDelete={navigation.getParam("handleDelete")}
+          handleDelete={navigation.getParam('handleDelete')}
         />
-      )
-    };
+      ),
+    }
   };
 
   // Set handleDelete() as a parameter to pass into TripReportTitle.
   componentDidMount() {
-    this.props.navigation.setParams({ handleDelete: this.handleDelete });
+    this.props.navigation.setParams({ handleDelete: this.handleDelete })
   }
 
-  handleDelete = async tripReport => {
-    const { deleteTripReport } = this.props;
-    const token = await AsyncStorage.getItem("token");
-    deleteTripReport(token, tripReport);
+  handleDelete = async (tripReport) => {
+    const { deleteTripReport } = this.props
+    const token = await AsyncStorage.getItem('token')
+    deleteTripReport(token, tripReport)
   };
 
   render() {
@@ -43,8 +45,8 @@ export class TripReportScreen extends Component {
      * props from state and passed into the Header and Footer components to
      * correctly rerender on state changes.
      */
-    const { tripReports, userTripReports, navigation } = this.props;
-    let tripReport;
+    const { tripReports, userTripReports, navigation } = this.props
+    let tripReport
 
     /**
      * Check where navigation is from - if from Feed page, tripReport is from
@@ -52,20 +54,20 @@ export class TripReportScreen extends Component {
      * prop to prevent crash when tripReports reload, but Profile page has
      * TripReportScreen open.
      */
-    if (navigation.state.params.navigation.state.routeName === "Feed") {
+    if (navigation.state.params.navigation.state.routeName === 'Feed') {
       [tripReport] = tripReports.results.filter(
-        tripReport => tripReport.id === navigation.state.params.tripReport.id
-      );
+        (tripReport) => tripReport.id === navigation.state.params.tripReport.id,
+      )
     } else if (
-      navigation.state.params.navigation.state.routeName === "Profile"
+      navigation.state.params.navigation.state.routeName === 'Profile'
     ) {
       [tripReport] = userTripReports.results.filter(
-        tripReport => tripReport.id === navigation.state.params.tripReport.id
-      );
+        (tripReport) => tripReport.id === navigation.state.params.tripReport.id,
+      )
     }
 
     return (
-      <ScrollView style={{ backgroundColor: "white" }}>
+      <ScrollView style={{ backgroundColor: 'white' }}>
         <View style={styles.container}>
           <TripReportHeader tripReport={tripReport} {...this.props} />
           <View style={styles.body}>
@@ -79,47 +81,43 @@ export class TripReportScreen extends Component {
           />
         </View>
       </ScrollView>
-    );
+    )
   }
 }
 
-const mapState = state => {
-  return {
-    tripReports: state.tripReport.tripReports,
-    userTripReports: state.tripReport.userTripReports,
-    user: state.user.user
-  };
-};
+const mapState = (state) => ({
+  tripReports: state.tripReport.tripReports,
+  userTripReports: state.tripReport.userTripReports,
+  user: state.user.user,
+})
 
-const mapDispatch = dispatch => {
-  return bindActionCreators(
-    {
-      deleteTripReport
-    },
-    dispatch
-  );
-};
+const mapDispatch = (dispatch) => bindActionCreators(
+  {
+    deleteTripReport,
+  },
+  dispatch,
+)
 
 export default connect(
   mapState,
-  mapDispatch
-)(TripReportScreen);
+  mapDispatch,
+)(TripReportScreen)
 
 TripReportScreen.propTypes = {
   deleteTripReport: PropTypes.func.isRequired,
   tripReports: PropTypes.object.isRequired,
   userTripReports: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
-};
+  user: PropTypes.object.isRequired,
+}
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
-    padding: 5
+    backgroundColor: 'white',
+    padding: 5,
   },
   body: {
-    alignItems: "center",
-    justifyContent: "space-around",
-    padding: 10
-  }
-});
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
+})
