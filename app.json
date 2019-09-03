@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.2.1",
+    "version": "1.2.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -28,8 +28,13 @@
         "backgroundColor": "#2196f3"
       },
       "icon": "./assets/images/icon.png",
-      "versionCode": 19,
-      "playStoreUrl": "https://play.google.com/store/apps/details?id=dev.wanderlist.wanderlist"
+      "versionCode": 21,
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=dev.wanderlist.wanderlist",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyArcS-r3mvC1zQ8HT3sEACzEqsyp_Q0gsM"
+        }
+      }
     },
     "description": "",
     "githubUrl": "https://github.com/peterzernia/wanderlist-native"
