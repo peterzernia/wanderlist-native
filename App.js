@@ -3,7 +3,7 @@ import {
   Platform, StatusBar, StyleSheet, View,
 } from 'react-native'
 import { AppLoading } from 'expo'
-import * as Icon from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import * as Font from 'expo-font'
 import { Provider } from 'react-redux'
 import AppNavigator from './navigation/AppNavigator'
@@ -38,7 +38,7 @@ export default class App extends Component {
 
   _loadResourcesAsync = async () => Promise.all([
     Font.loadAsync({
-      ...Icon.Ionicons.font,
+      ...Ionicons.font,
       'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
     }),
   ]);

@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native'
 import PropTypes from 'prop-types'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Ionicons } from '@expo/vector-icons'
 
 // The TripReportTitleHeader component is used in the navigation header on the TripReportScreen.
 export default class TripReportTitleHeader extends Component {
@@ -35,7 +35,7 @@ export default class TripReportTitleHeader extends Component {
               style={styles.button}
               onPress={() => this.setState({ modalVisible: true })}
             >
-              <Icon name="more-vert" size={25} />
+              <Ionicons name="md-more" size={25} />
             </TouchableOpacity>
           </View>
           {/* Modal */}
@@ -65,7 +65,7 @@ export default class TripReportTitleHeader extends Component {
                       }}
                     >
                       <View style={styles.modalButtonContainer}>
-                        <Icon name="edit" size={25} />
+                        <Ionicons name="md-create" size={25} />
                         <Text style={styles.modalText}> Edit</Text>
                       </View>
                     </TouchableOpacity>
@@ -90,7 +90,7 @@ export default class TripReportTitleHeader extends Component {
                       }}
                     >
                       <View style={styles.modalButtonContainer}>
-                        <Icon name="delete" size={25} />
+                        <Ionicons name="md-trash" size={25} />
                         <Text style={styles.modalText}> Delete</Text>
                       </View>
                     </TouchableOpacity>
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   button: {
-    marginRight: 10,
+    marginRight: 20,
   },
   modal: {
     backgroundColor: 'white',

@@ -1,8 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { ActivityIndicator, TouchableOpacity } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-
+import { Ionicons } from '@expo/vector-icons'
 import SearchBar from '../SearchBar'
 
 describe('<SearchBar />', () => {
@@ -36,13 +35,13 @@ describe('<SearchBar />', () => {
   it('TouchableOpacity removes query & query renders Icon', () => {
     wrapper.setState({ query: 'test' })
     expect(wrapper.state('query')).toEqual('test')
-    expect(wrapper.find(Icon).length).toEqual(1)
+    expect(wrapper.find(Ionicons).length).toEqual(1)
     wrapper
       .find('TouchableOpacity')
       .at(0)
       .simulate('press')
     expect(wrapper.state('query')).toEqual('')
-    expect(wrapper.find(Icon).length).toEqual(0)
+    expect(wrapper.find(Ionicons).length).toEqual(0)
   })
 
   // it("query renders buttons for each country that matches query", () => {

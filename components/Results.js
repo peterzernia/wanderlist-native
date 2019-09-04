@@ -8,8 +8,7 @@ import {
   View,
 } from 'react-native'
 import PropTypes from 'prop-types'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-
+import { Ionicons } from '@expo/vector-icons'
 import Layout from '../constants/Layout'
 
 export default class Results extends PureComponent {
@@ -68,14 +67,14 @@ export default class Results extends PureComponent {
             userCountries.includes(country.name)
               && (!updatingUser
                 || (updatingUser && pendingCountry.name !== country.name)) && (
-                <Icon name="remove-circle" size={25} />
+                <Ionicons name="md-remove-circle" size={25} />
             )
 }
             {// Render Add button when country is not included in users list, but is not the pending country.
             !userCountries.includes(country.name)
               && (!updatingUser
                 || (updatingUser && pendingCountry.name !== country.name)) && (
-                <Icon name="add-circle" size={25} />
+                <Ionicons name="md-add-circle" size={25} />
             )
 }
             {// If the updatingUser, and the pendingCountry matches the country shown, render loader

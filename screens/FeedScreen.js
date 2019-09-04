@@ -10,7 +10,7 @@ import {
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Ionicons } from '@expo/vector-icons'
 import { REACT_APP_API_URL } from 'react-native-dotenv'
 
 import Colors from '../constants/Colors'
@@ -79,7 +79,7 @@ export class FeedScreen extends Component {
           style={styles.newPostButton}
           onPress={() => navigation.navigate('Post')}
         >
-          <Icon style={styles.buttonIcon} name="edit" color="black" size={25} />
+          <Ionicons style={styles.buttonIcon} name="md-create" color="black" size={25} />
         </TouchableOpacity>
       </View>
     )

@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { ActivityIndicator } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Ionicons } from '@expo/vector-icons'
 import Results from '../Results'
 
 describe('<Results />', () => {
@@ -51,7 +51,7 @@ describe('<Results />', () => {
      * not in the user's country list.
      */
     expect(wrapper.find(ActivityIndicator).length).toEqual(0)
-    expect(wrapper.find(Icon).prop('name')).toEqual('add-circle')
+    expect(wrapper.find(Ionicons).prop('name')).toEqual('md-add-circle')
 
     /**
      * Next, the remove icon will render render when the country
@@ -59,7 +59,7 @@ describe('<Results />', () => {
      */
     user = { username: 'Test', countries: [{ ...country }] }
     wrapper.setProps({ ...props, user })
-    expect(wrapper.find(Icon).prop('name')).toEqual('remove-circle')
+    expect(wrapper.find(Ionicons).prop('name')).toEqual('md-remove-circle')
 
     /**
      * Next, while the POST request is made to update the user, i.e.
@@ -68,7 +68,7 @@ describe('<Results />', () => {
      */
     updatingUser = true
     wrapper.setProps({ ...props, updatingUser })
-    expect(wrapper.find(Icon).prop('name')).toEqual('add-circle')
+    expect(wrapper.find(Ionicons).prop('name')).toEqual('md-add-circle')
 
     /**
      * The remove icon will render again when updatingUser is true,
@@ -77,7 +77,7 @@ describe('<Results />', () => {
      */
     user = { username: 'Test', countries: [{ ...country }] }
     wrapper.setProps({ ...props, user, updatingUser })
-    expect(wrapper.find(Icon).prop('name')).toEqual('remove-circle')
+    expect(wrapper.find(Ionicons).prop('name')).toEqual('md-remove-circle')
 
     /**
      * Lastly, when updatingUser is true, and the pendingCountry is the
@@ -86,6 +86,6 @@ describe('<Results />', () => {
     pendingCountry = country
     wrapper.setProps({ ...props, updatingUser, pendingCountry })
     expect(wrapper.find(ActivityIndicator).length).toEqual(1)
-    expect(wrapper.find(Icon).length).toEqual(0)
+    expect(wrapper.find(Ionicons).length).toEqual(0)
   })
 })

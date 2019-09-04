@@ -79,7 +79,7 @@ describe('<TripReportFooter />', () => {
         .find('Icon')
         .at(0)
         .prop('name'),
-    ).toEqual('favorite-border')
+    ).toEqual('md-heart-empty')
 
     const tripReport = { title: 'Test', countries: [], favoriters: [1] }
     wrapper.setProps({ ...props, tripReport })
@@ -89,6 +89,6 @@ describe('<TripReportFooter />', () => {
         .find('Icon')
         .at(0)
         .prop('name'),
-    ).toEqual('favorite')
+    ).toEqual('md-heart')
   })
 })

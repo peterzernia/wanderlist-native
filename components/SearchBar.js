@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 import Autocomplete from 'react-native-autocomplete-input'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Ionicons } from '@expo/vector-icons'
 
 import countries from '../countries.json'
 
@@ -70,7 +70,7 @@ export default class SearchBar extends Component {
             style={styles.closeButtonContainer}
             onPress={() => this.setState({ query: '' })}
           >
-            {this.state.query !== '' ? <Icon name="close" size={20} /> : null}
+            {this.state.query !== '' ? <Ionicons name="md-close" size={20} /> : null}
           </TouchableOpacity>
         </View>
         <TouchableOpacity

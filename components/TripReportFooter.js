@@ -7,7 +7,7 @@ import {
   Share,
   View,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Ionicons } from '@expo/vector-icons'
 import PropTypes from 'prop-types'
 
 // Reusable TripReportFooter Component used in TripReportCard and TripReportScreen.
@@ -40,14 +40,14 @@ export default function TripReportFooter(props) {
           <TouchableOpacity onPress={() => handleFavorite(tripReport.id)}>
             {/* Display border icon if Trip Report is not favorited. */}
             {tripReport.favoriters.includes(user.pk) ? (
-              <Icon name="favorite" size={25} />
+              <Ionicons name="md-heart" size={25} />
             ) : (
-              <Icon name="favorite-border" size={25} />
+              <Ionicons name="md-heart-empty" size={25} />
             )}
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => handleShare(tripReport.slug)}>
-          <Icon name="share" size={25} />
+          <Ionicons name="md-share" size={25} />
         </TouchableOpacity>
       </View>
     </View>
