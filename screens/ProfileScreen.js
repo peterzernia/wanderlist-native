@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {
+  Alert,
   ActivityIndicator,
   FlatList,
   Image,
@@ -56,9 +57,12 @@ export class ProfileScreen extends Component {
           onValueChange={(value) => this.handleSwitch(value)}
         />
         <View style={styles.wrapper}>
-          <View style={styles.flagContainer}>
+          <TouchableOpacity
+            style={styles.flagContainer}
+            onPress={() => Alert.alert('Countries visited', `${user.countries.length}`)}
+          >
             <Image style={styles.flag} source={{ uri: user.home.flag }} />
-          </View>
+          </TouchableOpacity>
           <View style={styles.biography}>
             <Text style={styles.usernameText}>{user.username}</Text>
             <TouchableOpacity
@@ -187,9 +191,9 @@ export default connect(
 
 ProfileScreen.propTypes = {
   authLogout: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
   fetchingUser: PropTypes.bool.isRequired,
-  userTripReports: PropTypes.object.isRequired,
+  userTripReports: PropTypes.shape({}).isRequired,
   fetchingUserTripReports: PropTypes.bool.isRequired,
   fetchingNextUserTripReports: PropTypes.bool.isRequired,
   fetchNextUserTripReports: PropTypes.func.isRequired,
