@@ -1,0 +1,36 @@
+version: "3.3"
+
+services:
+  wanderlist-native:
+    build: .
+    command: expo start -c
+    env_file: .env
+    environment:
+      REACT_NATIVE_PACKAGER_HOSTNAME: "192.168.8.227"
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+    volumes:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+  backend:
+    hostname: backend
+    image: peterzernia/wanderlist
+    command: python /code/manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    depends_on:
+      - db
+  db:
+    hostname: db
+    image: postgres:11
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+volumes:
+  node_modules:
+  postgres_data:

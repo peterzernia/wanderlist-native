@@ -19,6 +19,7 @@ export const authLogout = () => {
 
 export const authLogin = (username, password) => (dispatch) => {
   dispatch(authStart())
+  console.log(REACT_APP_API_URL)
   return axios
     .post(`${REACT_APP_API_URL}/api/v1/rest-auth/login/`, {
       username,
@@ -35,6 +36,7 @@ export const authLogin = (username, password) => (dispatch) => {
       dispatch(authSuccess(token))
     })
     .catch((err) => {
+      console.log(err)
       dispatch(authFail())
       /*
         Create the error message based on the response from the server. The err.response.data variable will be an object
