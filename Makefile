@@ -13,11 +13,11 @@ up:
 .PHONY: up
 
 lint:
-	yarn lint
+	docker-compose run wanderlist-native yarn lint
 .PHONY: lint
 
 test:
-	yarn test
+	docker-compose run wanderlist-native yarn test
 .PHONY: test
 
 upload:
