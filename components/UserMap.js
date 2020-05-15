@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import MapView, { UrlTile, Marker } from 'react-native-maps'
+import MapView, { Marker } from 'react-native-maps'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
@@ -37,16 +37,10 @@ export default class UserMap extends Component {
       <MapView
         style={styles.map}
         region={region}
-        mapType="none" // "standard"
         rotateEnabled={false}
         scrollEnabled
         zoomEnabled
       >
-        <UrlTile
-          urlTemplate="http://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          zIndex={0}
-          maximumZ={19}
-        />
         {listMarkers}
       </MapView>
     )

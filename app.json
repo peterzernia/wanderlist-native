@@ -24,7 +24,7 @@
     "android": {
       "package": "dev.wanderlist.wanderlist",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon_fg.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#2196f3"
       },
       "icon": "./assets/images/icon.png",
