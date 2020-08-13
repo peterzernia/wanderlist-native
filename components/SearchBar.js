@@ -22,7 +22,7 @@ export default class SearchBar extends Component {
   }
 
   findCountry = (query) => {
-    if (query === '') {
+    if (query === '' || !query) {
       return []
     }
     const regex = new RegExp(
@@ -58,11 +58,12 @@ export default class SearchBar extends Component {
             defaultValue={query}
             onChangeText={(text) => this.setState({ query: text, hide: false })}
             placeholder="Search for a Country or Territory"
-            renderItem={({ name }) => (
+            renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => this.setState({ query: name, hide: true })}
+                key={item.pk}
+                onPress={() => this.setState({ query: item.name, hide: true })}
               >
-                <Text style={styles.queryText}>{name}</Text>
+                <Text style={styles.queryText}>{item.name}</Text>
               </TouchableOpacity>
             )}
           />
@@ -113,6 +114,7 @@ const styles = StyleSheet.create({
     marginBottom: 7,
     position: 'relative',
     zIndex: 1,
+    maxHeight: 300,
   },
   textInputContainer: {
     borderWidth: 0,
@@ -126,6 +128,7 @@ const styles = StyleSheet.create({
   queryText: {
     fontSize: 18,
     margin: 5,
+    color: 'black',
   },
   searchButton: {
     width: 100,
